@@ -1,0 +1,7 @@
+# ignore this
+bin/
+obj/
+packages/
+.vs/
+*.user
+*.suo
