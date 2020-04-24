@@ -18,9 +18,14 @@ namespace Separatism
 		public override void RegisterEvents()
 		{
 			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnClanTick);
+			//CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, OnClanChangedKingdom);
 		}
 
 		public override void SyncData(IDataStore dataStore)
+		{
+		}
+
+		private void OnClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
 		{
 		}
 
@@ -54,6 +59,8 @@ namespace Separatism
 
 					clan.Banner.ChangePrimaryColor(color1);
 					clan.Banner.ChangeIconColors(color2);
+					clan.Color = color1;
+					clan.Color2 = color2;
 					var rebelKingdom = GoRebelKingdom(clan);
 
 					GameLog.Warn($"Clan {clan.Name} is leaving {kingdom} to found their own {rebelKingdom}.");
