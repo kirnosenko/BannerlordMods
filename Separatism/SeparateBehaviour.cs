@@ -138,7 +138,21 @@ namespace Separatism
 			clan.ClanJoinFaction(newKingdom);
 			foreach (Clan c in oldKingdom.Clans)
 			{
-				ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, -10, true);
+				int relationChange = 0;
+				if (c.Leader == oldKingdom.Leader)
+				{
+					relationChange = -20;
+				}
+				else if (c.Leader.IsFriend(oldKingdom.Leader))
+				{
+					relationChange = -10;
+				}
+				else if (c.Leader.IsEnemy(oldKingdom.Leader))
+				{
+					relationChange = +10;
+				}
+
+				ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
 			}
 			DeclareWarAction.Apply(oldKingdom, newKingdom);
 			
