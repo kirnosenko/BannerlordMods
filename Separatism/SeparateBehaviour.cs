@@ -27,28 +27,49 @@ namespace Separatism
 		private void OnClanTick(Clan clan)
 		{
 			var kingdom = clan.Kingdom;
-			if (kingdom == null || clan == Clan.PlayerClan) return;
+			if (kingdom == null
+				|| clan == Clan.PlayerClan
+				|| !clan.Leader.IsAlive
+				|| clan.Leader.IsPrisoner)
+			{
+				return;
+			}
 			var ruler = kingdom.Ruler;
 
-			if (clan.Leader.IsAlive
-				&& !clan.Leader.IsFactionLeader
-				&& !clan.Leader.IsPrisoner
-				&& clan.Leader.IsEnemy(ruler)
-				&& clan.Settlements.Where(x => x.IsCastle || x.IsTown).Count() >= 2)
+			if (clan.Leader != ruler)
 			{
-				var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).ToList();
-				uint color1 = TakeColor(colors);
-				uint color2 = color1;
-				while (colors.Count > 0 && ColorDiff(color1, color2) < 0.3)
+				var hasReason = clan.Leader.IsEnemy(ruler)
+					|| (!clan.Leader.IsFriend(ruler) && clan.Culture != ruler.Culture);
+				var hasFiefs = clan.Settlements.Where(x => x.IsCastle || x.IsTown).Count() >= 2;
+
+				if (hasReason && hasFiefs)
 				{
-					color2 = TakeColor(colors);
+					var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).ToList();
+					uint color1 = TakeColor(colors);
+					uint color2 = color1;
+					while (colors.Count > 0 && ColorDiff(color1, color2) < 0.3)
+					{
+						color2 = TakeColor(colors);
+					}
+
+					clan.Banner.ChangePrimaryColor(color1);
+					clan.Banner.ChangeIconColors(color2);
+					var rebelKingdom = GoRebelKingdom(clan);
+
+					GameLog.Warn($"Clan {clan.Name} is leaving {kingdom} to found their own {rebelKingdom}.");
 				}
+			}
+			else
+			{
+				var noClans = kingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 1;
+				var noFiefs = clan.Settlements.Count() == 0;
 
-				clan.Banner.ChangePrimaryColor(color1);
-				clan.Banner.ChangeIconColors(color2);
-				var rebelKingdom = GoRebelKingdom(clan);
+				if (noClans && noFiefs)
+				{
+					ClanChangeKingdom(clan, null);
 
-				GameLog.Warn($"Clan {clan.Name} leave kingdom {kingdom} to found their own {rebelKingdom}.");
+					GameLog.Warn($"{kingdom} was destroyed so clan {clan.Name} abandon it to find a new one.");
+				}
 			}
 		}
 
@@ -106,23 +127,26 @@ namespace Separatism
 			AccessTools.Field(Campaign.Current.GetType(), "_kingdoms").SetValue(Campaign.Current, new MBReadOnlyList<Kingdom>(kingdoms));
 		}
 
-		private static void ClanChangeKingdom(Clan clan, Kingdom newKingdom)
+		private void ClanChangeKingdom(Clan clan, Kingdom newKingdom)
 		{
 			Kingdom oldKingdom = clan.Kingdom;
 			
-			foreach (Kingdom k in Kingdom.All)
+			if (newKingdom != null)
 			{
-				if (k == newKingdom || !newKingdom.IsAtWarWith(k))
+				foreach (Kingdom k in Kingdom.All)
 				{
-					FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(clan, k);
-					FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(k, clan);
+					if (k == newKingdom || !newKingdom.IsAtWarWith(k))
+					{
+						FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(clan, k);
+						FactionHelper.FinishAllRelatedHostileActionsOfFactionToFaction(k, clan);
+					}
 				}
-			}
-			foreach (Clan c in Clan.All)
-			{
-				if (c != clan && c.Kingdom == null && !newKingdom.IsAtWarWith(c))
+				foreach (Clan c in Clan.All)
 				{
-					FactionHelper.FinishAllRelatedHostileActions(clan, c);
+					if (c != clan && c.Kingdom == null && !newKingdom.IsAtWarWith(c))
+					{
+						FactionHelper.FinishAllRelatedHostileActions(clan, c);
+					}
 				}
 			}
 
@@ -131,32 +155,39 @@ namespace Separatism
 				clan,
 				oldKingdom,
 				newKingdom,
-				false
+				newKingdom == null
 			});
 			clan.IsUnderMercenaryService = false;
 			clan.ClanLeaveKingdom(false);
-			clan.ClanJoinFaction(newKingdom);
-			foreach (Clan c in oldKingdom.Clans)
+			if (newKingdom != null)
 			{
-				int relationChange = 0;
-				if (c.Leader == oldKingdom.Leader)
+				clan.ClanJoinFaction(newKingdom);
+				foreach (Clan c in oldKingdom.Clans)
 				{
-					relationChange = -20;
-				}
-				else if (c.Leader.IsFriend(oldKingdom.Leader))
-				{
-					relationChange = -10;
-				}
-				else if (c.Leader.IsEnemy(oldKingdom.Leader))
-				{
-					relationChange = +10;
-				}
+					int relationChange = 0;
+					if (c.Leader == oldKingdom.Leader)
+					{
+						relationChange = -20;
+					}
+					else if (c.Leader.IsFriend(oldKingdom.Leader))
+					{
+						relationChange = -10;
+					}
+					else if (c.Leader.IsEnemy(oldKingdom.Leader))
+					{
+						relationChange = +10;
+					}
 
-				ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
+					ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
+				}
+				DeclareWarAction.Apply(oldKingdom, newKingdom);
 			}
-			DeclareWarAction.Apply(oldKingdom, newKingdom);
-			
-			//CampaignEventDispatcher.Instance.OnClanChangedKingdom(clan, oldKingdom, newKingdom, true, true);
+			else // clan is leaving empty kingdom so we destroy it
+			{
+				DestroyKingdomAction.Apply(oldKingdom);
+				ModifyKingdomList(kingdoms => kingdoms.RemoveAll(x => x == oldKingdom));
+			}
+
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
 		}
 
