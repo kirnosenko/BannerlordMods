@@ -112,7 +112,25 @@ namespace Separatism
 				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
 				TextObject textObject = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
 				textObject.SetTextVariable("CLAN_NAME", clan.Name);
-				TextObject textObject2 = new TextObject("{=EXp18CLD}Kingdom of the {CLAN_NAME}", null);
+				var kingdomName = "Kingdom of the {CLAN_NAME}";
+				switch (clan.Culture.GetCultureCode())
+				{
+					case CultureCode.Aserai:
+						kingdomName = "Sultanate of {CLAN_NAME}";
+						break;
+					case CultureCode.Khuzait:
+						kingdomName = "{CLAN_NAME} Khanate";
+						break;
+					case CultureCode.Sturgia:
+						kingdomName = "Principality of {CLAN_NAME}";
+						break;
+					case CultureCode.Empire:
+						kingdomName = "{CLAN_NAME}'s Empire";
+						break;
+					default:
+						break;
+				}
+				TextObject textObject2 = new TextObject("{=EXp18CLD}" + kingdomName, null);
 				textObject2.SetTextVariable("CLAN_NAME", clan.Name);
 				kingdom.InitializeKingdom(textObject2, textObject, clan.Culture, clan.Banner, clan.Color, clan.Color2, clan.InitialPosition);
 				kingdom.RulingClan = clan;
