@@ -193,6 +193,7 @@ namespace Separatism
 			if (newKingdom != null)
 			{
 				clan.ClanJoinFaction(newKingdom);
+				NotifyClanChangedKingdom(clan, oldKingdom, newKingdom, true, true);
 				foreach (Clan c in oldKingdom.Clans)
 				{
 					int relationChange = 0;
@@ -215,11 +216,18 @@ namespace Separatism
 			}
 			else // clan is leaving empty kingdom so we destroy it
 			{
+				NotifyClanChangedKingdom(clan, oldKingdom, null, false, true);
 				DestroyKingdomAction.Apply(oldKingdom);
 				ModifyKingdomList(kingdoms => kingdoms.RemoveAll(x => x == oldKingdom));
 			}
 
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
+		}
+
+		private void NotifyClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
+		{
+			AccessTools.Method(CampaignEventDispatcher.Instance.GetType(), "OnClanChangedKingdom")
+				.Invoke(CampaignEventDispatcher.Instance, new object[] { clan, oldKingdom, newKingdom, byRebellion, showNotification });
 		}
 
 		private void CheckIfPartyIconIsDirty(Clan clan, Kingdom oldKingdom)
