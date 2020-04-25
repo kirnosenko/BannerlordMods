@@ -43,11 +43,16 @@ namespace Separatism
 
 			if (clan.Leader != ruler)
 			{
-				var hasReason = clan.Leader.IsEnemy(ruler)
-					|| (!clan.Leader.IsFriend(ruler) && clan.Culture != ruler.Culture);
-				var hasFiefs = clan.Settlements.Where(x => x.IsCastle || x.IsTown).Count() >= 2;
+				var rulerIsEnemy = clan.Leader.IsEnemy(ruler);
+				var rulerIsFriend = clan.Leader.IsFriend(ruler);
+				var rulerIsDifferentCulture = clan.Culture.GetCultureCode() != ruler.Culture.GetCultureCode();
+				var hasReason = rulerIsEnemy || (!rulerIsFriend && rulerIsDifferentCulture);
 
-				if (hasReason && hasFiefs)
+				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
+				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
+				var hasEnoughFiefs = (double)clanFiefs / kingdomFiefs >= 0.1;
+				
+				if (hasReason && hasEnoughFiefs)
 				{
 					var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).ToList();
 					uint color1 = TakeColor(colors);
@@ -216,7 +221,7 @@ namespace Separatism
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
 		}
 
-		private static void CheckIfPartyIconIsDirty(Clan clan, Kingdom oldKingdom)
+		private void CheckIfPartyIconIsDirty(Clan clan, Kingdom oldKingdom)
 		{
 			IFaction faction;
 			if (clan.Kingdom == null)
