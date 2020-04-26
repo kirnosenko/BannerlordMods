@@ -15,6 +15,12 @@ namespace Separatism
 	public class SeparateBehaviour : CampaignBehaviorBase
 	{
 		private static Random rng = new Random();
+		private SeparatismConfig config;
+
+		public SeparateBehaviour(SeparatismConfig config)
+		{
+			this.config = config;
+		}
 
 		public override void RegisterEvents()
 		{
@@ -51,22 +57,13 @@ namespace Separatism
 
 				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
-				var hasEnoughFiefs = (double)clanFiefs / kingdomFiefs >= 0.1;
-				
-				if (hasReason && hasEnoughFiefs)
-				{
-					var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).ToList();
-					uint color1 = TakeColor(colors);
-					uint color2 = color1;
-					while (colors.Count > 0 && ColorDiff(color1, color2) < 0.3)
-					{
-						color2 = TakeColor(colors);
-					}
+				var hasEnoughFiefs = 100 * (double)clanFiefs / kingdomFiefs >= config.MinimalKingdomFiefsPercentToRebel;
 
-					clan.Banner.ChangePrimaryColor(color1);
-					clan.Banner.ChangeIconColors(color2);
-					clan.Color = color1;
-					clan.Color2 = color2;
+				var rebelRightNow = config.DailyChanceToRebelWhenHaveAReason == 100 || (rng.NextFloat() * 100 <= config.DailyChanceToRebelWhenHaveAReason);
+				
+				if (hasReason && hasEnoughFiefs && rebelRightNow)
+				{
+					SetNewClanColors(clan);
 					var rebelKingdom = GoRebelKingdom(clan);
 
 					GameLog.Warn($"Clan {clan.Name} is leaving {kingdom} to found their own {rebelKingdom}.");
@@ -86,12 +83,34 @@ namespace Separatism
 			}
 		}
 
-		private uint TakeColor(List<uint> colors)
+		private void SetNewClanColors(Clan clan)
+		{
+			var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).Distinct().ToList();
+			uint color1 = colors.Max();
+			uint color2 = colors.Min();
+
+			if (!config.OneColorForAllRebels)
+			{
+				colors = colors.Except(Kingdom.All.Select(x => x.Color)).ToList();
+				color1 = TakeRandomColor(colors);
+				color2 = color1;
+				while (colors.Count > 0 && ColorDiff(color1, color2) < 0.3)
+				{
+					color2 = TakeRandomColor(colors);
+				}
+			}
+
+			clan.Banner.ChangePrimaryColor(color1);
+			clan.Banner.ChangeIconColors(color2);
+			clan.Color = color1;
+			clan.Color2 = color2;
+		}
+
+		private uint TakeRandomColor(List<uint> colors)
 		{
 			int index = rng.Next(colors.Count);
 			uint color = colors[index];
 			colors.RemoveAt(index);
-
 			return color;
 		}
 

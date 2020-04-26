@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
     <Reference Include="TaleWorlds.CampaignSystem">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
     </Reference>
@@ -61,17 +62,20 @@
     <Compile Include="SeparateBehaviour.cs" />
     <Compile Include="SeparatismBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeparatismConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ModuleData\config.xml" />
     <Content Include="SubModule.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)Separatism\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\SubModule.xml"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(SolutionDir)Separatism\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\"
+xcopy /Y "$(SolutionDir)Separatism\ModuleData\config.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

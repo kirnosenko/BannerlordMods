@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- This option allows to control a minimal part of kindom fiefs in percent to rebel -->
+	<!-- the amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village -->
+	<!-- 100 - to rebel a lord should have the whole kingdom fiefs (probably never happens) -->
+	<!-- 1-99 - appropriate percent -->
+	<!-- 0 - lord may rebel without any fiefs, but what for and who cares?! -->
+	<MinimalKingdomFiefsPercentToRebel>10</MinimalKingdomFiefsPercentToRebel>
+
+	<!-- This option allows to control a chance of rebellion for lord -->
+	<!-- 100 - start rebellion as soon as have a reason -->
+	<!-- 1-99 - appropriate percent chance every day while have a reason -->
+	<!-- 0 - never -->
+	<DailyChanceToRebelWhenHaveAReason>100</DailyChanceToRebelWhenHaveAReason>
+
+	<!-- This option allows to control rebel kingdom banners -->
+	<!-- When true all rebel kingdoms will have the save banner colors -->
+	<!-- When false all rebels kingdoms will have unique banner colors -->
+	<OneColorForAllRebels>false</OneColorForAllRebels>
+
+</Config>
