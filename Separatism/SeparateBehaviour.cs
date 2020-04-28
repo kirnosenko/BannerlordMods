@@ -60,7 +60,10 @@ namespace Separatism
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
-					SetNewClanColors(clan);
+					if (!config.KeepRebelBannerColors)
+					{
+						SetNewClanColors(clan);
+					}
 					var rebelKingdom = GoRebelKingdom(clan);
 
 					GameLog.Warn($"Clan {clan.Name} is leaving {kingdom} to found their own {rebelKingdom}.");

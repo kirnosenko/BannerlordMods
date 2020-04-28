@@ -15,8 +15,14 @@
 	<DailyChanceToRebelWhenHaveAReason>100</DailyChanceToRebelWhenHaveAReason>
 
 	<!-- This option allows to control rebel kingdom banners -->
-	<!-- When true all rebel kingdoms will have the save banner colors -->
-	<!-- When false all rebels kingdoms will have unique banner colors -->
+	<!-- true - for all rebel clans the banner colors will be kept -->
+	<!-- false - all rebel clans will get new colors for their banners -->
+	<KeepRebelBannerColors>false</KeepRebelBannerColors>
+
+	<!-- This option allows to control rebel kingdom banners -->
+	<!-- Used only if KeepClanBannerColors = false -->
+	<!-- true - all rebel kingdoms will have the save banner colors -->
+	<!-- false - all rebels kingdoms will have unique banner colors -->
 	<OneColorForAllRebels>false</OneColorForAllRebels>
 
 </Config>
