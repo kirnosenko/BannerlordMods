@@ -14,7 +14,6 @@ namespace Separatism
 {
 	public class SeparateBehaviour : CampaignBehaviorBase
 	{
-		private static Random rng = new Random();
 		private SeparatismConfig config;
 
 		public SeparateBehaviour(SeparatismConfig config)
@@ -42,7 +41,8 @@ namespace Separatism
 			if (kingdom == null
 				|| clan == Clan.PlayerClan
 				|| !clan.Leader.IsAlive
-				|| clan.Leader.IsPrisoner)
+				|| clan.Leader.IsPrisoner
+				|| clan.Parties.Any(x => x.MapEvent != null))
 			{
 				return;
 			}
@@ -50,17 +50,14 @@ namespace Separatism
 
 			if (clan.Leader != ruler)
 			{
-				var rulerIsEnemy = clan.Leader.IsEnemy(ruler);
-				var rulerIsFriend = clan.Leader.IsFriend(ruler);
-				var rulerIsDifferentCulture = clan.Culture.GetCultureCode() != ruler.Culture.GetCultureCode();
-				var hasReason = rulerIsEnemy || (!rulerIsFriend && rulerIsDifferentCulture);
-
+				var hasReason = !clan.Leader.HasGoodRelationWith(ruler);
 				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var hasEnoughFiefs = 100 * (double)clanFiefs / kingdomFiefs >= config.MinimalKingdomFiefsPercentToRebel;
 
-				var rebelRightNow = config.DailyChanceToRebelWhenHaveAReason == 100 || (rng.NextFloat() * 100 <= config.DailyChanceToRebelWhenHaveAReason);
-				
+				var rebelRightNow = config.DailyChanceToRebelWhenHaveAReason == 100 ||
+					(MBRandom.RandomFloat * 100 <= config.DailyChanceToRebelWhenHaveAReason);
+
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
 					SetNewClanColors(clan);
@@ -108,7 +105,7 @@ namespace Separatism
 
 		private uint TakeRandomColor(List<uint> colors)
 		{
-			int index = rng.Next(colors.Count);
+			int index = MBRandom.RandomInt(colors.Count);
 			uint color = colors[index];
 			colors.RemoveAt(index);
 			return color;

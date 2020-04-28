@@ -3,6 +3,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
+using HarmonyLib;
 
 namespace Separatism
 {
@@ -15,6 +16,7 @@ namespace Separatism
 		{
 			base.OnSubModuleLoad();
 
+			new Harmony(nameof(Separatism)).PatchAll();
 			config = SeparatismConfig.Load(BasePath.Name + "Modules/Separatism/ModuleData/config.xml");
 		}
 

@@ -1,4 +1,5 @@
-﻿using TaleWorlds.Core;
+﻿using System;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Separatism

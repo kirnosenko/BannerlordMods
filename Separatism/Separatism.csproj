@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
@@ -58,7 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsiderClanJoin.cs" />
+    <Compile Include="ConsiderClanLeaveKingdom.cs" />
+    <Compile Include="ConsiderDefection.cs" />
     <Compile Include="GameLog.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="SeparateBehaviour.cs" />
     <Compile Include="SeparatismBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
