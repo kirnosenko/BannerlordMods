@@ -5,16 +5,27 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Separatism", "Separatism\Separatism.csproj", "{2D276442-3C37-4D09-8BAF-9154E9F7116C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telepathy", "Telepathy\Telepathy.csproj", "{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Launcher|Any CPU = Debug Launcher|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Debug Launcher|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Debug Launcher|Any CPU.Build.0 = Debug|Any CPU
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug Launcher|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug Launcher|Any CPU.Build.0 = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

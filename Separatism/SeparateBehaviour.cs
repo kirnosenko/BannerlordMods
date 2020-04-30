@@ -6,7 +6,6 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.ObjectSystem;
 using Helpers;
 using HarmonyLib;
 
@@ -24,14 +23,9 @@ namespace Separatism
 		public override void RegisterEvents()
 		{
 			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnClanTick);
-			//CampaignEvents.ClanChangedKingdom.AddNonSerializedListener(this, OnClanChangedKingdom);
 		}
 
 		public override void SyncData(IDataStore dataStore)
-		{
-		}
-
-		private void OnClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
 		{
 		}
 

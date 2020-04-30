@@ -16,6 +16,11 @@ namespace Separatism
 			Print(text, Color.FromUint(0x00FF0000));
 		}
 
+		public static void Error(Exception e)
+		{
+			Warn($"ERROR: {e.Message}{Environment.NewLine}{e.StackTrace}");
+		}
+
 		private static void Print(string text, Color color)
 		{
 			InformationManager.DisplayMessage(new InformationMessage(text, color));

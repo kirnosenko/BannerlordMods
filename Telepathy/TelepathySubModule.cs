@@ -5,21 +5,16 @@ using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using HarmonyLib;
 
-namespace Separatism
+namespace Telepathy
 {
-    public class SeparatismBase : MBSubModuleBase
+	public class TelepathySubModule : MBSubModuleBase
 	{
-		private SeparatismConfig config;
-		private SeparateBehaviour separateBehaviour;
-
 		protected override void OnSubModuleLoad()
 		{
 			base.OnSubModuleLoad();
 
-			new Harmony(nameof(Separatism)).PatchAll();
+			new Harmony(nameof(Telepathy)).PatchAll();
 			System.Threading.Thread.Sleep(50);
-			
-			config = SeparatismConfig.Load(BasePath.Name + "Modules/Separatism/ModuleData/config.xml");
 		}
 
 		protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
@@ -34,8 +29,7 @@ namespace Separatism
 
 		private void AddBehaviours(CampaignGameStarter gameInitializer)
 		{
-			separateBehaviour = new SeparateBehaviour(config);
-			gameInitializer.AddBehavior(separateBehaviour);
+			gameInitializer.AddBehavior(new TelepathyBehaviour());
 		}
 	}
 }
