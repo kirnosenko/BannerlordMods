@@ -7,6 +7,7 @@ namespace Telepathy
 	public class TelepathyBehaviour : CampaignBehaviorBase
 	{
 		private static Queue<Hero> heroesToTalk = new Queue<Hero>();
+		private static PlayerEncounter encounter = null;
 
 		public static void CallToTalk(Hero hero)
 		{
@@ -20,6 +21,7 @@ namespace Telepathy
 		{
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
+			CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
 		}
 
 		public override void SyncData(IDataStore dataStore)
@@ -54,6 +56,15 @@ namespace Telepathy
 			}
 		}
 
+		private void OnTick(float time)
+		{
+			if (encounter != null)
+			{
+				PlayerEncounter.Finish(true);
+				encounter = null;
+			}
+		}
+
 		private void StartMeeting(Hero hero)
 		{
 			if (PlayerEncounter.Current != null)
@@ -62,7 +73,9 @@ namespace Telepathy
 			}
 			PlayerEncounter.Start();
 			PlayerEncounter.Current.SetupFields(CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
+			encounter = PlayerEncounter.Current;
 
+			Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
 			Campaign.Current.CurrentConversationContext = ConversationContext.Default;
 			AccessTools.Field(typeof(PlayerEncounter), "_mapEventState").SetValue(PlayerEncounter.Current, PlayerEncounterState.Begin);
 			AccessTools.Field(typeof(PlayerEncounter), "_stateHandled").SetValue(PlayerEncounter.Current, true);
