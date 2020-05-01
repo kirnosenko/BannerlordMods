@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Localization;
 
-namespace Separatism
+namespace Separatism.Patches
 {
 	[HarmonyPatch(typeof(LordDefectionCampaignBehavior), "AddLordDefectionPersuasionOptions")]
 	public static class Patch

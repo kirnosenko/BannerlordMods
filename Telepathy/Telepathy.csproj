@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TelepathyBehaviour.cs" />
-    <Compile Include="EncyclopediaHeroPageVMPatch.cs" />
+    <Compile Include="Patches\EncyclopediaHeroPageVMPatch.cs" />
     <Compile Include="HeroViewModelEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TelepathySubModule.cs" />

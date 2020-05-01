@@ -40,13 +40,16 @@ namespace Telepathy
 			if (heroesToTalk.Count > 0)
 			{
 				var hero = heroesToTalk.Dequeue();
-				if (hero.IsOccupiedByAnEvent())
+				if (hero.IsAlive)
 				{
-					heroesToTalk.Enqueue(hero);
-				}
-				else
-				{
-					StartMeeting(hero);
+					if (hero.IsOccupiedByAnEvent())
+					{
+						heroesToTalk.Enqueue(hero);
+					}
+					else
+					{
+						StartMeeting(hero);
+					}
 				}
 			}
 		}
