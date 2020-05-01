@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
+using HarmonyLib;
 
 namespace Telepathy
 {
@@ -19,7 +20,6 @@ namespace Telepathy
 		{
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
-			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnDailyTickClan);
 		}
 
 		public override void SyncData(IDataStore dataStore)
@@ -29,16 +29,6 @@ namespace Telepathy
 		private void OnGameLoaded(CampaignGameStarter game)
 		{
 			heroesToTalk.Clear();
-		}
-
-		private void OnDailyTickClan(Clan clan)
-		{
-			//if (!hero.HasMet) hero.HasMet = true;
-			//Campaign.Current.ConversationManager.BeginConversation()
-			Campaign.Current.CurrentConversationContext = ConversationContext.Default;
-			ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
-			ConversationCharacterData conversationPartnerData = new ConversationCharacterData(clan.Leader.CharacterObject, clan.Leader.PartyBelongedTo?.Party);
-			CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
 		}
 
 		private void OnHourlyTick()
@@ -54,13 +44,30 @@ namespace Telepathy
 				{
 					heroesToTalk.Enqueue(hero);
 				}
-
-				//if (!hero.HasMet) hero.HasMet = true;
-				Campaign.Current.CurrentConversationContext = ConversationContext.Default;
-				ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
-				ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject, hero.PartyBelongedTo?.Party);
-				CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
+				else
+				{
+					StartMeeting(hero);
+				}
 			}
+		}
+
+		private void StartMeeting(Hero hero)
+		{
+			if (PlayerEncounter.Current != null)
+			{
+				PlayerEncounter.Finish(false);
+			}
+			PlayerEncounter.Start();
+			PlayerEncounter.Current.SetupFields(CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
+
+			Campaign.Current.CurrentConversationContext = ConversationContext.Default;
+			AccessTools.Field(typeof(PlayerEncounter), "_mapEventState").SetValue(PlayerEncounter.Current, PlayerEncounterState.Begin);
+			AccessTools.Field(typeof(PlayerEncounter), "_stateHandled").SetValue(PlayerEncounter.Current, true);
+			AccessTools.Field(typeof(PlayerEncounter), "_meetingDone").SetValue(PlayerEncounter.Current, true);
+
+			ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter);
+			ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject);
+			CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
 		}
 	}
 }
