@@ -15,7 +15,7 @@
 		<SubModule>
 			<Name value="Separatism"/>
 			<DLLName value="Separatism.dll"/>
-			<SubModuleClassType value="Separatism.SeparatismBase"/>
+			<SubModuleClassType value="Separatism.SeparatismSubModule"/>
 			<Tags>
 				<Tag key="DedicatedServerType" value="none" />
 				<Tag key="IsNoRenderModeElement" value="false" />

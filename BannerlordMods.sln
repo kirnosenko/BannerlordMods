@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Separatism", "Separatism\Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telepathy", "Telepathy\Telepathy.csproj", "{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Launcher|Any CPU = Debug Launcher|Any CPU
@@ -26,6 +28,12 @@ Global
 		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}.Debug Launcher|Any CPU.ActiveCfg = Debug|Any CPU
+		{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}.Debug Launcher|Any CPU.Build.0 = Debug|Any CPU
+		{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{704A9C4A-4646-43F3-B83A-88DD7A2BE10B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

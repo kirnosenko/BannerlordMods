@@ -8,6 +8,7 @@ using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using Helpers;
 using HarmonyLib;
+using Common;
 
 namespace Separatism
 {

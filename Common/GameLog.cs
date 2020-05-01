@@ -2,7 +2,7 @@
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Separatism
+namespace Common
 {
 	public static class GameLog
 	{
