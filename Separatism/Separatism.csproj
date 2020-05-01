@@ -57,10 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsiderClanJoin.cs" />
-    <Compile Include="ConsiderClanLeaveKingdom.cs" />
-    <Compile Include="ConsiderDefection.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Patches\DiplomaticBartersBehaviorPatch.cs" />
+    <Compile Include="Patches\LordDefectionCampaignBehaviorPatch.cs" />
     <Compile Include="SeparateBehaviour.cs" />
     <Compile Include="SeparatismSubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
