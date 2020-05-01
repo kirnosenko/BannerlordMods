@@ -19,6 +19,7 @@ namespace Telepathy
 		{
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
+			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnDailyTickClan);
 		}
 
 		public override void SyncData(IDataStore dataStore)
@@ -28,6 +29,16 @@ namespace Telepathy
 		private void OnGameLoaded(CampaignGameStarter game)
 		{
 			heroesToTalk.Clear();
+		}
+
+		private void OnDailyTickClan(Clan clan)
+		{
+			//if (!hero.HasMet) hero.HasMet = true;
+			//Campaign.Current.ConversationManager.BeginConversation()
+			Campaign.Current.CurrentConversationContext = ConversationContext.Default;
+			ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
+			ConversationCharacterData conversationPartnerData = new ConversationCharacterData(clan.Leader.CharacterObject, clan.Leader.PartyBelongedTo?.Party);
+			CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
 		}
 
 		private void OnHourlyTick()
@@ -44,8 +55,10 @@ namespace Telepathy
 					heroesToTalk.Enqueue(hero);
 				}
 
-				ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter);
-				ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject);
+				//if (!hero.HasMet) hero.HasMet = true;
+				Campaign.Current.CurrentConversationContext = ConversationContext.Default;
+				ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
+				ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject, hero.PartyBelongedTo?.Party);
 				CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
 			}
 		}

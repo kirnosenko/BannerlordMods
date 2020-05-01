@@ -60,7 +60,7 @@ namespace Separatism
 					}
 					var rebelKingdom = GoRebelKingdom(clan);
 
-					GameLog.Warn($"Clan {clan.Name} is leaving {kingdom} to found their own {rebelKingdom}.");
+					GameLog.Warn($"The {clan.Name} have broken from {kingdom} to found the {rebelKingdom}");
 				}
 			}
 			else
@@ -72,7 +72,7 @@ namespace Separatism
 				{
 					ClanChangeKingdom(clan, null);
 
-					GameLog.Warn($"{kingdom} was destroyed so clan {clan.Name} abandon it to find a new one.");
+					GameLog.Warn($"The {kingdom} has been destroyed and the {clan.Name} are in search of a new sovereign.");
 				}
 			}
 		}
