@@ -5,17 +5,18 @@ using HarmonyLib;
 
 namespace Common
 {
-	public class ModSubModule : MBSubModuleBase
+	public abstract class ModSubModule : MBSubModuleBase
 	{
 		protected override void OnSubModuleLoad()
 		{
 			base.OnSubModuleLoad();
 
-			new Harmony(this.GetType().Namespace).PatchAll();
-			// For a strange reason we have to wait here
-			// to prevent patching problem...
-			// Remove it and you will see an error.
-			System.Threading.Thread.Sleep(42);
+			// Harmony.DEBUG = true;
+			var harmony = new Harmony(this.GetType().Namespace);
+			harmony.PatchAll(this.GetType().Assembly);
+			// For a strange reason sometimes it is necessary 
+			// to wait here a bit to prevent patching problems...
+			System.Threading.Thread.Sleep(10);
 		}
 
 		protected override void OnBeforeInitialModuleScreenSetAsRoot()
@@ -38,18 +39,9 @@ namespace Common
 		{
 		}
 
-		private void PrintPatchingError()
+		protected virtual void PrintPatchingError()
 		{
 			GameLog.Warn($"Error while loading {this.GetType().Namespace}! Try to change mod loading order.");
-		}
-	}
-
-	[HarmonyPatch(typeof(ModSubModule), "PrintPatchingError")]
-	public class ModSubModulePatch
-	{
-		public static bool Prefix()
-		{
-			return false;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
+using HarmonyLib;
 using Common;
 
 namespace Separatism
@@ -20,6 +21,20 @@ namespace Separatism
 		{
 			separateBehaviour = new SeparateBehaviour(config);
 			gameInitializer.AddBehavior(separateBehaviour);
+		}
+
+		protected override void PrintPatchingError()
+		{
+			base.PrintPatchingError();
+		}
+	}
+
+	[HarmonyPatch(typeof(SeparatismSubModule), "PrintPatchingError")]
+	public class SeparatismSubModulePatch
+	{
+		public static bool Prefix()
+		{
+			return false;
 		}
 	}
 }
