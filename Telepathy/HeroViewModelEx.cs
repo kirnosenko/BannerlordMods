@@ -2,6 +2,7 @@
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using Common;
 
 namespace Telepathy
 {
@@ -18,17 +19,25 @@ namespace Telepathy
 		public void CallToTalk()
 		{
 			TelepathyBehaviour.CallToTalk(hero);
+			GameLog.Info($"{hero.Name} will talk to you soon.");
+			base.OnPropertyChanged(nameof(WillNotTalk));
 		}
 
 		[DataSourceProperty]
-		public bool IsAlive
+		public bool CanTalkTo
 		{
 			get
 			{
-				return this.hero.IsAlive;
+				return this.hero.CanTalkTo();
 			}
-			set
+		}
+
+		[DataSourceProperty]
+		public bool WillNotTalk
+		{
+			get
 			{
+				return !TelepathyBehaviour.CalledToTalk(hero);
 			}
 		}
 	}

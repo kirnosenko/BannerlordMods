@@ -11,7 +11,7 @@ namespace Telepathy.Patches
 		public static bool Prefix(EncyclopediaHeroPageVM __instance)
 		{
 			var hero = __instance.Obj as Hero;
-			if (hero.IsAlive)
+			if (hero.CanTalkTo())
 			{
 				__instance.HeroCharacter = new HeroViewModelEx(hero, CharacterViewModel.StanceTypes.EmphasizeFace);
 			}

@@ -16,6 +16,10 @@ namespace Telepathy
 				heroesToTalk.Enqueue(hero);
 			}
 		}
+		public static bool CalledToTalk(Hero hero)
+		{
+			return heroesToTalk.Contains(hero);
+		}
 
 		public override void RegisterEvents()
 		{
@@ -42,7 +46,7 @@ namespace Telepathy
 			if (heroesToTalk.Count > 0)
 			{
 				var hero = heroesToTalk.Dequeue();
-				if (hero.IsAlive)
+				if (hero.CanTalkTo())
 				{
 					if (hero.IsOccupiedByAnEvent())
 					{
@@ -67,22 +71,29 @@ namespace Telepathy
 
 		private void StartMeeting(Hero hero)
 		{
-			if (PlayerEncounter.Current != null)
+			var heroParty = hero.PartyBelongedTo?.Party;
+			var player = Hero.MainHero;
+			var playerParty = player.PartyBelongedTo?.Party;
+
+			if (!hero.IsWanderer)
 			{
-				PlayerEncounter.Finish(false);
+				if (PlayerEncounter.Current != null)
+				{
+					PlayerEncounter.Finish(false);
+				}
+				PlayerEncounter.Start();
+				PlayerEncounter.Current.SetupFields(playerParty, heroParty ?? playerParty);
+				encounter = PlayerEncounter.Current;
+
+				Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
+				Campaign.Current.CurrentConversationContext = ConversationContext.Default;
+				AccessTools.Field(typeof(PlayerEncounter), "_mapEventState").SetValue(PlayerEncounter.Current, PlayerEncounterState.Begin);
+				AccessTools.Field(typeof(PlayerEncounter), "_stateHandled").SetValue(PlayerEncounter.Current, true);
+				AccessTools.Field(typeof(PlayerEncounter), "_meetingDone").SetValue(PlayerEncounter.Current, true);
 			}
-			PlayerEncounter.Start();
-			PlayerEncounter.Current.SetupFields(CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party, CharacterObject.PlayerCharacter.HeroObject.PartyBelongedTo.Party);
-			encounter = PlayerEncounter.Current;
 
-			Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
-			Campaign.Current.CurrentConversationContext = ConversationContext.Default;
-			AccessTools.Field(typeof(PlayerEncounter), "_mapEventState").SetValue(PlayerEncounter.Current, PlayerEncounterState.Begin);
-			AccessTools.Field(typeof(PlayerEncounter), "_stateHandled").SetValue(PlayerEncounter.Current, true);
-			AccessTools.Field(typeof(PlayerEncounter), "_meetingDone").SetValue(PlayerEncounter.Current, true);
-
-			ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter);
-			ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject);
+			ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter, playerParty);
+			ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject, heroParty);
 			CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
 		}
 	}
