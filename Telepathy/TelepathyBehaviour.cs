@@ -25,7 +25,7 @@ namespace Telepathy
 		{
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
-			CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
+			CampaignEvents.ConversationEnded.AddNonSerializedListener(this, OnConversationEnded);
 		}
 
 		public override void SyncData(IDataStore dataStore)
@@ -60,7 +60,7 @@ namespace Telepathy
 			}
 		}
 
-		private void OnTick(float time)
+		private void OnConversationEnded(CharacterObject character)
 		{
 			if (encounter != null)
 			{
