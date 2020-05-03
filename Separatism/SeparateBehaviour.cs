@@ -157,6 +157,10 @@ namespace Separatism
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, clan.Color);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, clan.Color2);
 				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom.LabelColor);
+				foreach (var policy in clan.Kingdom.ActivePolicies)
+				{
+					kingdom.AddPolicy(policy);
+				}
 				kingdom.RulingClan = clan;
 			}
 
