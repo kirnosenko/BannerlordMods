@@ -133,20 +133,20 @@ namespace Separatism
 				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
 				TextObject textObject = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
 				textObject.SetTextVariable("CLAN_NAME", clan.Name);
-				var kingdomName = "Kingdom of the {CLAN_NAME}";
+				var kingdomName = "Kingdom of {CLAN_NAME}";
 				switch (clan.Culture.GetCultureCode())
 				{
 					case CultureCode.Aserai:
 						kingdomName = "Sultanate of {CLAN_NAME}";
 						break;
 					case CultureCode.Khuzait:
-						kingdomName = "{CLAN_NAME} Khanate";
+						kingdomName = "Khanate of {CLAN_NAME}";
 						break;
 					case CultureCode.Sturgia:
 						kingdomName = "Principality of {CLAN_NAME}";
 						break;
 					case CultureCode.Empire:
-						kingdomName = "{CLAN_NAME}'s Empire";
+						kingdomName = "Empire of {CLAN_NAME}";
 						break;
 					default:
 						break;
@@ -154,6 +154,9 @@ namespace Separatism
 				TextObject textObject2 = new TextObject("{=EXp18CLD}" + kingdomName, null);
 				textObject2.SetTextVariable("CLAN_NAME", clan.Name);
 				kingdom.InitializeKingdom(textObject2, textObject, clan.Culture, clan.Banner, clan.Color, clan.Color2, clan.InitialPosition);
+				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, clan.Color);
+				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, clan.Color2);
+				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom.LabelColor);
 				kingdom.RulingClan = clan;
 			}
 
