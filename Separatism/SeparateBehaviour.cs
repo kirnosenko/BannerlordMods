@@ -56,10 +56,6 @@ namespace Separatism
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
-					if (!config.KeepRebelBannerColors)
-					{
-						SetNewClanColors(clan);
-					}
 					var rebelKingdom = GoRebelKingdom(clan);
 
 					GameLog.Warn($"The {clan.Name} have broken from {kingdom} to found the {rebelKingdom}");
@@ -79,7 +75,7 @@ namespace Separatism
 			}
 		}
 
-		private void SetNewClanColors(Clan clan)
+		private (uint,uint) GetRebelKingdomColors()
 		{
 			var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).Distinct().ToList();
 			uint color1 = colors.Max();
@@ -96,10 +92,7 @@ namespace Separatism
 				}
 			}
 
-			clan.Banner.ChangePrimaryColor(color1);
-			clan.Banner.ChangeIconColors(color2);
-			clan.Color = color1;
-			clan.Color2 = color2;
+			return (color1, color2);
 		}
 
 		private uint TakeRandomColor(List<uint> colors)
@@ -130,6 +123,7 @@ namespace Separatism
 
 			if (kingdom == null)
 			{
+				// create a rebel kingdom and set its name
 				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
 				TextObject textObject = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
 				textObject.SetTextVariable("CLAN_NAME", clan.Name);
@@ -153,14 +147,27 @@ namespace Separatism
 				}
 				TextObject textObject2 = new TextObject("{=EXp18CLD}" + kingdomName, null);
 				textObject2.SetTextVariable("CLAN_NAME", clan.Name);
-				kingdom.InitializeKingdom(textObject2, textObject, clan.Culture, clan.Banner, clan.Color, clan.Color2, clan.InitialPosition);
-				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, clan.Color);
-				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, clan.Color2);
+
+				// set colors for a rebel kingdom and the ruler clan
+				var (color1,color2) = GetRebelKingdomColors();
+				if (!config.KeepRebelBannerColors)
+				{
+					clan.Banner.ChangePrimaryColor(color1);
+					clan.Banner.ChangeIconColors(color2);
+					clan.Color = color1;
+					clan.Color2 = color2;
+				}
+				kingdom.InitializeKingdom(textObject2, textObject, clan.Culture, clan.Banner, color1, color2, clan.InitialPosition);
+				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, color1);
+				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, color2);
 				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom.LabelColor);
+
+				// apply policies from original kingdom
 				foreach (var policy in clan.Kingdom.ActivePolicies)
 				{
 					kingdom.AddPolicy(policy);
 				}
+
 				kingdom.RulingClan = clan;
 			}
 
