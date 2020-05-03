@@ -234,6 +234,15 @@ namespace Separatism
 
 					ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
 				}
+
+				if (config.KeepOriginalKindomWars)
+				{
+					var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(oldKingdom).ToArray();
+					foreach (var enemy in oldKingdomEnemies)
+					{
+						DeclareWarAction.Apply(enemy, newKingdom);
+					}
+				}
 				DeclareWarAction.Apply(oldKingdom, newKingdom);
 			}
 			else // clan is leaving empty kingdom so we destroy it
