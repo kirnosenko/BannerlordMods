@@ -1,24 +1,103 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Library;
 using HarmonyLib;
 
 namespace Telepathy
 {
 	public class TelepathyBehaviour : CampaignBehaviorBase
 	{
-		private static Queue<Hero> heroesToTalk = new Queue<Hero>();
+		abstract class Call
+		{
+			public Call(Hero hero)
+			{
+				Hero = hero;
+				Ready = false;
+			}
+
+			public abstract void HourlyTick();
+			
+			public Hero Hero { get; protected set; }
+			public bool Ready { get; protected set; }
+		}
+
+		class TelepathyCall : Call
+		{
+			public TelepathyCall(Hero hero)
+				: base(hero)
+			{
+			}
+
+			public override void HourlyTick()
+			{
+				Ready = true;
+			}
+		}
+
+		class PigeonPostCall : Call
+		{
+			private const float SpeedPerHour = 30;
+			private Vec2 position;
+			private bool answer;
+
+			public PigeonPostCall(Hero hero)
+				:base(hero)
+			{
+				position = Hero.MainHero.GetMapPoint().Position2D;
+				answer = false;
+			}
+
+			public override void HourlyTick()
+			{
+				if (Ready) return;
+
+				var distanceToCover = SpeedPerHour;
+				Vec2 diff = Vec2.Zero;
+				
+				if (!answer)
+				{
+					var heroPosition = Hero.GetMapPoint().Position2D;
+					diff = heroPosition - position;
+					if (diff.Length <= distanceToCover)
+					{
+						position = heroPosition;
+						distanceToCover -= diff.Length;
+						answer = true;
+					}
+				}
+				if (answer)
+				{
+					var mainHeroPosition = Hero.MainHero.GetMapPoint().Position2D;
+					diff = mainHeroPosition - position;
+					if (diff.Length <= distanceToCover)
+					{
+						position = mainHeroPosition;
+						Ready = true;
+						return;
+					}
+				}
+
+				position += diff.Normalized() * distanceToCover;
+			}
+		}
+
+		private static LinkedList<Call> calls = new LinkedList<Call>();
 		private static PlayerEncounter encounter = null;
 
 		public static void CallToTalk(Hero hero)
 		{
-			if (!heroesToTalk.Contains(hero))
+			if (!CalledToTalk(hero))
 			{
-				heroesToTalk.Enqueue(hero);
+				Call call = (!TelepathyConfig.Instance.PigeonPostMode)
+					? (Call)new TelepathyCall(hero)
+					: (Call)new PigeonPostCall(hero);
+				calls.AddLast(call);
 			}
 		}
 		public static bool CalledToTalk(Hero hero)
 		{
-			return heroesToTalk.Contains(hero);
+			return calls.SingleOrDefault(x => x.Hero == hero) != null;
 		}
 
 		public override void RegisterEvents()
@@ -34,28 +113,31 @@ namespace Telepathy
 
 		private void OnGameLoaded(CampaignGameStarter game)
 		{
-			heroesToTalk.Clear();
+			calls.Clear();
 		}
 
 		private void OnHourlyTick()
 		{
+			foreach (var c in calls)
+			{
+				c.HourlyTick();
+			}
+
 			if (Hero.MainHero.IsOccupiedByAnEvent())
 			{
 				return;
 			}
-			if (heroesToTalk.Count > 0)
+			var call = calls.FirstOrDefault(x => x.Ready);
+			if (call != null && call.Hero.CanTalkTo())
 			{
-				var hero = heroesToTalk.Dequeue();
-				if (hero.CanTalkTo())
+				calls.Remove(call);
+				if (call.Hero.IsOccupiedByAnEvent())
 				{
-					if (hero.IsOccupiedByAnEvent())
-					{
-						heroesToTalk.Enqueue(hero);
-					}
-					else
-					{
-						StartMeeting(hero);
-					}
+					calls.AddLast(call);
+				}
+				else
+				{
+					StartMeeting(call.Hero);
 				}
 			}
 		}
