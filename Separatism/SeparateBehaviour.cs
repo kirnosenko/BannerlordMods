@@ -57,20 +57,53 @@ namespace Separatism
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
 					var rebelKingdom = GoRebelKingdom(clan);
-
 					GameLog.Warn($"The {clan.Name} have broken from {kingdom} to found the {rebelKingdom}");
 				}
 			}
 			else
 			{
-				var noClans = kingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 1;
-				var noFiefs = clan.Settlements.Count() == 0;
-
-				if (noClans && noFiefs)
+				if (kingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 1) // kingdom has the only one ruler clan
 				{
-					ClanChangeKingdom(clan, null);
+					if (clan.Settlements.Count() == 0) // no any fiefs
+					{
+						ClanChangeKingdom(clan, null, false);
+						GameLog.Warn($"The {kingdom} has been destroyed and the {clan.Name} are in search of a new sovereign.");
+					}
+					else // look for ally
+					{
+						var enemies = FactionManager.GetEnemyKingdoms(kingdom).ToArray();
+						var potentialAllies = enemies
+							.SelectMany(x => FactionManager.GetEnemyKingdoms(x))
+							.Distinct()
+							.Except(enemies)
+							.Intersect(clan.CloseKingdoms())
+							.Where(x => x != kingdom)
+							.ToArray();
+						foreach (var pa in potentialAllies)
+						{
+							if (kingdom.Leader.HasGoodRelationWith(pa.Leader) &&
+								pa.Leader.Clan.Tier >= clan.Tier)
+							{
+								var commonEnemies = FactionManager.GetEnemyKingdoms(pa)
+									.Intersect(enemies)
+									.ToArray();
+								foreach (var enemy in commonEnemies)
+								{
+									var kingdomDistance = enemy.FactionMidPoint.Distance(kingdom.FactionMidPoint);
+									var paDistance = enemy.FactionMidPoint.Distance(pa.FactionMidPoint);
+									var allianceDistance = kingdom.FactionMidPoint.Distance(pa.FactionMidPoint);
 
-					GameLog.Warn($"The {kingdom} has been destroyed and the {clan.Name} are in search of a new sovereign.");
+									if (allianceDistance <= Math.Sqrt(kingdomDistance * kingdomDistance + paDistance * paDistance) ||
+										(kingdom.IsInsideKingdomTeritory(enemy) && pa.IsInsideKingdomTeritory(enemy)))
+									{
+										ClanChangeKingdom(clan, pa, false);
+										GameLog.Warn($"The {kingdom} has joined to the {pa} to fight against common enemy the {enemy}.");
+										return;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -171,7 +204,7 @@ namespace Separatism
 				kingdom.RulingClan = clan;
 			}
 
-			ClanChangeKingdom(clan, kingdom);
+			ClanChangeKingdom(clan, kingdom, true);
 			if (!Kingdom.All.Contains(kingdom))
 			{
 				ModifyKingdomList(kingdoms => kingdoms.Add(kingdom));
@@ -187,7 +220,7 @@ namespace Separatism
 			AccessTools.Field(Campaign.Current.GetType(), "_kingdoms").SetValue(Campaign.Current, new MBReadOnlyList<Kingdom>(kingdoms));
 		}
 
-		private void ClanChangeKingdom(Clan clan, Kingdom newKingdom)
+		private void ClanChangeKingdom(Clan clan, Kingdom newKingdom, bool rebellion)
 		{
 			Kingdom oldKingdom = clan.Kingdom;
 			
@@ -215,51 +248,68 @@ namespace Separatism
 				clan,
 				oldKingdom,
 				newKingdom,
-				newKingdom == null
+				newKingdom == null || rebellion
 			});
 			clan.IsUnderMercenaryService = false;
 			clan.ClanLeaveKingdom(false);
 			if (newKingdom != null)
 			{
 				clan.ClanJoinFaction(newKingdom);
-				NotifyClanChangedKingdom(clan, oldKingdom, newKingdom, true, true);
-				foreach (Clan c in oldKingdom.Clans)
+				NotifyClanChangedKingdom(clan, oldKingdom, newKingdom, rebellion, true);
+
+				if (rebellion)
 				{
-					int relationChange = 0;
-					if (c.Leader == oldKingdom.Leader)
+					foreach (Clan c in oldKingdom.Clans)
 					{
-						relationChange = -20;
-					}
-					else if (c.Leader.IsFriend(oldKingdom.Leader))
-					{
-						relationChange = -10;
-					}
-					else if (c.Leader.IsEnemy(oldKingdom.Leader))
-					{
-						relationChange = +10;
+						int relationChange = 0;
+						if (c.Leader == oldKingdom.Leader)
+						{
+							relationChange = -20;
+						}
+						else if (c.Leader.IsFriend(oldKingdom.Leader))
+						{
+							relationChange = -10;
+						}
+						else if (c.Leader.IsEnemy(oldKingdom.Leader))
+						{
+							relationChange = +10;
+						}
+
+						ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
 					}
 
-					ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
+					InheritWarsFromKingdom(oldKingdom, newKingdom);
+					DeclareWarAction.Apply(oldKingdom, newKingdom);
 				}
-
-				if (config.KeepOriginalKindomWars)
+				else
 				{
-					var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(oldKingdom).ToArray();
-					foreach (var enemy in oldKingdomEnemies)
-					{
-						DeclareWarAction.Apply(enemy, newKingdom);
-					}
+					ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, newKingdom.Leader, +20, true);
+					InheritWarsFromKingdom(oldKingdom, newKingdom);
 				}
-				DeclareWarAction.Apply(oldKingdom, newKingdom);
 			}
-			else // clan is leaving empty kingdom so we destroy it
+			if (oldKingdom.Clans.Count == 0) // old kingdom is empty so we destroy it
 			{
-				NotifyClanChangedKingdom(clan, oldKingdom, null, false, true);
+				if (newKingdom == null)
+				{
+					NotifyClanChangedKingdom(clan, oldKingdom, null, false, true);
+				}
 				DestroyKingdomAction.Apply(oldKingdom);
 				ModifyKingdomList(kingdoms => kingdoms.RemoveAll(x => x == oldKingdom));
 			}
 
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
+		}
+
+		private void InheritWarsFromKingdom(Kingdom src, Kingdom dest)
+		{
+			if (config.KeepOriginalKindomWars)
+			{
+				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
+				foreach (var enemy in oldKingdomEnemies)
+				{
+					DeclareWarAction.Apply(enemy, dest);
+				}
+			}
 		}
 
 		private void NotifyClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)

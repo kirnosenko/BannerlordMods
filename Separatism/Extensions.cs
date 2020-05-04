@@ -32,6 +32,18 @@ namespace Separatism
 				.Select(x => x.k)
 				.ToArray();
 		}
+		public static bool IsInsideKingdomTeritory(this Kingdom kingdom1, Kingdom kingdom2)
+		{
+			var positions1 = kingdom1.Settlements.Where(x => x.IsTown || x.IsCastle)
+				.Select(x => x.Position2D).ToArray();
+			var positions2 = kingdom2.Settlements.Where(x => x.IsTown || x.IsCastle)
+				.Select(x => x.Position2D).ToArray();
+
+			return positions1.Max(p => p.X) <= positions2.Max(p => p.X) &&
+				positions1.Max(p => p.Y) <= positions2.Max(p => p.Y) &&
+				positions1.Min(p => p.X) >= positions2.Min(p => p.X) &&
+				positions1.Min(p => p.Y) >= positions2.Min(p => p.Y);
+		}
 		public static float Distance(this Vec2 value1, Vec2 value2)
 		{
 			float v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
