@@ -6,7 +6,7 @@ using TaleWorlds.Localization;
 namespace Separatism.Patches
 {
 	[HarmonyPatch(typeof(LordDefectionCampaignBehavior), "AddLordDefectionPersuasionOptions")]
-	public static class Patch
+	public static class LordDefectionCampaignBehaviorPatch
 	{
 		public static void Postfix(CampaignGameStarter starter)
 		{

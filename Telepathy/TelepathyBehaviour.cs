@@ -44,7 +44,7 @@ namespace Telepathy
 			public PigeonPostCall(Hero hero)
 				:base(hero)
 			{
-				position = Hero.MainHero.GetMapPoint().Position2D;
+				position = GetHeroPosition(Hero.MainHero);
 				answer = false;
 			}
 
@@ -57,28 +57,33 @@ namespace Telepathy
 				
 				if (!answer)
 				{
-					var heroPosition = Hero.GetMapPoint().Position2D;
-					diff = heroPosition - position;
+					var targetPosition = GetHeroPosition(Hero);
+					diff = targetPosition - position;
 					if (diff.Length <= distanceToCover)
 					{
-						position = heroPosition;
+						position = targetPosition;
 						distanceToCover -= diff.Length;
 						answer = true;
 					}
 				}
 				if (answer)
 				{
-					var mainHeroPosition = Hero.MainHero.GetMapPoint().Position2D;
-					diff = mainHeroPosition - position;
+					var targetPosition = GetHeroPosition(Hero.MainHero);
+					diff = targetPosition - position;
 					if (diff.Length <= distanceToCover)
 					{
-						position = mainHeroPosition;
+						position = targetPosition;
 						Ready = true;
 						return;
 					}
 				}
 
 				position += diff.Normalized() * distanceToCover;
+			}
+
+			private Vec2 GetHeroPosition(Hero hero)
+			{
+				return hero.GetMapPoint()?.Position2D ?? hero.HomeSettlement?.Position2D ?? Vec2.Zero;
 			}
 		}
 
