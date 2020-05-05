@@ -14,6 +14,11 @@ namespace LifeIsShort
 			LifeIsShortConfig.Load(BasePath.Name + "Modules/LifeIsShort/ModuleData/config.xml");
 		}
 
+		protected override void AddBehaviours(CampaignGameStarter gameInitializer)
+		{
+			gameInitializer.AddModel(new ShortPregnancyModel());
+		}
+
 		protected override void PrintPatchingError()
 		{
 			base.PrintPatchingError();

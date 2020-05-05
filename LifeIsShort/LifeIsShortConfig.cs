@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using TaleWorlds.CampaignSystem;
 
 namespace LifeIsShort
 {
@@ -28,6 +29,14 @@ namespace LifeIsShort
 		}
 
 		public int OneYearOfHeroLifeInDays { get; private set; }
+
+		public float AgeMultiplier
+		{
+			get
+			{
+				return ((float)CampaignTime.DaysInYear / OneYearOfHeroLifeInDays);
+			}
+		}
 
 		public static void Load(string path)
 		{

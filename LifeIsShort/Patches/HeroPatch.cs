@@ -8,7 +8,7 @@ namespace LifeIsShort.Patches
 	{
 		public static void Postfix(Hero __instance, ref float __result)
 		{
-			__result = __instance.Age * ((float)84 / LifeIsShortConfig.Instance.OneYearOfHeroLifeInDays);
+			__result = __instance.BirthDay.ElapsedYearsUntilNow * LifeIsShortConfig.Instance.AgeMultiplier;
 		}
 	}
 }

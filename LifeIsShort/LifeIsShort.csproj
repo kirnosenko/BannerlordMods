@@ -63,6 +63,7 @@
     <Compile Include="Patches\HeroHelperPatch.cs" />
     <Compile Include="Patches\HeroPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShortPregnancyModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using Helpers;
@@ -10,13 +11,11 @@ namespace LifeIsShort.Patches
 	{
 		public static void Postfix(float age, ref CampaignTime __result)
 		{
-			float num = MBRandom.RandomFloatRanged(1f, 84f);
-			float num2 = (float)CampaignTime.Now.GetYear - age;
-			if (num > (float)CampaignTime.Now.GetDayOfYear)
-			{
-				num2 -= 1f;
-			}
-			__result = CampaignTime.Days(num) + CampaignTime.Years(num2);
+			float ageYears = Math.Max(age - 1, 0);
+			float ageDays = MBRandom.RandomFloatRanged(1f, LifeIsShortConfig.Instance.OneYearOfHeroLifeInDays);
+
+			float birthDaysAgo = ageYears * LifeIsShortConfig.Instance.OneYearOfHeroLifeInDays + ageDays;
+			__result = CampaignTime.Days((float)CampaignTime.Now.ToDays - birthDaysAgo);
 		}
 	}
 }
