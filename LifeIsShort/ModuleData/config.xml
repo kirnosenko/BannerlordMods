@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<!-- This option allows to controls how long one year of hero life takes. -->
+	<!-- By default a year in the game is 84 days. -->
+	<!-- So 10 makes heroes getting older 8.4 times faster. -->
+	<OneYearOfHeroLifeInDays>64</OneYearOfHeroLifeInDays>
+
+</Config>
