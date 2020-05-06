@@ -20,6 +20,10 @@ namespace Separatism
 				clanPosition += spos;
 				counter++;
 			}
+			if (counter == 0)
+			{
+				return Kingdom.All.ToArray();
+			}
 			clanPosition *= ((float)1 / counter);
 
 			var kingdomDistance = Kingdom.All

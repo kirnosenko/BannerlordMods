@@ -77,7 +77,7 @@ namespace Separatism
 							.Distinct()
 							.Except(enemies)
 							.Intersect(clan.CloseKingdoms())
-							.Where(x => x != kingdom)
+							.Where(x => x != kingdom && x.Settlements.Count() > 0)
 							.ToArray();
 						foreach (var pa in potentialAllies)
 						{
@@ -86,6 +86,7 @@ namespace Separatism
 							{
 								var commonEnemies = FactionManager.GetEnemyKingdoms(pa)
 									.Intersect(enemies)
+									.Where(x => x.Settlements.Count() > 0)
 									.ToArray();
 								foreach (var enemy in commonEnemies)
 								{
