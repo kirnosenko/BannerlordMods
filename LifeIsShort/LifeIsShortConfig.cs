@@ -25,7 +25,7 @@ namespace LifeIsShort
 
 		private LifeIsShortConfig(IReadOnlyDictionary<string, string> options)
 		{
-			OneYearOfHeroLifeInDays = options.LoadInt(nameof(OneYearOfHeroLifeInDays), 10, 1, int.MaxValue);
+			OneYearOfHeroLifeInDays = options.LoadInt(nameof(OneYearOfHeroLifeInDays), 5, 1, 365);
 		}
 
 		public int OneYearOfHeroLifeInDays { get; private set; }

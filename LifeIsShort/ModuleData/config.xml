@@ -4,6 +4,6 @@
 	<!-- This option allows to controls how long one year of hero life takes. -->
 	<!-- By default a year in the game is 84 days. -->
 	<!-- So value of 5 makes heroes getting older 17 times faster. -->
-	<OneYearOfHeroLifeInDays>5</OneYearOfHeroLifeInDays>
+	<OneYearOfHeroLifeInDays>1</OneYearOfHeroLifeInDays>
 
 </Config>
