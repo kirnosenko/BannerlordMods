@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<!-- This option allows to control a minimal part of kindom fiefs in percent to rebel -->
-	<!-- the amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village -->
-	<!-- 100 - to rebel a lord should have the whole kingdom fiefs (probably never happens) -->
-	<!-- 1-99 - appropriate percent -->
-	<!-- 0 - lord may rebel without any fiefs, but what for and who cares?! -->
-	<MinimalKingdomFiefsPercentToRebel>10</MinimalKingdomFiefsPercentToRebel>
+	<!-- Next two options allow to control a clan fief trigger to rebel -->
+	<!-- A clan has a fief trigger when it satisfies condition for one of that options -->
+	<!-- The amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village -->
+
+	<!-- A clan has fief trigger when amount of its fiefs >= amount of kingdom fiefs / number of kingdom non-mercenary clans -->
+	<AverageAmountOfKingdomFiefsIsEnoughToRebel>true</AverageAmountOfKingdomFiefsIsEnoughToRebel>
+	
+	<!-- A clan has fief trigger when amount of its fiefs >= specified number -->
+	<!-- 3 - a town + a castle or three castles -->
+	<MinimalAmountOfKingdomFiefsToRebel>3</MinimalAmountOfKingdomFiefsToRebel>
 
 	<!-- This option allows to control a chance of rebellion for lord -->
 	<!-- 100 - start rebellion as soon as have a reason -->

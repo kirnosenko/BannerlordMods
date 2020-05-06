@@ -36,6 +36,7 @@ namespace Separatism
 			var kingdom = clan.Kingdom;
 			if (kingdom == null
 				|| clan == Clan.PlayerClan
+				|| clan.IsUnderMercenaryService
 				|| !clan.Leader.IsAlive
 				|| clan.Leader.IsPrisoner
 				|| clan.Parties.Any(x => x.MapEvent != null))
@@ -48,16 +49,18 @@ namespace Separatism
 			{
 				var hasReason = !clan.Leader.HasGoodRelationWith(ruler);
 				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
+				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
-				var hasEnoughFiefs = 100 * (double)clanFiefs / kingdomFiefs >= config.MinimalKingdomFiefsPercentToRebel;
-
+				var hasEnoughFiefs =
+					(config.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
+					(config.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs);
 				var rebelRightNow = config.DailyChanceToRebelWhenHaveAReason == 100 ||
 					(MBRandom.RandomFloat * 100 <= config.DailyChanceToRebelWhenHaveAReason);
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
 					var rebelKingdom = GoRebelKingdom(clan);
-					GameLog.Warn($"The {clan.Name} have broken from {kingdom} to found the {rebelKingdom}");
+					GameLog.Warn($"The {clan.Name} have broken from {kingdom} to found the {rebelKingdom}.");
 				}
 			}
 			else
