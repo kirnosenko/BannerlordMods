@@ -24,11 +24,26 @@ namespace Separatism
 
 		public override void RegisterEvents()
 		{
+			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnTick);
 			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnClanTick);
 		}
 
 		public override void SyncData(IDataStore dataStore)
 		{
+		}
+
+		private void OnTick()
+		{
+			foreach (var kingdom in Kingdom.All.ToArray())
+			{
+				if (kingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 0) // kingdom is empty so we destroy it
+				{
+					DestroyKingdomAction.Apply(kingdom);
+					ModifyKingdomList(kingdoms => kingdoms.RemoveAll(x => x == kingdom));
+
+					GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
+				}
+			}
 		}
 
 		private void OnClanTick(Clan clan)
@@ -291,7 +306,7 @@ namespace Separatism
 					InheritWarsFromKingdom(oldKingdom, newKingdom);
 				}
 			}
-			if (oldKingdom.Clans.Count == 0) // old kingdom is empty so we destroy it
+			if (oldKingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 0) // old kingdom is empty so we destroy it
 			{
 				if (newKingdom == null)
 				{
