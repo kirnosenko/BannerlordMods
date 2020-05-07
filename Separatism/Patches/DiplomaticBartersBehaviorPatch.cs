@@ -24,13 +24,10 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Clan clan)
 		{
-			if (clan.Settlements.Count() > 0)
+			if (clan.Leader == clan.Kingdom.Leader ||
+				(clan.Settlements.Count() > 0 && clan.Leader.HasGoodRelationWith(clan.Kingdom.Leader)))
 			{
-				if (clan.Leader == clan.Kingdom.Leader ||
-					clan.Leader.HasGoodRelationWith(clan.Kingdom.Leader))
-				{
-					return false;
-				}
+				return false;
 			}
 
 			return true;
@@ -42,16 +39,14 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Clan clan1, Kingdom kingdom)
 		{
-			if (clan1.Settlements.Count() > 0)
-			{
-				if (clan1.Kingdom == kingdom ||
-					clan1.Leader == clan1.Kingdom.Leader ||
+			if (clan1.Leader == clan1.Kingdom.Leader ||
+				((clan1.Settlements.Count() > 0) &&
+					(clan1.Kingdom == kingdom ||
 					clan1.Leader.HasGoodRelationWith(clan1.Kingdom.Leader) ||
 					clan1.Leader.IsEnemy(kingdom.Leader) ||
-					!clan1.CloseKingdoms().Contains(kingdom))
-				{
-					return false;
-				}
+					!clan1.CloseKingdoms().Contains(kingdom))))
+			{
+				return false;
 			}
 
 			return true;
