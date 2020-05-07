@@ -34,16 +34,10 @@ namespace Separatism
 
 		private void OnTick()
 		{
-			foreach (var kingdom in Kingdom.All.ToArray())
+			Campaign.Current.RemoveEmptyKingdoms(kingdom =>
 			{
-				if (kingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 0) // kingdom is empty so we destroy it
-				{
-					DestroyKingdomAction.Apply(kingdom);
-					ModifyKingdomList(kingdoms => kingdoms.RemoveAll(x => x == kingdom));
-
-					GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
-				}
-			}
+				GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
+			});
 		}
 
 		private void OnClanTick(Clan clan)
@@ -224,19 +218,9 @@ namespace Separatism
 			}
 
 			ClanChangeKingdom(clan, kingdom, true);
-			if (!Kingdom.All.Contains(kingdom))
-			{
-				ModifyKingdomList(kingdoms => kingdoms.Add(kingdom));
-			}
+			Campaign.Current.AddKingdom(kingdom);
 
 			return kingdom;
-		}
-
-		private void ModifyKingdomList(Action<List<Kingdom>> modificator)
-		{
-			List<Kingdom> kingdoms = new List<Kingdom>(Campaign.Current.Kingdoms.ToList());
-			modificator(kingdoms);
-			AccessTools.Field(Campaign.Current.GetType(), "_kingdoms").SetValue(Campaign.Current, new MBReadOnlyList<Kingdom>(kingdoms));
 		}
 
 		private void ClanChangeKingdom(Clan clan, Kingdom newKingdom, bool rebellion)
@@ -313,7 +297,7 @@ namespace Separatism
 					NotifyClanChangedKingdom(clan, oldKingdom, null, false, true);
 				}
 				DestroyKingdomAction.Apply(oldKingdom);
-				ModifyKingdomList(kingdoms => kingdoms.RemoveAll(x => x == oldKingdom));
+				Campaign.Current.RemoveKingdom(oldKingdom);
 			}
 
 			CheckIfPartyIconIsDirty(clan, oldKingdom);

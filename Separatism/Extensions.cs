@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Library;
 
 namespace Separatism
@@ -52,6 +55,65 @@ namespace Separatism
 		{
 			float v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
 			return (float)Math.Sqrt((v1 * v1) + (v2 * v2));
+		}
+
+
+		public static void AddKingdom(this Campaign campaign, Kingdom kingdom)
+		{
+			ModifyKingdomList(campaign, kingdoms =>
+			{
+				if (!kingdoms.Contains(kingdom))
+				{
+					kingdoms.Add(kingdom);
+					return kingdoms;
+				}
+
+				return null;
+			});
+		}
+
+		public static void RemoveKingdom(this Campaign campaign, Kingdom kingdom)
+		{
+			ModifyKingdomList(campaign, kingdoms =>
+			{
+				if (kingdoms.RemoveAll(k => k == kingdom) > 0)
+				{
+					return kingdoms;
+				}
+				
+				return null;
+			});
+		}
+
+		public static void RemoveEmptyKingdoms(this Campaign campaign, Action<Kingdom> callBack = null)
+		{
+			ModifyKingdomList(campaign, kingdoms =>
+			{
+				var emptyKingdoms = kingdoms
+					.Where(k => k.Clans.Where(x => x.Leader.IsAlive).Count() == 0)
+					.ToArray();
+				if (emptyKingdoms.Length > 0)
+				{
+					foreach (var kingdom in emptyKingdoms)
+					{
+						callBack?.Invoke(kingdom);
+						DestroyKingdomAction.Apply(kingdom);
+					}
+					return kingdoms.Except(emptyKingdoms).ToList();
+				}
+
+				return null;
+			});
+		}
+
+		public static void ModifyKingdomList(this Campaign campaign, Func<List<Kingdom>, List<Kingdom>> modificator)
+		{
+			List<Kingdom> kingdoms = campaign.Kingdoms.ToList();
+			kingdoms = modificator(kingdoms);
+			if (kingdoms != null)
+			{
+				AccessTools.Field(Campaign.Current.GetType(), "_kingdoms").SetValue(Campaign.Current, new MBReadOnlyList<Kingdom>(kingdoms));
+			}
 		}
 	}
 }
