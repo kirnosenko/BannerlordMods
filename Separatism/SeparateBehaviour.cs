@@ -76,9 +76,9 @@ namespace Separatism
 				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
-				var hasEnoughFiefs =
-					(config.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
-					(config.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs);
+				var hasEnoughFiefs = (kingdomFiefs > 0 &&
+					((config.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
+					config.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
 				var rebelRightNow = config.DailyChanceToRebelWhenHaveAReason == 100 ||
 					(MBRandom.RandomFloat * 100 <= config.DailyChanceToRebelWhenHaveAReason);
 
