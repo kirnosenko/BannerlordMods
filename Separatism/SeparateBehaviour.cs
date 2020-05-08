@@ -4,9 +4,9 @@ using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
+using StoryMode;
 using Helpers;
 using HarmonyLib;
 using Common;
@@ -24,12 +24,28 @@ namespace Separatism
 
 		public override void RegisterEvents()
 		{
+			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnTick);
 			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnClanTick);
 		}
 
 		public override void SyncData(IDataStore dataStore)
 		{
+		}
+
+		private void OnGameLoaded(CampaignGameStarter game)
+		{
+			var kingdoms = new Kingdom[] {
+				StoryModeData.NorthernEmpireKingdom,
+				StoryModeData.WesternEmpireKingdom,
+				StoryModeData.SouthernEmpireKingdom,
+				StoryModeData.SturgiaKingdom,
+				StoryModeData.AseraiKingdom,
+				StoryModeData.VlandiaKingdom,
+				StoryModeData.BattaniaKingdom,
+				StoryModeData.KhuzaitKingdom,
+			};
+			Campaign.Current.RemoveEmptyKingdoms();
 		}
 
 		private void OnTick()
