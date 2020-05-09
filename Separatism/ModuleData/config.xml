@@ -18,6 +18,11 @@
 	<!-- 0 - never -->
 	<DailyChanceToRebelWhenHaveAReason>100</DailyChanceToRebelWhenHaveAReason>
 
+	<!-- This option allows to control whether empty kingdoms will be removed or not -->
+	<!-- true - keep all kingdoms -->
+	<!-- false - remove any kingdom without alive clans -->
+	<KeepEmptyKingdoms>false</KeepEmptyKingdoms>
+
 	<!-- This option allows to control wars of a new rebel kingdom -->
 	<!-- true - a new rebel kingdom will keep all wars of the original kingdom -->
 	<!-- false - a new rebel kingdom will have a war with the original kingdom only -->

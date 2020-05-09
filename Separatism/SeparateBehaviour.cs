@@ -45,15 +45,21 @@ namespace Separatism
 				StoryModeData.BattaniaKingdom,
 				StoryModeData.KhuzaitKingdom,
 			};
-			Campaign.Current.RemoveEmptyKingdoms();
+			if (!config.KeepEmptyKingdoms)
+			{
+				Campaign.Current.RemoveEmptyKingdoms();
+			}
 		}
 
 		private void OnTick()
 		{
-			Campaign.Current.RemoveEmptyKingdoms(kingdom =>
+			if (!config.KeepEmptyKingdoms)
 			{
-				GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
-			});
+				Campaign.Current.RemoveEmptyKingdoms(kingdom =>
+				{
+					GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
+				});
+			}
 		}
 
 		private void OnClanTick(Clan clan)
