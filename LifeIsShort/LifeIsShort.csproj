@@ -58,9 +58,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeroCollection.cs" />
     <Compile Include="LifeIsShortConfig.cs" />
     <Compile Include="LifeIsShortSubModule.cs" />
     <Compile Include="Patches\AgingCampaignBehaviorPatch.cs" />
+    <Compile Include="Patches\GameManagerBasePatch.cs" />
+    <Compile Include="Patches\HeroPatch.cs" />
     <Compile Include="Patches\PregnancyCampaignBehaviorPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShortPregnancyModel.cs" />
