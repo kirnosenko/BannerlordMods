@@ -107,6 +107,7 @@ namespace Telepathy
 
 		public override void RegisterEvents()
 		{
+			CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, OnSessionLaunched);
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, OnHourlyTick);
 			CampaignEvents.ConversationEnded.AddNonSerializedListener(this, OnConversationEnded);
@@ -114,6 +115,19 @@ namespace Telepathy
 
 		public override void SyncData(IDataStore dataStore)
 		{
+		}
+
+		private void OnSessionLaunched(CampaignGameStarter game)
+		{
+			var joinArmySentence = game.GetSentence("main_option_discussions_1");
+			if (joinArmySentence != null)
+			{
+				var condition = joinArmySentence.OnCondition;
+				joinArmySentence.OnCondition = () =>
+				{
+					return encounter == null && (condition == null || condition());
+				};
+			}
 		}
 
 		private void OnGameLoaded(CampaignGameStarter game)
@@ -181,7 +195,7 @@ namespace Telepathy
 
 			ConversationCharacterData playerCharacterData = new ConversationCharacterData(CharacterObject.PlayerCharacter, playerParty);
 			ConversationCharacterData conversationPartnerData = new ConversationCharacterData(hero.CharacterObject, heroParty);
-			CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData, "", "");
+			CampaignMission.OpenConversationMission(playerCharacterData, conversationPartnerData);
 		}
 	}
 }
