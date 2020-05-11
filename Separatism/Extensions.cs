@@ -89,24 +89,31 @@ namespace Separatism
 		{
 			ModifyKingdomList(campaign, kingdoms =>
 			{
-				var emptyKingdoms = kingdoms
-					.Where(k => k.Clans.Where(x => x.Leader.IsAlive).Count() == 0)
+				var emptyKingdomsToRemove = kingdoms
+					.Where(k => 
+						k.Clans.Where(x => x.Leader.IsAlive).Count() == 0 &&
+						(!SeparatismConfig.Instance.KeepEmptyKingdoms || k.RulingClan?.GetClanKingdomId() == k.StringId))
 					.ToArray();
-				if (emptyKingdoms.Length > 0)
+				if (emptyKingdomsToRemove.Length > 0)
 				{
-					foreach (var kingdom in emptyKingdoms)
+					foreach (var kingdom in emptyKingdomsToRemove)
 					{
 						callBack?.Invoke(kingdom);
 						DestroyKingdomAction.Apply(kingdom);
 					}
-					return kingdoms.Except(emptyKingdoms).ToList();
+					return kingdoms.Except(emptyKingdomsToRemove).ToList();
 				}
 
 				return null;
 			});
 		}
 
-		public static void ModifyKingdomList(this Campaign campaign, Func<List<Kingdom>, List<Kingdom>> modificator)
+		public static string GetClanKingdomId(this Clan clan)
+		{
+			return $"{clan.Name.ToString().ToLower()}_kingdom";
+		}
+
+		private static void ModifyKingdomList(this Campaign campaign, Func<List<Kingdom>, List<Kingdom>> modificator)
 		{
 			List<Kingdom> kingdoms = campaign.Kingdoms.ToList();
 			kingdoms = modificator(kingdoms);

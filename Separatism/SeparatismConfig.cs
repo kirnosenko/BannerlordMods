@@ -31,6 +31,8 @@ namespace Separatism
 
 	public class SeparatismConfig
 	{
+		public static SeparatismConfig Instance;
+
 		private SeparatismConfig(IReadOnlyDictionary<string, string> options)
 		{
 			AverageAmountOfKingdomFiefsIsEnoughToRebel = options.LoadBool(nameof(AverageAmountOfKingdomFiefsIsEnoughToRebel), true);
@@ -50,7 +52,7 @@ namespace Separatism
 		public bool KeepRebelBannerColors { get; private set; }
 		public bool OneColorForAllRebels { get; private set; }
 
-		public static SeparatismConfig Load(string path)
+		public static void Load(string path)
 		{
 			var options = new Dictionary<string, string>();
 
@@ -71,7 +73,7 @@ namespace Separatism
 			{
 			}
 
-			return new SeparatismConfig(options);
+			Instance = new SeparatismConfig(options);
 		}
 	}
 }

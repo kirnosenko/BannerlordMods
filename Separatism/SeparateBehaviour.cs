@@ -15,13 +15,6 @@ namespace Separatism
 {
 	public class SeparateBehaviour : CampaignBehaviorBase
 	{
-		private SeparatismConfig config;
-
-		public SeparateBehaviour(SeparatismConfig config)
-		{
-			this.config = config;
-		}
-
 		public override void RegisterEvents()
 		{
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
@@ -45,21 +38,15 @@ namespace Separatism
 				StoryModeData.BattaniaKingdom,
 				StoryModeData.KhuzaitKingdom,
 			};
-			if (!config.KeepEmptyKingdoms)
-			{
-				Campaign.Current.RemoveEmptyKingdoms();
-			}
+			Campaign.Current.RemoveEmptyKingdoms();
 		}
 
 		private void OnTick()
 		{
-			if (!config.KeepEmptyKingdoms)
+			Campaign.Current.RemoveEmptyKingdoms(kingdom =>
 			{
-				Campaign.Current.RemoveEmptyKingdoms(kingdom =>
-				{
-					GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
-				});
-			}
+				GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
+			});
 		}
 
 		private void OnClanTick(Clan clan)
@@ -84,10 +71,10 @@ namespace Separatism
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var hasEnoughFiefs = (kingdomFiefs > 0 &&
-					((config.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
-					config.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
-				var rebelRightNow = config.DailyChanceToRebelWhenHaveAReason == 100 ||
-					(MBRandom.RandomFloat * 100 <= config.DailyChanceToRebelWhenHaveAReason);
+					((SeparatismConfig.Instance.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
+					SeparatismConfig.Instance.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
+				var rebelRightNow = SeparatismConfig.Instance.DailyChanceToRebelWhenHaveAReason == 100 ||
+					(MBRandom.RandomFloat * 100 <= SeparatismConfig.Instance.DailyChanceToRebelWhenHaveAReason);
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
@@ -150,7 +137,7 @@ namespace Separatism
 			uint color1 = colors.Max();
 			uint color2 = colors.Min();
 
-			if (!config.OneColorForAllRebels)
+			if (!SeparatismConfig.Instance.OneColorForAllRebels)
 			{
 				colors = colors.Except(Kingdom.All.Select(x => x.Color)).ToList();
 				color1 = TakeRandomColor(colors);
@@ -180,14 +167,9 @@ namespace Separatism
 			return Math.Abs(gray1 - gray2);
 		}
 
-		private string GetClanKingdomId(Clan clan)
-		{
-			return $"{clan.Name.ToString().ToLower()}_kingdom";
-		}
-
 		private Kingdom GoRebelKingdom(Clan clan)
 		{
-			string kingdomId = GetClanKingdomId(clan);
+			string kingdomId = clan.GetClanKingdomId();
 			var kingdom = Kingdom.All.SingleOrDefault(x => x.StringId == kingdomId);
 
 			if (kingdom == null)
@@ -219,7 +201,7 @@ namespace Separatism
 
 				// set colors for a rebel kingdom and the ruler clan
 				var (color1,color2) = GetRebelKingdomColors();
-				if (!config.KeepRebelBannerColors)
+				if (!SeparatismConfig.Instance.KeepRebelBannerColors)
 				{
 					clan.Banner.ChangePrimaryColor(color1);
 					clan.Banner.ChangeIconColors(color2);
@@ -328,7 +310,7 @@ namespace Separatism
 
 		private void InheritWarsFromKingdom(Kingdom src, Kingdom dest)
 		{
-			if (config.KeepOriginalKindomWars)
+			if (SeparatismConfig.Instance.KeepOriginalKindomWars)
 			{
 				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
 				foreach (var enemy in oldKingdomEnemies)
