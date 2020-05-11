@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
+using Helpers;
 using HarmonyLib;
 
 namespace Telepathy
@@ -88,7 +91,8 @@ namespace Telepathy
 		}
 
 		private static LinkedList<Call> calls = new LinkedList<Call>();
-		private static PlayerEncounter encounter = null;
+		private static PlayerEncounter meetingEncounter = null;
+		private static Hero meetingHero = null;
 
 		public static void CallToTalk(Hero hero)
 		{
@@ -125,9 +129,51 @@ namespace Telepathy
 				var condition = joinArmySentence.OnCondition;
 				joinArmySentence.OnCondition = () =>
 				{
-					return encounter == null && (condition == null || condition());
+					return meetingEncounter == null && (condition == null || condition());
 				};
 			}
+			
+			game.AddPlayerLine(
+				"lord_talk_ask_something_2",
+				"lord_talk_ask_something_2",
+				"telepathy_tell_location",
+				"Where are you?",
+				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
+				null, 101, null, null);
+			game.AddDialogLine(
+				"telepathy_tell_location",
+				"telepathy_tell_location",
+				"lord_talk_ask_something_again",
+				"{LORD_LOCATION_ANSWER}",
+				new ConversationSentence.OnConditionDelegate(() => {
+					HeroHelper.SetLastSeenLocation(meetingHero, true);
+					var answer = meetingHero.LastSeenInSettlement
+						? $"I'm in {meetingHero.LastSeenPlace.EncyclopediaLinkWithName}."
+						: $"I'm near {meetingHero.LastSeenPlace.EncyclopediaLinkWithName}.";
+					MBTextManager.SetTextVariable("LORD_LOCATION_ANSWER", answer, false);
+					return true;
+				}),
+				null, 100, null);
+			game.AddPlayerLine(
+				"lord_talk_ask_something_2",
+				"lord_talk_ask_something_2",
+				"telepathy_tell_objective",
+				"What are you doing?",
+				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
+				null, 101, null, null);
+			game.AddDialogLine(
+				"telepathy_tell_objective",
+				"telepathy_tell_objective",
+				"lord_talk_ask_something_again",
+				"{LORD_OBJECTIVE_ANSWER}",
+				new ConversationSentence.OnConditionDelegate(() => {
+					string answer = meetingHero.PartyBelongedTo == null
+						? "Nothing actually."
+						: CampaignUIHelper.GetMobilePartyBehaviorText(meetingHero.PartyBelongedTo);
+					MBTextManager.SetTextVariable("LORD_OBJECTIVE_ANSWER", answer, false);
+					return true;
+				}),
+				null, 100, null);
 		}
 
 		private void OnGameLoaded(CampaignGameStarter game)
@@ -163,10 +209,11 @@ namespace Telepathy
 
 		private void OnConversationEnded(CharacterObject character)
 		{
-			if (encounter != null)
+			if (meetingEncounter != null)
 			{
 				PlayerEncounter.Finish(true);
-				encounter = null;
+				meetingEncounter = null;
+				meetingHero = null;
 			}
 		}
 
@@ -184,7 +231,8 @@ namespace Telepathy
 				}
 				PlayerEncounter.Start();
 				PlayerEncounter.Current.SetupFields(playerParty, heroParty ?? playerParty);
-				encounter = PlayerEncounter.Current;
+				meetingEncounter = PlayerEncounter.Current;
+				meetingHero = hero;
 
 				Campaign.Current.TimeControlMode = CampaignTimeControlMode.Stop;
 				Campaign.Current.CurrentConversationContext = ConversationContext.Default;
