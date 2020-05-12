@@ -301,8 +301,7 @@ namespace Separatism
 				{
 					NotifyClanChangedKingdom(clan, oldKingdom, null, false, true);
 				}
-				DestroyKingdomAction.Apply(oldKingdom);
-				Campaign.Current.RemoveKingdom(oldKingdom);
+				Campaign.Current.RemoveEmptyKingdoms();
 			}
 
 			CheckIfPartyIconIsDirty(clan, oldKingdom);

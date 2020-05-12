@@ -57,7 +57,6 @@ namespace Separatism
 			return (float)Math.Sqrt((v1 * v1) + (v2 * v2));
 		}
 
-
 		public static void AddKingdom(this Campaign campaign, Kingdom kingdom)
 		{
 			ModifyKingdomList(campaign, kingdoms =>
@@ -68,19 +67,6 @@ namespace Separatism
 					return kingdoms;
 				}
 
-				return null;
-			});
-		}
-
-		public static void RemoveKingdom(this Campaign campaign, Kingdom kingdom)
-		{
-			ModifyKingdomList(campaign, kingdoms =>
-			{
-				if (kingdoms.RemoveAll(k => k == kingdom) > 0)
-				{
-					return kingdoms;
-				}
-				
 				return null;
 			});
 		}
