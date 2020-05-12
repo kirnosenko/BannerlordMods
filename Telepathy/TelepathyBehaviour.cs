@@ -93,6 +93,8 @@ namespace Telepathy
 		private static LinkedList<Call> calls = new LinkedList<Call>();
 		private static PlayerEncounter meetingEncounter = null;
 		private static Hero meetingHero = null;
+		private static PlayerEncounter keepEncounter = null;
+		private static Settlement keepSettlement = null;
 
 		public static void CallToTalk(Hero hero)
 		{
@@ -107,6 +109,10 @@ namespace Telepathy
 		public static bool CalledToTalk(Hero hero)
 		{
 			return calls.SingleOrDefault(x => x.Hero == hero) != null;
+		}
+		public static bool MeetingInProgress
+		{
+			get { return meetingEncounter != null; }
 		}
 
 		public override void RegisterEvents()
@@ -123,16 +129,13 @@ namespace Telepathy
 
 		private void OnSessionLaunched(CampaignGameStarter game)
 		{
-			var joinArmySentence = game.GetSentence("main_option_discussions_1");
-			if (joinArmySentence != null)
-			{
-				var condition = joinArmySentence.OnCondition;
-				joinArmySentence.OnCondition = () =>
-				{
-					return meetingEncounter == null && (condition == null || condition());
-				};
-			}
-			
+			game.BlockSentencesForMeeting(
+				"main_option_discussions_1" // joining army
+				//"hero_give_issue", // taking a quest
+				//"hero_task_given", // discuss a quest
+				//"caravan_create_conversation_1" // form a caravan
+			);
+
 			game.AddPlayerLine(
 				"lord_talk_ask_something_2",
 				"lord_talk_ask_something_2",
@@ -188,7 +191,7 @@ namespace Telepathy
 				c.HourlyTick();
 			}
 
-			if (Hero.MainHero.IsOccupiedByAnEvent())
+			if (Hero.MainHero.IsOccupiedByAnEvent() || Hero.MainHero.IsPrisoner)
 			{
 				return;
 			}
@@ -211,9 +214,13 @@ namespace Telepathy
 		{
 			if (meetingEncounter != null)
 			{
-				PlayerEncounter.Finish(true);
+				PlayerEncounter.Finish(false);
 				meetingEncounter = null;
 				meetingHero = null;
+				AccessTools.Property(typeof(Campaign), "PlayerEncounter").SetValue(Campaign.Current, keepEncounter);
+				keepEncounter = null;
+				Hero.MainHero.PartyBelongedTo.CurrentSettlement = keepSettlement;
+				keepSettlement = null;
 			}
 		}
 
@@ -225,9 +232,11 @@ namespace Telepathy
 
 			if (!hero.IsWanderer)
 			{
-				if (PlayerEncounter.Current != null)
+				keepEncounter = PlayerEncounter.Current;
+				keepSettlement = player.PartyBelongedTo.CurrentSettlement;
+				if (heroParty == null && hero.CurrentSettlement != null)
 				{
-					PlayerEncounter.Finish(false);
+					player.PartyBelongedTo.CurrentSettlement = hero.CurrentSettlement;
 				}
 				PlayerEncounter.Start();
 				PlayerEncounter.Current.SetupFields(playerParty, heroParty ?? playerParty);

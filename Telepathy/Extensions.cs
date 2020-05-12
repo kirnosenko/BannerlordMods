@@ -29,5 +29,21 @@ namespace Telepathy
 				.GetValue(conversationManager) as List<ConversationSentence>;
 			return sentences.SingleOrDefault(x => x.Id == id);
 		}
+
+		public static void BlockSentencesForMeeting(this CampaignGameStarter gameInitializer, params string[] sentenceIds)
+		{
+			foreach (var sentenceId in sentenceIds)
+			{
+				var sentence = gameInitializer.GetSentence(sentenceId);
+				if (sentence != null)
+				{
+					var condition = sentence.OnCondition;
+					sentence.OnCondition = () =>
+					{
+						return !TelepathyBehaviour.MeetingInProgress && (condition == null || condition());
+					};
+				}
+			}
+		}
 	}
 }
