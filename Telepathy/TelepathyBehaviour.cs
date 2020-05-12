@@ -230,7 +230,7 @@ namespace Telepathy
 			var player = Hero.MainHero;
 			var playerParty = player.PartyBelongedTo?.Party;
 
-			if (!hero.IsWanderer)
+			if (!hero.IsWanderer || heroParty != null)
 			{
 				keepEncounter = PlayerEncounter.Current;
 				keepSettlement = player.PartyBelongedTo.CurrentSettlement;
