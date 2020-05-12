@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="System.Xml" />
     <Reference Include="TaleWorlds.CampaignSystem">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
     </Reference>
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLog.cs" />
+    <Compile Include="ModConfig.cs" />
     <Compile Include="ModSubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
