@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="English"/>
+  </tags>
+  <strings>
+
+	<!-- Kingdom names -->
+	<string id="Separatism_Kingdom_Name" text="Kingdom of {ClanName}"/>
+	<string id="Separatism_Sultanate_Name" text="Sultanate of {ClanName}"/>
+	<string id="Separatism_Khanate_Name" text="Khanate of {ClanName}"/>
+	<string id="Separatism_Principality_Name" text="Principality of {ClanName}"/>
+	<string id="Separatism_Empire_Name" text="Empire of {ClanName}"/>
+
+	<!-- Messages -->
+	<string id="Separatism_Clan_Rebel" text="The {ClanName} have broken from {Kingdom} to found the {RebelKingdom}."/>
+	<string id="Separatism_Clan_Recruit" text="{FIRST_NAME}, I have heard you are in search of a new sovereign..."/>
+	<string id="Separatism_Kingdom_Abandoned" text="The {Kingdom} has been destroyed and the {ClanName} are in search of a new sovereign."/>
+    <string id="Separatism_Kingdom_Destroyed" text="The {Kingdom} has been destroyed and the stories about it will be lost in time."/>
+    <string id="Separatism_Kingdom_Union" text="The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}."/>
+
+  </strings>
+</base>

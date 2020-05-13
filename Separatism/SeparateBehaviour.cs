@@ -45,7 +45,9 @@ namespace Separatism
 		{
 			Campaign.Current.RemoveEmptyKingdoms(kingdom =>
 			{
-				GameLog.Warn($"The {kingdom} has been destroyed and the stories about it will be lost in time.");
+				var textObject = new TextObject("{=Separatism_Kingdom_Destroyed}The {Kingdom} has been destroyed and the stories about it will be lost in time.", null);
+				textObject.SetTextVariable("Kingdom", kingdom.Name);
+				GameLog.Warn(textObject.ToString());
 			});
 		}
 
@@ -79,7 +81,11 @@ namespace Separatism
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
 					var rebelKingdom = GoRebelKingdom(clan);
-					GameLog.Warn($"The {clan.Name} have broken from {kingdom} to found the {rebelKingdom}.");
+					var textObject = new TextObject("{=Separatism_Clan_Rebel}The {ClanName} have broken from {Kingdom} to found the {RebelKingdom}.", null);
+					textObject.SetTextVariable("ClanName", clan.Name);
+					textObject.SetTextVariable("Kingdom", kingdom.Name);
+					textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
+					GameLog.Warn(textObject.ToString());
 				}
 			}
 			else
@@ -89,7 +95,10 @@ namespace Separatism
 					if (clan.Settlements.Count() == 0) // no any fiefs
 					{
 						ClanChangeKingdom(clan, null, false);
-						GameLog.Warn($"The {kingdom} has been destroyed and the {clan.Name} are in search of a new sovereign.");
+						var textObject = new TextObject("{=Separatism_Kingdom_Abandoned}The {Kingdom} has been destroyed and the {ClanName} are in search of a new sovereign.", null);
+						textObject.SetTextVariable("Kingdom", kingdom.Name);
+						textObject.SetTextVariable("ClanName", clan.Name);
+						GameLog.Warn(textObject.ToString());
 					}
 					else // look for ally
 					{
@@ -120,7 +129,11 @@ namespace Separatism
 										(kingdom.IsInsideKingdomTeritory(enemy) && pa.IsInsideKingdomTeritory(enemy)))
 									{
 										ClanChangeKingdom(clan, pa, false);
-										GameLog.Warn($"The {kingdom} has joined to the {pa} to fight against common enemy the {enemy}.");
+										var textObject = new TextObject("{=Separatism_Kingdom_Union}The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}.", null);
+										textObject.SetTextVariable("Kingdom", kingdom.Name);
+										textObject.SetTextVariable("Ally", pa.Name);
+										textObject.SetTextVariable("Enemy", enemy.Name);
+										GameLog.Warn(textObject.ToString());
 										return;
 									}
 								}
@@ -178,26 +191,26 @@ namespace Separatism
 				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
 				TextObject textObject = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
 				textObject.SetTextVariable("CLAN_NAME", clan.Name);
-				var kingdomName = "Kingdom of {CLAN_NAME}";
+				var kingdomName = "{=Separatism_Kingdom_Name}Kingdom of {ClanName}";
 				switch (clan.Culture.GetCultureCode())
 				{
 					case CultureCode.Aserai:
-						kingdomName = "Sultanate of {CLAN_NAME}";
+						kingdomName = "{=Separatism_Sultanate_Name}Sultanate of {ClanName}";
 						break;
 					case CultureCode.Khuzait:
-						kingdomName = "Khanate of {CLAN_NAME}";
+						kingdomName = "{=Separatism_Khanate_Name}Khanate of {ClanName}";
 						break;
 					case CultureCode.Sturgia:
-						kingdomName = "Principality of {CLAN_NAME}";
+						kingdomName = "{=Separatism_Principality_Name}Principality of {ClanName}";
 						break;
 					case CultureCode.Empire:
-						kingdomName = "Empire of {CLAN_NAME}";
+						kingdomName = "{=Separatism_Empire_Name}Empire of {ClanName}";
 						break;
 					default:
 						break;
 				}
-				TextObject textObject2 = new TextObject("{=EXp18CLD}" + kingdomName, null);
-				textObject2.SetTextVariable("CLAN_NAME", clan.Name);
+				TextObject textObject2 = new TextObject(kingdomName, null);
+				textObject2.SetTextVariable("ClanName", clan.Name);
 
 				// set colors for a rebel kingdom and the ruler clan
 				var (color1,color2) = GetRebelKingdomColors();
@@ -283,7 +296,10 @@ namespace Separatism
 							relationChange = +10;
 						}
 
-						ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
+						if (relationChange != 0)
+						{
+							ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, c.Leader, relationChange, true);
+						}
 					}
 
 					InheritWarsFromKingdom(oldKingdom, newKingdom);

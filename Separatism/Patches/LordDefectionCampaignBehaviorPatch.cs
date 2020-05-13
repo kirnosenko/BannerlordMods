@@ -14,7 +14,7 @@ namespace Separatism.Patches
 				"player_is_requesting_fallen_to_join",
 				"lord_talk_speak_diplomacy_2",
 				"persuasion_leave_faction_npc",
-				"{=3gbgjJfZ}I have heard you are in search of a new sovereign, {FIRST_NAME}...",
+				"{=Separatism_Clan_Recruit}{FIRST_NAME}, I have heard you are in search of a new sovereign...",
 				new ConversationSentence.OnConditionDelegate(
 					conversation_player_is_asking_to_recruit_fallen_on_condition), null, 100, null, null);
 		}
@@ -29,8 +29,7 @@ namespace Separatism.Patches
 				Hero.OneToOneConversationHero == Hero.OneToOneConversationHero.MapFaction.Leader &&
 				!FactionManager.IsAtWarAgainstFaction(Hero.OneToOneConversationHero.MapFaction, Hero.MainHero.MapFaction))
 			{
-				Hero.OneToOneConversationHero.MapFaction.Leader.SetTextVariables();
-				MBTextManager.SetTextVariable("FACTION_NAME", Hero.MainHero.MapFaction.Name, false);
+				Hero.OneToOneConversationHero.SetTextVariables();
 				return true;
 			}
 			return false;

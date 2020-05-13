@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="Русский"/>
+  </tags>
+  <strings>
+
+	<!-- Kingdom names -->
+	<string id="Separatism_Kingdom_Name" text="Королевство {ClanName}"/>
+	<string id="Separatism_Sultanate_Name" text="Султанат {ClanName}"/>
+	<string id="Separatism_Khanate_Name" text="Ханство {ClanName}"/>
+	<string id="Separatism_Principality_Name" text="Княжество {ClanName}"/>
+	<string id="Separatism_Empire_Name" text="Империя {ClanName}"/>
+
+	<!-- Messages -->
+	<string id="Separatism_Clan_Rebel" text="Клан {ClanName} поднял восстание против {Kingdom} и основал {RebelKingdom}."/>
+	<string id="Separatism_Clan_Recruit" text="{FIRST_NAME}, до меня дошли вести о твоих поисках нового господина..."/>
+	<string id="Separatism_Kingdom_Abandoned" text="{Kingdom} уничтожены и клан {ClanName} теперь в поисках нового господина."/>
+    <string id="Separatism_Kingdom_Destroyed" text="{Kingdom} уничтожены и скоро все забудут о том что когда-то такое государство существовало."/>
+    <string id="Separatism_Kingdom_Union" text="{Kingdom} присоединились к {Ally} для борьбы с общим врагом {Enemy}."/>
+
+  </strings>
+</base>
