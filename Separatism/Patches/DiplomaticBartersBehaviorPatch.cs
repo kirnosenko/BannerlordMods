@@ -10,7 +10,7 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Clan clan, Kingdom kingdom)
 		{
-			if (clan.Settlements.Count() > 0 && clan.Leader.IsEnemy(kingdom.Leader))
+			if (clan.Leader.IsEnemy(kingdom.Leader))
 			{
 				return false;
 			}
