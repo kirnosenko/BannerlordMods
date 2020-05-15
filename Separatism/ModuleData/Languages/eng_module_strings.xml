@@ -4,6 +4,9 @@
     <tag language="English"/>
   </tags>
   <strings>
+	
+	<!-- Mod name -->
+	<string id="Separatism_Mod_Name" text="Separatism Mod"/>
 
 	<!-- Kingdom names -->
 	<string id="Separatism_Kingdom_Name" text="Kingdom of {ClanName}"/>
@@ -18,6 +21,27 @@
 	<string id="Separatism_Kingdom_Abandoned" text="The {Kingdom} has been destroyed and the {ClanName} are in search of a new sovereign."/>
     <string id="Separatism_Kingdom_Destroyed" text="The {Kingdom} has been destroyed and the stories about it will be lost in time."/>
     <string id="Separatism_Kingdom_Union" text="The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}."/>
+
+	<!-- Settings -->
+	<string id="Separatism_Settings_100" text="Rebel reasoning"/>
+	<string id="Separatism_Settings_110" text="Average amount of kingdom fiefs is enough to rebel"/>
+	<string id="Separatism_Settings_111" text="A clan has a reason to rebel when amount of its fiefs >= amount of kingdom fiefs / number of kingdom non-mercenary clans."/>
+	<string id="Separatism_Settings_120" text="Minimal amount of kingdom fiefs to rebel"/>
+	<string id="Separatism_Settings_121" text="A clan has a reason to rebel when amount of its fiefs >= specified number. The amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village."/>
+	<string id="Separatism_Settings_130" text="Daily chance to rebel when a clan is ready"/>
+	<string id="Separatism_Settings_131" text="1 - start a rebellion as soon as possible. 0 - never."/>
+	
+	<string id="Separatism_Settings_500" text="Politics"/>
+	<string id="Separatism_Settings_510" text="Keep empty kingdoms"/>
+	<string id="Separatism_Settings_511" text="Allows to keep empty kingdoms unremoved for compatibility with other mods. Separatist empty kingdoms will be removed anyway."/>
+	<string id="Separatism_Settings_520" text="Keep original kindom wars"/>
+	<string id="Separatism_Settings_521" text="Allows to keep all original kingdom wars for a new rebel kingdom."/>
+	
+	<string id="Separatism_Settings_600" text="Banners"/>
+	<string id="Separatism_Settings_610" text="Keep separatist banner colors"/>
+	<string id="Separatism_Settings_611" text="Allows to keep separatist banners unchanged for compatibility with other mods."/>
+	<string id="Separatism_Settings_620" text="Same banner colors for all separatists"/>
+	<string id="Separatism_Settings_621" text="Not works if you choose to keep separatist banner colors."/>
 
   </strings>
 </base>

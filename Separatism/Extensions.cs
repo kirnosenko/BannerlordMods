@@ -78,7 +78,7 @@ namespace Separatism
 				var emptyKingdomsToRemove = kingdoms
 					.Where(k => 
 						k.Clans.Where(x => x.Leader.IsAlive).Count() == 0 &&
-						(!SeparatismConfig.Instance.KeepEmptyKingdoms || k.RulingClan?.GetClanKingdomId() == k.StringId))
+						(!SeparatismSettings.Instance.KeepEmptyKingdoms || k.RulingClan?.GetClanKingdomId() == k.StringId))
 					.ToArray();
 				if (emptyKingdomsToRemove.Length > 0)
 				{

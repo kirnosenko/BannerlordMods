@@ -73,10 +73,10 @@ namespace Separatism
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var hasEnoughFiefs = (kingdomFiefs > 0 &&
-					((SeparatismConfig.Instance.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
-					SeparatismConfig.Instance.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
-				var rebelRightNow = SeparatismConfig.Instance.DailyChanceToRebelWhenHaveAReason == 100 ||
-					(MBRandom.RandomFloat * 100 <= SeparatismConfig.Instance.DailyChanceToRebelWhenHaveAReason);
+					((SeparatismSettings.Instance.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
+					SeparatismSettings.Instance.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
+				var rebelRightNow = SeparatismSettings.Instance.DailyChanceToRebelWhenClanIsReady >= 1 ||
+					(MBRandom.RandomFloat <= SeparatismSettings.Instance.DailyChanceToRebelWhenClanIsReady);
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
@@ -150,7 +150,7 @@ namespace Separatism
 			uint color1 = colors.Max();
 			uint color2 = colors.Min();
 
-			if (!SeparatismConfig.Instance.OneColorForAllRebels)
+			if (!SeparatismSettings.Instance.SameColorsForAllRebels)
 			{
 				colors = colors.Except(Kingdom.All.Select(x => x.Color)).ToList();
 				color1 = TakeRandomColor(colors);
@@ -214,7 +214,7 @@ namespace Separatism
 
 				// set colors for a rebel kingdom and the ruler clan
 				var (color1,color2) = GetRebelKingdomColors();
-				if (!SeparatismConfig.Instance.KeepRebelBannerColors)
+				if (!SeparatismSettings.Instance.KeepRebelBannerColors)
 				{
 					clan.Banner.ChangePrimaryColor(color1);
 					clan.Banner.ChangeIconColors(color2);
@@ -325,7 +325,7 @@ namespace Separatism
 
 		private void InheritWarsFromKingdom(Kingdom src, Kingdom dest)
 		{
-			if (SeparatismConfig.Instance.KeepOriginalKindomWars)
+			if (SeparatismSettings.Instance.KeepOriginalKindomWars)
 			{
 				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
 				foreach (var enemy in oldKingdomEnemies)

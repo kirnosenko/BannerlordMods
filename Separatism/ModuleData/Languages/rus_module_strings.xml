@@ -5,6 +5,9 @@
   </tags>
   <strings>
 
+	<!-- Mod name -->
+	<string id="Separatism_Mod_Name" text="Сепаратизм Мод"/>
+
 	<!-- Kingdom names -->
 	<string id="Separatism_Kingdom_Name" text="Королевство {ClanName}"/>
 	<string id="Separatism_Sultanate_Name" text="Султанат {ClanName}"/>
@@ -18,6 +21,27 @@
 	<string id="Separatism_Kingdom_Abandoned" text="{Kingdom} уничтожены и клан {ClanName} теперь в поисках нового господина."/>
     <string id="Separatism_Kingdom_Destroyed" text="{Kingdom} уничтожены и скоро все забудут о том что когда-то такое государство существовало."/>
     <string id="Separatism_Kingdom_Union" text="{Kingdom} присоединились к {Ally} для борьбы с общим врагом {Enemy}."/>
+
+	<!-- Settings -->
+	<string id="Separatism_Settings_100" text="Логика восстания"/>
+	<string id="Separatism_Settings_110" text="Среднего количества феодов достаточно для восстания"/>
+	<string id="Separatism_Settings_111" text="У клана есть причина для восстания если количество его феодов >= общее количество феодов королевства / число ненаемных кланов."/>
+	<string id="Separatism_Settings_120" text="Минимальное количество феодов для восстания"/>
+	<string id="Separatism_Settings_121" text="У клана есть причина для восстания если количество его феодов >= указанного числа. Количество феодов считается как: 2 на город, 1 на замок, 0 на деревню."/>
+	<string id="Separatism_Settings_130" text="Ежедневный шанс восстания если клан готов"/>
+	<string id="Separatism_Settings_131" text="1 - поднять восстание при первой возможности. 0 - никогда."/>
+	
+	<string id="Separatism_Settings_500" text="Политика"/>
+	<string id="Separatism_Settings_510" text="Сохранить пустые королевства"/>
+	<string id="Separatism_Settings_511" text="Позволяет сохранять пустые королевства для совместимости с другими модами. Пустые королевства сепаратистов будут удалены в любом случае."/>
+	<string id="Separatism_Settings_520" text="Сохранять войны исходного королевства"/>
+	<string id="Separatism_Settings_521" text="Позволяет сохранить все войны королевства для отделившегося королевства сепаратистов."/>
+	
+	<string id="Separatism_Settings_600" text="Баннеры"/>
+	<string id="Separatism_Settings_610" text="Сохранить цвета баннера сепаратистов"/>
+	<string id="Separatism_Settings_611" text="Позволяет оставить цвета баннера сепаратистов без изменений для совместимости с другими модами."/>
+	<string id="Separatism_Settings_620" text="Одни и те же цвета баннера для всех сепаратистов"/>
+	<string id="Separatism_Settings_621" text="Не будет работать если выбрано сохранение цвета баннера."/>
 
   </strings>
 </base>
