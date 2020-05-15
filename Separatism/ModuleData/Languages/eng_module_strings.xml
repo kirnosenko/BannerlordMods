@@ -31,6 +31,12 @@
 	<string id="Separatism_Settings_130" text="Daily chance to rebel when a clan is ready"/>
 	<string id="Separatism_Settings_131" text="1 - start a rebellion as soon as possible. 0 - never."/>
 	
+	<string id="Separatism_Settings_200" text="Relation thresholds"/>
+	<string id="Separatism_Settings_210" text="Friendship threshold"/>
+	<string id="Separatism_Settings_211" text="Relation threshold where heroes become friends. May not be lesser than hostility threshold."/>
+	<string id="Separatism_Settings_220" text="Hostility threshold"/>
+	<string id="Separatism_Settings_221" text="Relation threshold where heroes become enemies. May not be greater than friendship threshold."/>
+
 	<string id="Separatism_Settings_500" text="Politics"/>
 	<string id="Separatism_Settings_510" text="Keep empty kingdoms"/>
 	<string id="Separatism_Settings_511" text="Allows to keep empty kingdoms unremoved for compatibility with other mods. Separatist empty kingdoms will be removed anyway."/>

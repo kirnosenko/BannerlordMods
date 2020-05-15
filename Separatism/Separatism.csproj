@@ -68,6 +68,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Patches\CampaignPatch.cs" />
     <Compile Include="Patches\DiplomaticBartersBehaviorPatch.cs" />
+    <Compile Include="Patches\HeroPatch.cs" />
     <Compile Include="Patches\LordDefectionCampaignBehaviorPatch.cs" />
     <Compile Include="SeparateBehaviour.cs" />
     <Compile Include="SeparatismSettings.cs" />

@@ -31,6 +31,12 @@
 	<string id="Separatism_Settings_130" text="Ежедневный шанс восстания если клан готов"/>
 	<string id="Separatism_Settings_131" text="1 - поднять восстание при первой возможности. 0 - никогда."/>
 	
+	<string id="Separatism_Settings_200" text="Граничные значения отношений"/>
+	<string id="Separatism_Settings_210" text="Граница дружбы"/>
+	<string id="Separatism_Settings_211" text="Граница отношений, выше которой герои становятся друзьями. Не межет быть меньше границы вражды."/>
+	<string id="Separatism_Settings_220" text="Граница вражды"/>
+	<string id="Separatism_Settings_221" text="Граница отношений, ниже которой герои становятся врагами. Не межет быть больше границы дружбы."/>
+
 	<string id="Separatism_Settings_500" text="Политика"/>
 	<string id="Separatism_Settings_510" text="Сохранить пустые королевства"/>
 	<string id="Separatism_Settings_511" text="Позволяет сохранять пустые королевства для совместимости с другими модами. Пустые королевства сепаратистов будут удалены в любом случае."/>
