@@ -15,7 +15,7 @@ namespace Separatism
 
 		public SeparatismSettings()
 		{
-			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(Separatism))?.Version.ToString() ?? "";
+			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(Separatism))?.Version.ToString() ?? string.Empty;
 			modName = $"{new TextObject("{=Separatism_Mod_Name}Separatism Mod").ToString()} {modVersion}";
 			Id = $"{nameof(Separatism)}_{modVersion}";
 			friendThreshold = 10;
@@ -69,19 +69,39 @@ namespace Separatism
 			}
 		}
 
-		[SettingPropertyGroup("{=Separatism_Settings_500}Politics", 2)]
+		[SettingPropertyGroup("{=Separatism_Settings_300}Relation changes", 2)]
+		[SettingPropertyInteger(displayName: "{=Separatism_Settings_310}For rebel clan with the ruler", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_311}Relation change between a clan and the ruler as the result of rebellion.", Order = 0, RequireRestart = false)]
+		public int RelationChangeRebelWithRuler { get; set; } = -20;
+
+		[SettingPropertyGroup("{=Separatism_Settings_300}Relation changes", 2)]
+		[SettingPropertyInteger(displayName: "{=Separatism_Settings_320}For rebel clan with friend vassals of the ruler", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_321}Relation change between a clan and friend vassals of the ruler as the result of rebellion.", Order = 1, RequireRestart = false)]
+		public int RelationChangeRebelWithRulerFriendVassals { get; set; } = -10;
+
+		[SettingPropertyGroup("{=Separatism_Settings_300}Relation changes", 2)]
+		[SettingPropertyInteger(displayName: "{=Separatism_Settings_330}For rebel clan with enemy vassals of the ruler", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_331}Relation change between a clan and enemy vassals of the ruler as the result of rebellion.", Order = 2, RequireRestart = false)]
+		public int RelationChangeRebelWithRulerEnemyVassals { get; set; } = +10;
+
+		[SettingPropertyGroup("{=Separatism_Settings_300}Relation changes", 2)]
+		[SettingPropertyInteger(displayName: "{=Separatism_Settings_340}For rebel clan with other vassals of the ruler", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_341}Relation change between a clan and other vassals of the ruler as the result of rebellion.", Order = 3, RequireRestart = false)]
+		public int RelationChangeRebelWithRulerVassals { get; set; } = 0;
+
+		[SettingPropertyGroup("{=Separatism_Settings_300}Relation changes", 2)]
+		[SettingPropertyInteger(displayName: "{=Separatism_Settings_350}For rulers of united kingdoms", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_351}Relation change between two rulers as the result of union of their kingdoms.", Order = 4, RequireRestart = false)]
+		public int RelationChangeUnitedRulers { get; set; } = +20;
+
+		[SettingPropertyGroup("{=Separatism_Settings_500}Politics", 3)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_510}Keep empty kingdoms", HintText = "{=Separatism_Settings_511}Allows to keep empty kingdoms unremoved for compatibility with other mods. Separatist empty kingdoms will be removed anyway.", Order = 0, RequireRestart = false)]
 		public bool KeepEmptyKingdoms { get; set; } = false;
 
-		[SettingPropertyGroup("{=Separatism_Settings_500}Politics", 2)]
+		[SettingPropertyGroup("{=Separatism_Settings_500}Politics", 3)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_520}Keep original kindom wars", HintText = "{=Separatism_Settings_521}Allows to keep all original kingdom wars for a new rebel kingdom.", Order = 1, RequireRestart = false)]
 		public bool KeepOriginalKindomWars { get; set; } = false;
 
-		[SettingPropertyGroup("{=Separatism_Settings_600}Banners", 3)]
+		[SettingPropertyGroup("{=Separatism_Settings_600}Banners", 4)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_610}Keep separatist banner colors", HintText = "{=Separatism_Settings_611}Allows to keep separatist banners unchanged for compatibility with other mods.", Order = 0, RequireRestart = false)]
 		public bool KeepRebelBannerColors { get; set; } = false;
 
-		[SettingPropertyGroup("{=Separatism_Settings_600}Banners", 3)]
+		[SettingPropertyGroup("{=Separatism_Settings_600}Banners", 4)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_620}Same banner colors for all separatists", HintText = "{=Separatism_Settings_621}Not works if you choose to keep separatist banner colors.", Order = 1, RequireRestart = false)]
 		public bool SameColorsForAllRebels { get; set; } = false;
 	}

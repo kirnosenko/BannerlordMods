@@ -37,6 +37,18 @@
 	<string id="Separatism_Settings_220" text="Граница вражды"/>
 	<string id="Separatism_Settings_221" text="Граница отношений, ниже которой герои становятся врагами. Не межет быть больше границы дружбы."/>
 
+	<string id="Separatism_Settings_300" text="Изменения отношений"/>
+	<string id="Separatism_Settings_310" text="Восставшего клана с правителем"/>
+	<string id="Separatism_Settings_311" text="Изменение отношений восставшего клана с правителем как результат восстания."/>
+	<string id="Separatism_Settings_320" text="Восставшего клана с кланами дружественными к правителю"/>
+	<string id="Separatism_Settings_321" text="Изменение отношений восставшего клана с кланами дружественными к правителю как результат восстания."/>
+	<string id="Separatism_Settings_330" text="Восставшего клана с кланами враждебными к правителю"/>
+	<string id="Separatism_Settings_331" text="Изменение отношений восставшего клана с кланами враждебными к правителю как результат восстания."/>
+	<string id="Separatism_Settings_340" text="Восставшего клана с остальными кланами правителя"/>
+	<string id="Separatism_Settings_341" text="Изменение отношений восставшего клана с остальными кланами правителя как результат восстания."/>
+	<string id="Separatism_Settings_350" text="Между правителями объединившихся королевств"/>
+	<string id="Separatism_Settings_351" text="Изменение отношений между правителями двух королевств как резальтат их объединения."/>
+
 	<string id="Separatism_Settings_500" text="Политика"/>
 	<string id="Separatism_Settings_510" text="Сохранить пустые королевства"/>
 	<string id="Separatism_Settings_511" text="Позволяет сохранять пустые королевства для совместимости с другими модами. Пустые королевства сепаратистов будут удалены в любом случае."/>

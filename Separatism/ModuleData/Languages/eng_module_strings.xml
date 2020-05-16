@@ -37,6 +37,18 @@
 	<string id="Separatism_Settings_220" text="Hostility threshold"/>
 	<string id="Separatism_Settings_221" text="Relation threshold where heroes become enemies. May not be greater than friendship threshold."/>
 
+	<string id="Separatism_Settings_300" text="Relation changes"/>
+	<string id="Separatism_Settings_310" text="For rebel clan with the ruler"/>
+	<string id="Separatism_Settings_311" text="Relation change between a clan and the ruler as the result of rebellion."/>
+	<string id="Separatism_Settings_320" text="For rebel clan with friend vassals of the ruler"/>
+	<string id="Separatism_Settings_321" text="Relation change between a clan and friend vassals of the ruler as the result of rebellion."/>
+	<string id="Separatism_Settings_330" text="For rebel clan with enemy vassals of the ruler"/>
+	<string id="Separatism_Settings_331" text="Relation change between a clan and enemy vassals of the ruler as the result of rebellion."/>
+	<string id="Separatism_Settings_340" text="For rebel clan with other vassals of the ruler"/>
+	<string id="Separatism_Settings_341" text="Relation change between a clan and other vassals of the ruler as the result of rebellion."/>
+	<string id="Separatism_Settings_350" text="For rulers of united kingdoms"/>
+	<string id="Separatism_Settings_351" text="Relation change between two rulers as the result of union of their kingdoms."/>
+
 	<string id="Separatism_Settings_500" text="Politics"/>
 	<string id="Separatism_Settings_510" text="Keep empty kingdoms"/>
 	<string id="Separatism_Settings_511" text="Allows to keep empty kingdoms unremoved for compatibility with other mods. Separatist empty kingdoms will be removed anyway."/>

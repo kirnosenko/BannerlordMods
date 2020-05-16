@@ -282,18 +282,18 @@ namespace Separatism
 				{
 					foreach (Clan c in oldKingdom.Clans)
 					{
-						int relationChange = 0;
+						int relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRulerVassals;
 						if (c.Leader == oldKingdom.Leader)
 						{
-							relationChange = -20;
+							relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRuler;
 						}
 						else if (c.Leader.IsFriend(oldKingdom.Leader))
 						{
-							relationChange = -10;
+							relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRulerFriendVassals;
 						}
 						else if (c.Leader.IsEnemy(oldKingdom.Leader))
 						{
-							relationChange = +10;
+							relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRulerEnemyVassals;
 						}
 
 						if (relationChange != 0)
@@ -307,7 +307,11 @@ namespace Separatism
 				}
 				else
 				{
-					ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, newKingdom.Leader, +20, true);
+					int relationChange = SeparatismSettings.Instance.RelationChangeUnitedRulers;
+					if (relationChange != 0)
+					{
+						ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, newKingdom.Leader, relationChange, true);
+					}
 					InheritWarsFromKingdom(oldKingdom, newKingdom);
 				}
 			}

@@ -16,7 +16,7 @@ namespace Common
 			harmony.PatchAll(this.GetType().Assembly);
 			// For a strange reason sometimes it is necessary 
 			// to wait here a bit to prevent patching problems...
-			System.Threading.Thread.Sleep(10);
+			System.Threading.Thread.Sleep(50);
 		}
 
 		protected override void OnBeforeInitialModuleScreenSetAsRoot()
