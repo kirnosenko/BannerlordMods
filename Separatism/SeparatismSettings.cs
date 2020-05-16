@@ -9,14 +9,17 @@ namespace Separatism
 {
 	public class SeparatismSettings : AttributeSettings<SeparatismSettings>
 	{
-		private string modVersion;
-		private string modName;
+		private static string modVersion;
+		private static string modName;
 		private int friendThreshold, enemyThreshold;
 
-		public SeparatismSettings()
+		static SeparatismSettings()
 		{
 			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(Separatism))?.Version.ToString() ?? string.Empty;
 			modName = $"{new TextObject("{=Separatism_Mod_Name}Separatism Mod").ToString()} {modVersion}";
+		}
+		public SeparatismSettings()
+		{
 			Id = $"{nameof(Separatism)}_{modVersion}";
 			friendThreshold = 10;
 			enemyThreshold = -10;
