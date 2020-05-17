@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeIsShort", "LifeIsShort\LifeIsShort.csproj", "{62D4CC28-5390-42A6-A6EF-E2A673CD6F06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadShot", "DeadShot\DeadShot.csproj", "{406326F4-F686-4BFD-A1E1-3621B22E19D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Launcher|Any CPU = Debug Launcher|Any CPU
@@ -42,6 +44,12 @@ Global
 		{62D4CC28-5390-42A6-A6EF-E2A673CD6F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62D4CC28-5390-42A6-A6EF-E2A673CD6F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62D4CC28-5390-42A6-A6EF-E2A673CD6F06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Debug Launcher|Any CPU.ActiveCfg = Debug|Any CPU
+		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Debug Launcher|Any CPU.Build.0 = Debug|Any CPU
+		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
