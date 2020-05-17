@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using MBOptionScreen.Attributes;
@@ -7,20 +8,24 @@ using MBOptionScreen.Settings;
 
 namespace Separatism
 {
-	public class SeparatismSettings : AttributeSettings<SeparatismSettings>
+	public class SeparatismSettings : AttributeSettings<SeparatismSettings>, INotifyPropertyChanged
 	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		private static string modVersion;
 		private static string modName;
+		private static string modId;
 		private int friendThreshold, enemyThreshold;
 
 		static SeparatismSettings()
 		{
 			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(Separatism))?.Version.ToString() ?? string.Empty;
 			modName = $"{new TextObject("{=Separatism_Mod_Name}Separatism Mod").ToString()} {modVersion}";
+			modId = $"{nameof(Separatism)}_{modVersion}";
 		}
 		public SeparatismSettings()
 		{
-			Id = $"{nameof(Separatism)}_{modVersion}";
+			Id = modId;
 			friendThreshold = 10;
 			enemyThreshold = -10;
 		}
@@ -53,6 +58,7 @@ namespace Separatism
 				if (enemyThreshold > friendThreshold)
 				{
 					enemyThreshold = value;
+					PropertyChanged(this, new PropertyChangedEventArgs(nameof(EnemyThreshold)));
 				}
 			}
 		}
@@ -68,6 +74,7 @@ namespace Separatism
 				if (friendThreshold < enemyThreshold)
 				{
 					friendThreshold = value;
+					PropertyChanged(this, new PropertyChangedEventArgs(nameof(FriendThreshold)));
 				}
 			}
 		}

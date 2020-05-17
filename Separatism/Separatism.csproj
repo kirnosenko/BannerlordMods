@@ -39,6 +39,9 @@
     <Reference Include="MBOptionScreen.v2.0.10, Version=2.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bannerlord.MBOptionScreen.2.0.10\lib\net472\MBOptionScreen.v2.0.10.dll</HintPath>
     </Reference>
+    <Reference Include="SandBox.View">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.View.dll</HintPath>
+    </Reference>
     <Reference Include="StoryMode">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode.dll</HintPath>
     </Reference>
@@ -70,7 +73,9 @@
     <Compile Include="Patches\DiplomaticBartersBehaviorPatch.cs" />
     <Compile Include="Patches\HeroPatch.cs" />
     <Compile Include="Patches\LordDefectionCampaignBehaviorPatch.cs" />
+    <Compile Include="Patches\MapScreenPatch.cs" />
     <Compile Include="SeparateBehaviour.cs" />
+    <Compile Include="SeparatismConfig.cs" />
     <Compile Include="SeparatismSettings.cs" />
     <Compile Include="SeparatismSubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

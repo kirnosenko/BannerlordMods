@@ -8,7 +8,7 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Hero otherHero, Hero __instance, ref bool __result)
 		{
-			__result = CharacterRelationManager.GetHeroRelation(__instance, otherHero) > SeparatismSettings.Instance.FriendThreshold;
+			__result = CharacterRelationManager.GetHeroRelation(__instance, otherHero) > SeparatismConfig.Settings.FriendThreshold;
 			return false;
 		}
 	}
@@ -18,7 +18,7 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Hero otherHero, Hero __instance, ref bool __result)
 		{
-			__result = CharacterRelationManager.GetHeroRelation(__instance, otherHero) < SeparatismSettings.Instance.EnemyThreshold;
+			__result = CharacterRelationManager.GetHeroRelation(__instance, otherHero) < SeparatismConfig.Settings.EnemyThreshold;
 			return false;
 		}
 	}

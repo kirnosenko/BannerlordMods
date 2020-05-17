@@ -18,8 +18,8 @@ namespace Separatism
 		public override void RegisterEvents()
 		{
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
-			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnTick);
-			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnClanTick);
+			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
+			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnDailyTickClan);
 		}
 
 		public override void SyncData(IDataStore dataStore)
@@ -41,7 +41,7 @@ namespace Separatism
 			Campaign.Current.RemoveEmptyKingdoms();
 		}
 
-		private void OnTick()
+		private void OnDailyTick()
 		{
 			Campaign.Current.RemoveEmptyKingdoms(kingdom =>
 			{
@@ -51,7 +51,7 @@ namespace Separatism
 			});
 		}
 
-		private void OnClanTick(Clan clan)
+		private void OnDailyTickClan(Clan clan)
 		{
 			var kingdom = clan.Kingdom;
 			if (kingdom == null
@@ -73,10 +73,10 @@ namespace Separatism
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
 				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var hasEnoughFiefs = (kingdomFiefs > 0 &&
-					((SeparatismSettings.Instance.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
-					SeparatismSettings.Instance.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
-				var rebelRightNow = SeparatismSettings.Instance.DailyChanceToRebelWhenClanIsReady >= 1 ||
-					(MBRandom.RandomFloat <= SeparatismSettings.Instance.DailyChanceToRebelWhenClanIsReady);
+					((SeparatismConfig.Settings.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
+					SeparatismConfig.Settings.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
+				var rebelRightNow = SeparatismConfig.Settings.DailyChanceToRebelWhenClanIsReady >= 1 ||
+					(MBRandom.RandomFloat <= SeparatismConfig.Settings.DailyChanceToRebelWhenClanIsReady);
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
@@ -150,7 +150,7 @@ namespace Separatism
 			uint color1 = colors.Max();
 			uint color2 = colors.Min();
 
-			if (!SeparatismSettings.Instance.SameColorsForAllRebels)
+			if (!SeparatismConfig.Settings.SameColorsForAllRebels)
 			{
 				colors = colors.Except(Kingdom.All.Select(x => x.Color)).ToList();
 				color1 = TakeRandomColor(colors);
@@ -214,7 +214,7 @@ namespace Separatism
 
 				// set colors for a rebel kingdom and the ruler clan
 				var (color1,color2) = GetRebelKingdomColors();
-				if (!SeparatismSettings.Instance.KeepRebelBannerColors)
+				if (!SeparatismConfig.Settings.KeepRebelBannerColors)
 				{
 					clan.Banner.ChangePrimaryColor(color1);
 					clan.Banner.ChangeIconColors(color2);
@@ -282,18 +282,18 @@ namespace Separatism
 				{
 					foreach (Clan c in oldKingdom.Clans)
 					{
-						int relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRulerVassals;
+						int relationChange = SeparatismConfig.Settings.RelationChangeRebelWithRulerVassals;
 						if (c.Leader == oldKingdom.Leader)
 						{
-							relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRuler;
+							relationChange = SeparatismConfig.Settings.RelationChangeRebelWithRuler;
 						}
 						else if (c.Leader.IsFriend(oldKingdom.Leader))
 						{
-							relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRulerFriendVassals;
+							relationChange = SeparatismConfig.Settings.RelationChangeRebelWithRulerFriendVassals;
 						}
 						else if (c.Leader.IsEnemy(oldKingdom.Leader))
 						{
-							relationChange = SeparatismSettings.Instance.RelationChangeRebelWithRulerEnemyVassals;
+							relationChange = SeparatismConfig.Settings.RelationChangeRebelWithRulerEnemyVassals;
 						}
 
 						if (relationChange != 0)
@@ -307,7 +307,7 @@ namespace Separatism
 				}
 				else
 				{
-					int relationChange = SeparatismSettings.Instance.RelationChangeUnitedRulers;
+					int relationChange = SeparatismConfig.Settings.RelationChangeUnitedRulers;
 					if (relationChange != 0)
 					{
 						ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, newKingdom.Leader, relationChange, true);
@@ -329,7 +329,7 @@ namespace Separatism
 
 		private void InheritWarsFromKingdom(Kingdom src, Kingdom dest)
 		{
-			if (SeparatismSettings.Instance.KeepOriginalKindomWars)
+			if (SeparatismConfig.Settings.KeepOriginalKindomWars)
 			{
 				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
 				foreach (var enemy in oldKingdomEnemies)
