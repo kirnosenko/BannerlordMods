@@ -31,5 +31,11 @@ namespace DeadShot
 
 		[SettingPropertyFloatingInteger(displayName: "Slow Motion Factor", minValue: 0.1f, maxValue: 1, HintText = "Set low value to make the effect stronger.", Order = 0, RequireRestart = false)]
 		public float SlowMotionFactor { get; set; } = 0.4f;
+
+		[SettingPropertyFloatingInteger(displayName: "Activation Probability Per Shot", minValue: 0, maxValue: 1, HintText = "1 - activete for every shot. 0 - never.", Order = 1, RequireRestart = false)]
+		public float ActivationProbabilityPerShot { get; set; } = 1.0f;
+
+		[SettingPropertyBool(displayName: "Activate With Zoom Only", HintText = "Effect will not be triggered if zoom is not used.", Order = 2, RequireRestart = false)]
+		public bool ActivateWithZoomOnly { get; set; } = false;
 	}
 }
