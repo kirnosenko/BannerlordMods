@@ -189,28 +189,40 @@ namespace Separatism
 			{
 				// create a rebel kingdom and set its name
 				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
-				TextObject textObject = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
-				textObject.SetTextVariable("CLAN_NAME", clan.Name);
+				TextObject informalNameText = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
+				informalNameText.SetTextVariable("CLAN_NAME", clan.Name);
 				var kingdomName = "{=Separatism_Kingdom_Name}Kingdom of {ClanName}";
+				var kingdomRulerTitle = "{=Separatism_Kingdom_Ruler_Title}King";
+
 				switch (clan.Culture.GetCultureCode())
 				{
 					case CultureCode.Aserai:
 						kingdomName = "{=Separatism_Sultanate_Name}Sultanate of {ClanName}";
+						kingdomRulerTitle = "{=Separatism_Sultanate_Ruler_Title}Sultan";
 						break;
 					case CultureCode.Khuzait:
 						kingdomName = "{=Separatism_Khanate_Name}Khanate of {ClanName}";
+						kingdomRulerTitle = "{=Separatism_Khanate_Ruler_Title}Khan";
 						break;
 					case CultureCode.Sturgia:
 						kingdomName = "{=Separatism_Principality_Name}Principality of {ClanName}";
+						kingdomRulerTitle = "{=Separatism_Principality_Ruler_Title}Knyaz";
 						break;
 					case CultureCode.Empire:
 						kingdomName = "{=Separatism_Empire_Name}Empire of {ClanName}";
+						kingdomRulerTitle = "{=Separatism_Empire_Ruler_Title}Emperor";
 						break;
 					default:
 						break;
 				}
-				TextObject textObject2 = new TextObject(kingdomName, null);
-				textObject2.SetTextVariable("ClanName", clan.Name);
+				TextObject kingdomNameText = new TextObject(kingdomName, null);
+				kingdomNameText.SetTextVariable("ClanName", clan.Name);
+				TextObject kingdomRulerTitleText = new TextObject(kingdomRulerTitle, null);
+				TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
+				kingdomIntroText.SetTextVariable("RebelKingdom", kingdomNameText.ToString());
+				kingdomIntroText.SetTextVariable("ClanName", clan.Name);
+				kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
+				kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
 
 				// set colors for a rebel kingdom and the ruler clan
 				var (color1,color2) = GetRebelKingdomColors();
@@ -221,7 +233,10 @@ namespace Separatism
 					clan.Color = color1;
 					clan.Color2 = color2;
 				}
-				kingdom.InitializeKingdom(textObject2, textObject, clan.Culture, clan.Banner, color1, color2, clan.InitialPosition);
+				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, clan.InitialPosition);
+				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, kingdomIntroText);
+				AccessTools.Property(typeof(Kingdom), "EncyclopediaTitle").SetValue(kingdom, kingdomNameText);
+				AccessTools.Property(typeof(Kingdom), "EncyclopediaRulerTitle").SetValue(kingdom, kingdomRulerTitleText);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, color1);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, color2);
 				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom.LabelColor);

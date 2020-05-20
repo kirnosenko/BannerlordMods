@@ -8,12 +8,18 @@
 	<!-- Mod name -->
 	<string id="Separatism_Mod_Name" text="Сепаратизм Мод"/>
 
-	<!-- Kingdom names -->
+	<!-- Kingdom text -->
 	<string id="Separatism_Kingdom_Name" text="Королевство {ClanName}"/>
 	<string id="Separatism_Sultanate_Name" text="Султанат {ClanName}"/>
 	<string id="Separatism_Khanate_Name" text="Ханство {ClanName}"/>
 	<string id="Separatism_Principality_Name" text="Княжество {ClanName}"/>
 	<string id="Separatism_Empire_Name" text="Империя {ClanName}"/>
+	<string id="Separatism_Kingdom_Ruler_Title" text="Король"/>
+	<string id="Separatism_Sultanate_Ruler_Title" text="Султан"/>
+	<string id="Separatism_Khanate_Ruler_Title" text="Хан"/>
+	<string id="Separatism_Principality_Ruler_Title" text="Князь"/>
+	<string id="Separatism_Empire_Ruler_Title" text="Император"/>
+	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} было основано в результате восстания клана {ClanName} против {Ruler} правителя {Kingdom}."/>
 
 	<!-- Messages -->
 	<string id="Separatism_Clan_Rebel" text="Клан {ClanName} поднял восстание против {Kingdom} и основал {RebelKingdom}."/>
