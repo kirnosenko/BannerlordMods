@@ -121,7 +121,7 @@
                                     <Widget Id="InfoContainer" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent">
                                       <Children>
 
-                                        <GridWidget Id="StatsGrid" DataSource="{Stats}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="200" DefaultCellHeight="30" HorizontalAlignment="Left" ColumnCount="2" MarginTop="10" MarginLeft="15">
+                                        <GridWidget Id="StatsGrid" DataSource="{Stats}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="275" DefaultCellHeight="30" HorizontalAlignment="Left" ColumnCount="2" MarginTop="10" MarginLeft="15">
                                           <ItemTemplate>
 
                                             <!--Stat Item-->
@@ -133,7 +133,7 @@
 
                                                 <!--Value Label-->
                                                 <AutoHideRichTextWidget HeightSizePolicy ="CoverChildren" WidthSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Encyclopedia.Stat.ValueText" Text="@Value" PositionYOffset="2" />
-
+                                              
                                               </Children>
                                             </ListPanel>
 
