@@ -68,7 +68,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
+    <Compile Include="HeroExtensions.cs" />
+    <Compile Include="KingdomExtensions.cs" />
     <Compile Include="Patches\CampaignPatch.cs" />
     <Compile Include="Patches\DiplomaticBartersBehaviorPatch.cs" />
     <Compile Include="Patches\HeroPatch.cs" />

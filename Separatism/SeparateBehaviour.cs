@@ -39,6 +39,7 @@ namespace Separatism
 				StoryModeData.KhuzaitKingdom,
 			};
 			Campaign.Current.RemoveEmptyKingdoms();
+			Kingdom.All.Do(k => k.SetKingdomText());
 		}
 
 		private void OnDailyTick()
@@ -182,7 +183,7 @@ namespace Separatism
 
 		private Kingdom GoRebelKingdom(Clan clan)
 		{
-			string kingdomId = clan.GetClanKingdomId();
+			string kingdomId = clan.GetKingdomId();
 			var kingdom = Kingdom.All.SingleOrDefault(x => x.StringId == kingdomId);
 
 			if (kingdom == null)
@@ -191,33 +192,7 @@ namespace Separatism
 				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
 				TextObject informalNameText = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
 				informalNameText.SetTextVariable("CLAN_NAME", clan.Name);
-				var kingdomName = "{=Separatism_Kingdom_Name}Kingdom of {ClanName}";
-				var kingdomRulerTitle = "{=Separatism_Kingdom_Ruler_Title}King";
-
-				switch (clan.Culture.GetCultureCode())
-				{
-					case CultureCode.Aserai:
-						kingdomName = "{=Separatism_Sultanate_Name}Sultanate of {ClanName}";
-						kingdomRulerTitle = "{=Separatism_Sultanate_Ruler_Title}Sultan";
-						break;
-					case CultureCode.Khuzait:
-						kingdomName = "{=Separatism_Khanate_Name}Khanate of {ClanName}";
-						kingdomRulerTitle = "{=Separatism_Khanate_Ruler_Title}Khan";
-						break;
-					case CultureCode.Sturgia:
-						kingdomName = "{=Separatism_Principality_Name}Principality of {ClanName}";
-						kingdomRulerTitle = "{=Separatism_Principality_Ruler_Title}Knyaz";
-						break;
-					case CultureCode.Empire:
-						kingdomName = "{=Separatism_Empire_Name}Empire of {ClanName}";
-						kingdomRulerTitle = "{=Separatism_Empire_Ruler_Title}Emperor";
-						break;
-					default:
-						break;
-				}
-				TextObject kingdomNameText = new TextObject(kingdomName, null);
-				kingdomNameText.SetTextVariable("ClanName", clan.Name);
-				TextObject kingdomRulerTitleText = new TextObject(kingdomRulerTitle, null);
+				clan.GetKingdomNameAndRulerTitle(out var kingdomNameText, out var kingdomRulerTitleText);
 				TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
 				kingdomIntroText.SetTextVariable("RebelKingdom", kingdomNameText.ToString());
 				kingdomIntroText.SetTextVariable("ClanName", clan.Name);
