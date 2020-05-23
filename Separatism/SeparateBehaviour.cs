@@ -200,14 +200,20 @@ namespace Separatism
 				kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
 
 				// set colors for a rebel kingdom and the ruler clan
-				var (color1,color2) = GetRebelKingdomColors();
+				var (color1, color2) = (0u, 0u);
 				if (!SeparatismConfig.Settings.KeepRebelBannerColors)
 				{
+					(color1, color2) = GetRebelKingdomColors();
 					clan.Banner.ChangePrimaryColor(color1);
 					clan.Banner.ChangeIconColors(color2);
 					clan.Color = color1;
 					clan.Color2 = color2;
 				}
+				else
+				{
+					(color1, color2) = clan.GetColors();
+				}
+
 				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, clan.InitialPosition);
 				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, kingdomIntroText);
 				AccessTools.Property(typeof(Kingdom), "EncyclopediaTitle").SetValue(kingdom, kingdomNameText);
