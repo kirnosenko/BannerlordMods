@@ -194,7 +194,7 @@ namespace Separatism
 				informalNameText.SetTextVariable("CLAN_NAME", clan.Name);
 				clan.GetKingdomNameAndRulerTitle(out var kingdomNameText, out var kingdomRulerTitleText);
 				TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
-				kingdomIntroText.SetTextVariable("RebelKingdom", kingdomNameText.ToString());
+				kingdomIntroText.SetTextVariable("RebelKingdom", kingdomNameText);
 				kingdomIntroText.SetTextVariable("ClanName", clan.Name);
 				kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
 				kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
