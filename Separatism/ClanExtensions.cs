@@ -43,11 +43,11 @@ namespace Separatism
 			kingdomRulerTitleText = new TextObject(kingdomRulerTitle, null);
 		}
 
-		public static (uint, uint) GetColors(this Clan clan)
+		public static (uint color1, uint color2) GetColors(this IFaction faction)
 		{
-			var bannerData = clan.Banner.BannerDataList;
-			var color1 = clan.Color;
-			var color2 = clan.Color2;
+			var bannerData = faction.Banner.BannerDataList;
+			var color1 = faction.Color;
+			var color2 = faction.Color2;
 
 			if (bannerData != null && bannerData.Count > 0)
 			{

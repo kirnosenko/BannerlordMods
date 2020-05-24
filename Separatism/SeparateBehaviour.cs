@@ -147,18 +147,24 @@ namespace Separatism
 
 		private (uint,uint) GetRebelKingdomColors()
 		{
-			var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).Distinct().ToList();
+			var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).Distinct().ToArray();
 			uint color1 = colors.Max();
 			uint color2 = colors.Min();
 
 			if (!SeparatismConfig.Settings.SameColorsForAllRebels)
 			{
-				colors = colors.Except(Kingdom.All.Select(x => x.Color)).ToList();
-				color1 = TakeRandomColor(colors);
-				color2 = color1;
-				while (colors.Count > 0 && ColorDiff(color1, color2) < 0.3)
+				var kingdomColors = Kingdom.All.Select(x => x.GetColors()).ToArray();
+				var primaryColors = colors.Except(kingdomColors.Select(x => x.color1)).ToList();
+				var secondaryColors = colors.Except(kingdomColors.Select(x => x.color2)).ToList();
+
+				if (primaryColors.Count > 0 && secondaryColors.Count > 0)
 				{
-					color2 = TakeRandomColor(colors);
+					color1 = TakeRandomColor(primaryColors);
+					color2 = color1;
+					while (secondaryColors.Count > 0 && ColorDiff(color1, color2) < 0.3)
+					{
+						color2 = TakeRandomColor(secondaryColors);
+					}
 				}
 			}
 
