@@ -33,8 +33,8 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.1\lib\net472\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="MBOptionScreen.v2.0.10, Version=2.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bannerlord.MBOptionScreen.2.0.10\lib\net472\MBOptionScreen.v2.0.10.dll</HintPath>
@@ -48,6 +48,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <Reference Include="TaleWorlds.CampaignSystem">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
     </Reference>
