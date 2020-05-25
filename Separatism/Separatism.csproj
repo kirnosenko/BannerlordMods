@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClanExtensions.cs" />
+    <Compile Include="ColorExtensions.cs" />
     <Compile Include="HeroExtensions.cs" />
     <Compile Include="KingdomExtensions.cs" />
     <Compile Include="Patches\CampaignPatch.cs" />

@@ -24,6 +24,7 @@
 	<!-- Messages -->
 	<string id="Separatism_Clan_Rebel" text="The {ClanName} have broken from {Kingdom} to found the {RebelKingdom}."/>
 	<string id="Separatism_Clan_Recruit" text="{FIRST_NAME}, I have heard you are in search of a new sovereign..."/>
+	<string id="Separatism_Clan_Support" text="The {ClanName} have joined the {Kingdom} to support {Ruler}."/>
 	<string id="Separatism_Kingdom_Abandoned" text="The {Kingdom} has been destroyed and the {ClanName} are in search of a new sovereign."/>
     <string id="Separatism_Kingdom_Destroyed" text="The {Kingdom} has been destroyed and the stories about it will be lost in time."/>
     <string id="Separatism_Kingdom_Union" text="The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}."/>
@@ -54,6 +55,8 @@
 	<string id="Separatism_Settings_341" text="Relation change between a clan and other vassals of the ruler as the result of rebellion."/>
 	<string id="Separatism_Settings_350" text="For rulers of united kingdoms"/>
 	<string id="Separatism_Settings_351" text="Relation change between two rulers as the result of union of their kingdoms."/>
+	<string id="Separatism_Settings_360" text="For ruler and supporting clan"/>
+	<string id="Separatism_Settings_361" text="Relation change between the ruler of a weak kingdom and a supporting clan that joined the kingdom."/>
 
 	<string id="Separatism_Settings_500" text="Politics"/>
 	<string id="Separatism_Settings_510" text="Keep empty kingdoms"/>

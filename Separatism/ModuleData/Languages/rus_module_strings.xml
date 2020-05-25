@@ -24,6 +24,7 @@
 	<!-- Messages -->
 	<string id="Separatism_Clan_Rebel" text="Клан {ClanName} поднял восстание против {Kingdom} и основал {RebelKingdom}."/>
 	<string id="Separatism_Clan_Recruit" text="{FIRST_NAME}, до меня дошли вести о твоих поисках нового господина..."/>
+	<string id="Separatism_Clan_Support" text="Клан {ClanName} присоединился к {Kingdom} чтобы поддержать {Ruler}."/>
 	<string id="Separatism_Kingdom_Abandoned" text="{Kingdom} уничтожены и клан {ClanName} теперь в поисках нового господина."/>
     <string id="Separatism_Kingdom_Destroyed" text="{Kingdom} уничтожены и скоро все забудут о том что когда-то такое государство существовало."/>
     <string id="Separatism_Kingdom_Union" text="{Kingdom} присоединились к {Ally} для борьбы с общим врагом {Enemy}."/>
@@ -54,6 +55,8 @@
 	<string id="Separatism_Settings_341" text="Изменение отношений восставшего клана с остальными кланами правителя как результат восстания."/>
 	<string id="Separatism_Settings_350" text="Между правителями объединившихся королевств"/>
 	<string id="Separatism_Settings_351" text="Изменение отношений между правителями двух королевств как резальтат их объединения."/>
+	<string id="Separatism_Settings_360" text="Между правителем и поддержавшим кланом"/>
+	<string id="Separatism_Settings_361" text="Изменение отношений между правителем слабого королевства и присоединившимся к нему для поддержки кланом."/>
 
 	<string id="Separatism_Settings_500" text="Политика"/>
 	<string id="Separatism_Settings_510" text="Сохранить пустые королевства"/>

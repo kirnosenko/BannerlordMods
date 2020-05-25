@@ -99,6 +99,10 @@ namespace Separatism
 		[SettingPropertyInteger(displayName: "{=Separatism_Settings_350}For rulers of united kingdoms", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_351}Relation change between two rulers as the result of union of their kingdoms.", Order = 4, RequireRestart = false)]
 		public int RelationChangeUnitedRulers { get; set; } = +20;
 
+		[SettingPropertyGroup("{=Separatism_Settings_300}Relation changes", 2)]
+		[SettingPropertyInteger(displayName: "{=Separatism_Settings_360}For ruler and supporting clan", minValue: -100, maxValue: 100, HintText = "{=Separatism_Settings_361}Relation change between the ruler of a weak kingdom and a supporting clan that joined the kingdom.", Order = 5, RequireRestart = false)]
+		public int RelationChangeRulerWithSupporter { get; set; } = +20;
+
 		[SettingPropertyGroup("{=Separatism_Settings_500}Politics", 3)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_510}Keep empty kingdoms", HintText = "{=Separatism_Settings_511}Allows to keep empty kingdoms unremoved for compatibility with other mods. Separatist empty kingdoms will be removed anyway.", Order = 0, RequireRestart = false)]
 		public bool KeepEmptyKingdoms { get; set; } = false;
