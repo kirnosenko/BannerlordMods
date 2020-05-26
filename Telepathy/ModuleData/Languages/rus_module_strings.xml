@@ -18,6 +18,17 @@
 	<string id="Telepathy_Im_Near" text="Я недалеко от {Settlement}."/>
 	<string id="Telepathy_What_Are_You_Doing" text="Чем ты занимаешься?"/>
 	<string id="Telepathy_Nothing" text="Ничем."/>
+	
+	<!-- Settings -->
+	<string id="Telepathy_Settings_100" text="Реализм дистанционного общения"/>
+	<string id="Telepathy_Settings_110" text="Запретить разговоры с мертвыми"/>
+	<string id="Telepathy_Settings_111" text="Дистанционное общение с мертвыми героями невозможно."/>
+	<string id="Telepathy_Settings_120" text="Режим голубиной почты"/>
+	<string id="Telepathy_Settings_121" text="Доставка сообщений займет некоторое время, зависящее от расстояния до героя, с которым вы собираетесь поговорить."/>
+	<string id="Telepathy_Settings_130" text="Запретить разговоры с незнакомыми героями"/>
+	<string id="Telepathy_Settings_131" text="Дистанционное общение с героями, которых главный герой не встречал прежде, невозможно."/>
+	<string id="Telepathy_Settings_140" text="Скрыть квестовые реплики диалогов"/>
+	<string id="Telepathy_Settings_141" text="Скрыть квестовые реплики диалогов во время дистанционного общения."/>
 
   </strings>
 </base>

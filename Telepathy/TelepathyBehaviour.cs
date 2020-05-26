@@ -100,7 +100,7 @@ namespace Telepathy
 		{
 			if (!CalledToTalk(hero))
 			{
-				Call call = (!TelepathyConfig.Instance.PigeonPostMode)
+				Call call = (!TelepathySettings.Instance.PigeonPostMode)
 					? (Call)new TelepathyCall(hero)
 					: (Call)new PigeonPostCall(hero);
 				calls.AddLast(call);
@@ -129,11 +129,15 @@ namespace Telepathy
 
 		private void OnSessionLaunched(CampaignGameStarter game)
 		{
-			game.BlockSentencesForMeeting(
+			game.BlockSentences(
+				() => !TelepathyBehaviour.MeetingInProgress,
 				"main_option_discussions_1" // joining army
-				//"hero_give_issue", // taking a quest
-				//"hero_task_given", // discuss a quest
-				//"caravan_create_conversation_1" // form a caravan
+			);
+			game.BlockSentences(
+				() => !TelepathyBehaviour.MeetingInProgress || !TelepathySettings.Instance.HideQuestDialogLines,
+				"hero_give_issue", // taking a quest
+				"hero_task_given", // discuss a quest
+				"caravan_create_conversation_1" // form a caravan
 			);
 
 			game.AddPlayerLine(

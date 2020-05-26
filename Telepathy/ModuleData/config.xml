@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Config xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	
-	<!-- This option allows to set working mode -->
-	<!-- false - you will be able to talk to any hero from encyclopedia -->
-	<!-- true - you will be able to talk only to heroes you have met berofe, you will wait some time for convesation -->
-	<PigeonPostMode>false</PigeonPostMode>
-
-</Config>
