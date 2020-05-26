@@ -61,7 +61,7 @@
 						  <Children>
 							  <ButtonWidget DataSource="{HeroCharacter}" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="227" SuggestedHeight="40" Brush="ButtonBrush2" UpdateChildrenStates="true" Command.Click="CallToTalk" IsVisible="@CanTalkTo" IsEnabled="@WillNotTalk">
 								  <Children>
-									  <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Kingdom.GeneralButtons.Text" Text="Call to talk" />
+									  <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Kingdom.GeneralButtons.Text" Text="@CallToTalkText" />
 								  </Children>
 							  </ButtonWidget>
 						  </Children>

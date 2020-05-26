@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="English"/>
+  </tags>
+  <strings>
+	
+	<!-- Mod name -->
+	<string id="Telepathy_Mod_Name" text="Telepathy Mod"/>
+
+	<!-- Interface -->
+	<string id="Telepathy_Talk_To_Me" text="Talk to me!"/>
+	<string id="Telepathy_Hero_Will_Talk" text="{HeroName} will talk to you soon..."/>
+
+	<!-- Dialog -->
+	<string id="Telepathy_Where_Are_You" text="Where are you?"/>
+	<string id="Telepathy_Im_In" text="I'm in {Settlement}."/>
+	<string id="Telepathy_Im_Near" text="I'm near {Settlement}."/>
+	<string id="Telepathy_What_Are_You_Doing" text="What are you doing?"/>
+	<string id="Telepathy_Nothing" text="Nothing actually."/>
+
+  </strings>
+</base>

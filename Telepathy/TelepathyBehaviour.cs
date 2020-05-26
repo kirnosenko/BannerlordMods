@@ -140,7 +140,7 @@ namespace Telepathy
 				"lord_talk_ask_something_2",
 				"lord_talk_ask_something_2",
 				"telepathy_tell_location",
-				"Where are you?",
+				new TextObject("{=Telepathy_Where_Are_You}Where are you?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
 				null, 101, null, null);
 			game.AddDialogLine(
@@ -151,8 +151,9 @@ namespace Telepathy
 				new ConversationSentence.OnConditionDelegate(() => {
 					HeroHelper.SetLastSeenLocation(meetingHero, true);
 					var answer = meetingHero.LastSeenInSettlement
-						? $"I'm in {meetingHero.LastSeenPlace.EncyclopediaLinkWithName}."
-						: $"I'm near {meetingHero.LastSeenPlace.EncyclopediaLinkWithName}.";
+						? new TextObject("{=Telepathy_Im_In}I'm in {Settlement}.", null)
+						: new TextObject("{=Telepathy_Im_Near}I'm near {Settlement}.", null);
+					answer.SetTextVariable("Settlement", meetingHero.LastSeenPlace.EncyclopediaLinkWithName);
 					MBTextManager.SetTextVariable("LORD_LOCATION_ANSWER", answer, false);
 					return true;
 				}),
@@ -161,7 +162,7 @@ namespace Telepathy
 				"lord_talk_ask_something_2",
 				"lord_talk_ask_something_2",
 				"telepathy_tell_objective",
-				"What are you doing?",
+				new TextObject("{=Telepathy_What_Are_You_Doing}What are you doing?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
 				null, 101, null, null);
 			game.AddDialogLine(
@@ -171,7 +172,7 @@ namespace Telepathy
 				"{LORD_OBJECTIVE_ANSWER}",
 				new ConversationSentence.OnConditionDelegate(() => {
 					string answer = meetingHero.PartyBelongedTo == null
-						? "Nothing actually."
+						? new TextObject("{=Telepathy_Nothing}Nothing actually.", null).ToString()
 						: CampaignUIHelper.GetMobilePartyBehaviorText(meetingHero.PartyBelongedTo);
 					MBTextManager.SetTextVariable("LORD_OBJECTIVE_ANSWER", answer, false);
 					return true;
