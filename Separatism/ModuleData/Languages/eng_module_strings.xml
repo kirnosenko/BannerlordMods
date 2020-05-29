@@ -30,7 +30,8 @@
     <string id="Separatism_Kingdom_Union" text="The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}."/>
 
 	<!-- Settings -->
-	<string id="Separatism_Settings_100" text="Rebel reasoning"/>
+	<string id="Separatism_Settings_100" text="Lord rebellions"/>
+	<string id="Separatism_Settings_101" text="Enable rebellions depending on lord relationship."/>
 	<string id="Separatism_Settings_110" text="Average amount of kingdom fiefs is enough to rebel"/>
 	<string id="Separatism_Settings_111" text="A clan has a reason to rebel when amount of its fiefs >= amount of kingdom fiefs / number of kingdom non-mercenary clans."/>
 	<string id="Separatism_Settings_120" text="Minimal amount of kingdom fiefs to rebel"/>
@@ -38,6 +39,13 @@
 	<string id="Separatism_Settings_130" text="Daily chance to rebel when a clan is ready"/>
 	<string id="Separatism_Settings_131" text="1 - start a rebellion as soon as possible. 0 - never."/>
 	
+	<string id="Separatism_Settings_700" text="Settlement rebellions"/>
+	<string id="Separatism_Settings_701" text="Enable rebellions depending on settlement loyalty."/>
+	<string id="Separatism_Settings_710" text="Start loyalty threshold"/>
+	<string id="Separatism_Settings_711" text="Loyalty threshold where a rebellion begins. May not be greater than end loyalty threshold."/>
+	<string id="Separatism_Settings_720" text="End loyalty threshold"/>
+	<string id="Separatism_Settings_721" text="Loyalty threshold where a rebellion stops. May not be lesser than start loyalty threshold."/>
+
 	<string id="Separatism_Settings_200" text="Relation thresholds"/>
 	<string id="Separatism_Settings_210" text="Friendship threshold"/>
 	<string id="Separatism_Settings_211" text="Relation threshold where heroes become friends. May not be lesser than hostility threshold."/>

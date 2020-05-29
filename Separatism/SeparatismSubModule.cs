@@ -9,6 +9,7 @@ namespace Separatism
 		protected override void AddBehaviours(CampaignGameStarter gameInitializer)
 		{
 			gameInitializer.AddBehavior(new SeparateBehaviour());
+			gameInitializer.AddModel(new SeparatismSettlementLoyaltyModel());
 		}
 
 		protected override void PrintPatchingError()

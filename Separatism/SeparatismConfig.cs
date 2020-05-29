@@ -1,4 +1,5 @@
-﻿using System;
+﻿using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
+using HarmonyLib;
 
 namespace Separatism
 {
@@ -20,6 +21,8 @@ namespace Separatism
 		public static void Refresh()
 		{
 			instance = SeparatismSettings.Instance;
+			ref var settlementRebellionsEnabled = ref AccessTools.StaticFieldRefAccess<RebellionsCampaignBehavior, bool>("_rebellionEnabled");
+			settlementRebellionsEnabled = instance.SettlementRebellionsEnabled;
 		}
 	}
 }

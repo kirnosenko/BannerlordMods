@@ -30,7 +30,8 @@
     <string id="Separatism_Kingdom_Union" text="{Kingdom} присоединились к {Ally} для борьбы с общим врагом {Enemy}."/>
 
 	<!-- Settings -->
-	<string id="Separatism_Settings_100" text="Логика восстания"/>
+	<string id="Separatism_Settings_100" text="Восстания лордов"/>
+	<string id="Separatism_Settings_101" text="Включить восстания зависящие от взаимоотношений между лордами."/>
 	<string id="Separatism_Settings_110" text="Среднего количества феодов достаточно для восстания"/>
 	<string id="Separatism_Settings_111" text="У клана есть причина для восстания если количество его феодов >= общее количество феодов королевства / число ненаемных кланов."/>
 	<string id="Separatism_Settings_120" text="Минимальное количество феодов для восстания"/>
@@ -38,6 +39,13 @@
 	<string id="Separatism_Settings_130" text="Ежедневный шанс восстания если клан готов"/>
 	<string id="Separatism_Settings_131" text="1 - поднять восстание при первой возможности. 0 - никогда."/>
 	
+	<string id="Separatism_Settings_700" text="Восстания поселений"/>
+	<string id="Separatism_Settings_701" text="Включить восстания зависящие от лояльности поселений."/>
+	<string id="Separatism_Settings_710" text="Нижняя граница лояльности"/>
+	<string id="Separatism_Settings_711" text="Граница лояльности, ниже которой начинается восстание. Не может быть больше верхней границы лояльности."/>
+	<string id="Separatism_Settings_720" text="Верхняя граница лояльности"/>
+	<string id="Separatism_Settings_721" text="Граница лояльности, выше которой заканчивается восстание. Не может быть меньше нижней границы лояльности."/>
+
 	<string id="Separatism_Settings_200" text="Граничные значения отношений"/>
 	<string id="Separatism_Settings_210" text="Граница дружбы"/>
 	<string id="Separatism_Settings_211" text="Граница отношений, выше которой герои становятся друзьями. Не межет быть меньше границы вражды."/>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
@@ -7,7 +6,6 @@ using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 using StoryMode;
-using Helpers;
 using HarmonyLib;
 using Common;
 
@@ -69,6 +67,11 @@ namespace Separatism
 
 			if (clan.Leader != ruler)
 			{
+				if (!SeparatismConfig.Settings.LordRebellionsEnabled)
+				{
+					return;
+				}
+
 				var hasReason = !clan.Leader.HasGoodRelationWith(ruler);
 				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
