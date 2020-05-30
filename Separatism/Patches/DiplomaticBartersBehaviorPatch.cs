@@ -10,6 +10,7 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Clan clan, Kingdom kingdom)
 		{
+			// prevent joining to enemy
 			if (clan.Leader.IsEnemy(kingdom.Leader))
 			{
 				return false;
@@ -24,8 +25,13 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Clan clan)
 		{
-			if (clan.Leader == clan.Kingdom.Leader ||
-				(clan.Settlements.Count() > 0 && clan.Leader.HasGoodRelationWith(clan.Kingdom.Leader)))
+			// prevent stupid things
+			if (clan.Leader == clan.Kingdom.Leader)
+			{
+				return false;
+			}
+			// prevent unwise leaving for lord with fiefs 
+			if (clan.Settlements.Count() > 0 && clan.Leader.HasGoodRelationWith(clan.Kingdom.Leader))
 			{
 				return false;
 			}
@@ -39,12 +45,23 @@ namespace Separatism.Patches
 	{
 		public static bool Prefix(Clan clan1, Kingdom kingdom)
 		{
-			if (clan1.Leader == clan1.Kingdom.Leader ||
-				((clan1.Settlements.Count() > 0) &&
-					(clan1.Kingdom == kingdom ||
-					clan1.Leader.HasGoodRelationWith(clan1.Kingdom.Leader) ||
-					clan1.Leader.IsEnemy(kingdom.Leader) ||
-					!clan1.CloseKingdoms().Contains(kingdom))))
+			// prevent stupid things
+			if (clan1.Leader == clan1.Kingdom.Leader || clan1.Kingdom == kingdom)
+			{
+				return false;
+			}
+			// prevent unwise defection for lord with fiefs 
+			if ((clan1.Settlements.Count() > 0) &&
+				(clan1.Leader.HasGoodRelationWith(clan1.Kingdom.Leader) ||
+				clan1.Leader.IsEnemy(kingdom.Leader) ||
+				!clan1.CloseKingdoms().Contains(kingdom)))
+			{
+				return false;
+			}
+			// prevent defection of supporting clan while kingdom have a chance
+			if (clan1.Leader.HasGoodRelationWith(clan1.Kingdom.Leader) &&
+				clan1.Kingdom.Settlements.Count() > 0 &&
+				clan1.Kingdom.Clans.Where(x => !x.IsUnderMercenaryService).Count() <= 2)
 			{
 				return false;
 			}
