@@ -101,7 +101,10 @@ namespace Separatism
 				newKingdom == null || rebellion
 			});
 			clan.IsUnderMercenaryService = false;
-			clan.ClanLeaveKingdom(false);
+			if (oldKingdom != null)
+			{
+				clan.ClanLeaveKingdom(false);
+			}
 			if (newKingdom != null)
 			{
 				clan.ClanJoinFaction(newKingdom);
@@ -141,10 +144,13 @@ namespace Separatism
 					{
 						ChangeRelationAction.ApplyRelationChangeBetweenHeroes(clan.Leader, newKingdom.Leader, relationChange, true);
 					}
-					InheritWarsFromKingdom(oldKingdom, newKingdom);
+					if (oldKingdom != null)
+					{
+						InheritWarsFromKingdom(oldKingdom, newKingdom);
+					}
 				}
 			}
-			if (oldKingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 0) // old kingdom is empty so we destroy it
+			if (oldKingdom != null && oldKingdom.Clans.Where(x => x.Leader.IsAlive).Count() == 0) // old kingdom is empty so we destroy it
 			{
 				if (newKingdom == null)
 				{
