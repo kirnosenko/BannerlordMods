@@ -56,8 +56,8 @@ namespace Separatism
 		public float DailyChanceToRebelWhenClanIsReady { get; set; } = 1;
 
 		[SettingPropertyGroup("{=Separatism_Settings_700}Settlement rebellions", 1, true)]
-		[SettingPropertyBool(displayName: "{=Separatism_Settings_700}Settlement rebellions", HintText = "{=Separatism_Settings_701}Enable rebellions depending on settlement loyalty.", Order = 0, RequireRestart = false)]
-		public bool SettlementRebellionsEnabled { get; set; } = true;
+		[SettingPropertyBool(displayName: "{=Separatism_Settings_700}Settlement rebellions", HintText = "{=Separatism_Settings_701}Enable rebellions depending on settlement loyalty. Build in game rebellion mechanic. By default is inactive probably for a reason. So use it at your own risk.", Order = 0, RequireRestart = false)]
+		public bool SettlementRebellionsEnabled { get; set; } = false;
 
 		[SettingPropertyGroup("{=Separatism_Settings_700}Settlement rebellions", 1)]
 		[SettingPropertyInteger(displayName: "{=Separatism_Settings_710}Start loyalty threshold", minValue: 0, maxValue: 100, HintText = "{=Separatism_Settings_711}Loyalty threshold where a rebellion begins. May not be greater than end loyalty threshold.", Order = 1, RequireRestart = false)]

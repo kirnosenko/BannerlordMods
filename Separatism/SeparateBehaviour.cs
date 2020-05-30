@@ -144,10 +144,14 @@ namespace Separatism
 							}
 						}
 						// no ally kingdoms found, so look for friendly clans at least
-						var allyClan = Clan.All.Where(c =>
-							(c.Kingdom == null || c.Settlements.Count() == 0) &&
-							(c.Leader.IsActive && c.Tier <= clan.Tier && !c.IsUnderMercenaryService && clan.Leader.HasGoodRelationWith(c.Leader)))
-							.OrderByDescending(c => c.MobilePartyStrength)
+						var allyClan = Clan.All.Where(c => (c.Kingdom == null || c.Settlements.Count() == 0) &&
+							(c != Clan.PlayerClan && 
+							c.Kingdom?.RulingClan != c &&
+							c.Leader.IsAlive && 
+							c.Tier <= clan.Tier && 
+							!c.IsUnderMercenaryService && 
+							c.Leader.HasGoodRelationWith(clan.Leader)))
+							.OrderByDescending(c => c.TotalStrength)
 							.FirstOrDefault();
 						if (allyClan != null)
 						{

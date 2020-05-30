@@ -40,7 +40,7 @@
 	<string id="Separatism_Settings_131" text="1 - start a rebellion as soon as possible. 0 - never."/>
 	
 	<string id="Separatism_Settings_700" text="Settlement rebellions"/>
-	<string id="Separatism_Settings_701" text="Enable rebellions depending on settlement loyalty."/>
+	<string id="Separatism_Settings_701" text="Enable rebellions depending on settlement loyalty. Build in game rebellion mechanic. By default is inactive probably for a reason. So use it at your own risk."/>
 	<string id="Separatism_Settings_710" text="Start loyalty threshold"/>
 	<string id="Separatism_Settings_711" text="Loyalty threshold where a rebellion begins. May not be greater than end loyalty threshold."/>
 	<string id="Separatism_Settings_720" text="End loyalty threshold"/>

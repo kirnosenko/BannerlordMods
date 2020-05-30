@@ -40,7 +40,7 @@
 	<string id="Separatism_Settings_131" text="1 - поднять восстание при первой возможности. 0 - никогда."/>
 	
 	<string id="Separatism_Settings_700" text="Восстания поселений"/>
-	<string id="Separatism_Settings_701" text="Включить восстания зависящие от лояльности поселений."/>
+	<string id="Separatism_Settings_701" text="Включить восстания зависящие от лояльности поселений. Встроенная в игру механика. По умолчанию выключена. Используйте на свой страх и риск."/>
 	<string id="Separatism_Settings_710" text="Нижняя граница лояльности"/>
 	<string id="Separatism_Settings_711" text="Граница лояльности, ниже которой начинается восстание. Не может быть больше верхней границы лояльности."/>
 	<string id="Separatism_Settings_720" text="Верхняя граница лояльности"/>
