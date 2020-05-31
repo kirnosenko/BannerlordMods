@@ -1,6 +1,7 @@
 ﻿using TaleWorlds.CampaignSystem;
 using HarmonyLib;
 using Common;
+using Separatism.Behaviours;
 
 namespace Separatism
 {
@@ -8,7 +9,9 @@ namespace Separatism
 	{
 		protected override void AddBehaviours(CampaignGameStarter gameInitializer)
 		{
-			gameInitializer.AddBehavior(new SeparateBehaviour());
+			gameInitializer.AddBehavior(new UtilityBehaviour());
+			gameInitializer.AddBehavior(new LordRebellionBehaviour());
+			gameInitializer.AddBehavior(new AnarchyRebellionBehaviour());
 			gameInitializer.AddModel(new SeparatismSettlementLoyaltyModel());
 		}
 

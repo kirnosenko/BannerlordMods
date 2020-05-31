@@ -69,8 +69,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\AnarchyRebellionBehaviour.cs" />
+    <Compile Include="Behaviours\NationalRebellionBehaviour.cs" />
+    <Compile Include="Behaviours\UtilityBehaviour.cs" />
     <Compile Include="ClanExtensions.cs" />
     <Compile Include="ColorExtensions.cs" />
+    <Compile Include="FactionExtension.cs" />
     <Compile Include="HeroExtensions.cs" />
     <Compile Include="KingdomExtensions.cs" />
     <Compile Include="Patches\CampaignPatch.cs" />
@@ -78,7 +82,7 @@
     <Compile Include="Patches\HeroPatch.cs" />
     <Compile Include="Patches\LordDefectionCampaignBehaviorPatch.cs" />
     <Compile Include="Patches\MapScreenPatch.cs" />
-    <Compile Include="SeparateBehaviour.cs" />
+    <Compile Include="Behaviours\LordRebellionBehaviour.cs" />
     <Compile Include="SeparatismConfig.cs" />
     <Compile Include="SeparatismSettings.cs" />
     <Compile Include="SeparatismSubModule.cs" />

@@ -52,24 +52,6 @@ namespace Separatism
 			kingdomRulerTitleText = new TextObject(kingdomRulerTitle, null);
 		}
 
-		public static (uint color1, uint color2) GetColors(this IFaction faction)
-		{
-			var bannerData = faction.Banner.BannerDataList;
-			var color1 = faction.Color;
-			var color2 = faction.Color2;
-
-			if (bannerData != null && bannerData.Count > 0)
-			{
-				color1 = BannerManager.GetColor(bannerData[0].ColorId);
-				if (bannerData.Count > 1)
-				{
-					color2 = BannerManager.GetColor(bannerData[1].ColorId);
-				}
-			}
-
-			return (color1, color2);
-		}
-
 		public static void ChangeKingdom(this Clan clan, Kingdom newKingdom, bool rebellion)
 		{
 			Kingdom oldKingdom = clan.Kingdom;

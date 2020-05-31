@@ -5,49 +5,20 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
-using StoryMode;
 using HarmonyLib;
 using Common;
 
-namespace Separatism
+namespace Separatism.Behaviours
 {
-	public class SeparateBehaviour : CampaignBehaviorBase
+	public class LordRebellionBehaviour : CampaignBehaviorBase
 	{
 		public override void RegisterEvents()
 		{
-			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
-			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
 			CampaignEvents.DailyTickClanEvent.AddNonSerializedListener(this, OnDailyTickClan);
 		}
 
 		public override void SyncData(IDataStore dataStore)
 		{
-		}
-
-		private void OnGameLoaded(CampaignGameStarter game)
-		{
-			var kingdoms = new Kingdom[] {
-				StoryModeData.NorthernEmpireKingdom,
-				StoryModeData.WesternEmpireKingdom,
-				StoryModeData.SouthernEmpireKingdom,
-				StoryModeData.SturgiaKingdom,
-				StoryModeData.AseraiKingdom,
-				StoryModeData.VlandiaKingdom,
-				StoryModeData.BattaniaKingdom,
-				StoryModeData.KhuzaitKingdom,
-			};
-			Campaign.Current.RemoveEmptyKingdoms();
-			Kingdom.All.Do(k => k.SetKingdomText());
-		}
-
-		private void OnDailyTick()
-		{
-			Campaign.Current.RemoveEmptyKingdoms(kingdom =>
-			{
-				var textObject = new TextObject("{=Separatism_Kingdom_Destroyed}The {Kingdom} has been destroyed and the stories about it will be lost in time.", null);
-				textObject.SetTextVariable("Kingdom", kingdom.Name);
-				GameLog.Warn(textObject.ToString());
-			});
 		}
 
 		private void OnDailyTickClan(Clan clan)
@@ -73,9 +44,9 @@ namespace Separatism
 				}
 
 				var hasReason = !clan.Leader.HasGoodRelationWith(ruler);
-				var kingdomFiefs = kingdom.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
+				var kingdomFiefs = kingdom.GetFiefsAmount();
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
-				var clanFiefs = clan.Settlements.Sum(x => x.IsTown ? 2 : x.IsCastle ? 1 : 0);
+				var clanFiefs = clan.GetFiefsAmount();
 				var hasEnoughFiefs = (kingdomFiefs > 0 &&
 					((SeparatismConfig.Settings.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
 					SeparatismConfig.Settings.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
