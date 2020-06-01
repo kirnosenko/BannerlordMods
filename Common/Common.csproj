@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLog.cs" />
-    <Compile Include="MathExtensions.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ModSubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

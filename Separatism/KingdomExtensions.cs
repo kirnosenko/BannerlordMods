@@ -13,21 +13,8 @@ namespace Separatism
 	{
 		public static Kingdom[] CloseKingdoms(this Clan clan)
 		{
-			Vec2 clanPosition = Vec2.Zero;
-			int counter = 0;
-			foreach (var spos in clan.Settlements.Where(x => x.IsTown || x.IsCastle).Select(x => x.Position2D))
-			{
-				clanPosition += spos;
-				counter++;
-			}
-			if (counter == 0)
-			{
-				return Kingdom.All.ToArray();
-			}
-			clanPosition *= ((float)1 / counter);
-
 			var kingdomDistance = Kingdom.All
-				.Select(k => (k, k.FactionMidPoint.Distance(clanPosition)))
+				.Select(k => (k, k.FactionMidPoint.Distance(clan.FactionMidPoint)))
 				.ToArray();
 			var average = kingdomDistance.Average(x => x.Item2);
 			return kingdomDistance

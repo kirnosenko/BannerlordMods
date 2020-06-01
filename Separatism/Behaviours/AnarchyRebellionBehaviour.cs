@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.Core;
 using TaleWorlds.Localization;
-using TaleWorlds.ObjectSystem;
-using StoryMode;
-using HarmonyLib;
 using Common;
 
 namespace Separatism.Behaviours
@@ -24,11 +21,12 @@ namespace Separatism.Behaviours
 
 		private void OnDailyTickClan(Clan clan)
 		{
-			var clanFiefs = clan.GetFiefsAmount();
-			if (clanFiefs > 10)
+			var clanFiefsAmount = clan.GetFiefsAmount();
+			if (clanFiefsAmount > 10)
 			{
-				var availableClans = Clan.All.ReadyToGo().ToArray();
-				foreach (var settlement in clan.Settlements.Where(x => x.IsTown).OrderBy(x => x.Prosperity))
+				var availableClans = Clan.All.ReadyToRule().ToArray();
+
+				foreach (var settlement in clan.Settlements.Where(x => x.IsTown).OrderByDescending(x => x.Position2D.Distance(clan.FactionMidPoint)))
 				{
 					var newRulerClan = availableClans
 						.Where(x => x.Culture == settlement.Culture)
@@ -36,7 +34,28 @@ namespace Separatism.Behaviours
 						.FirstOrDefault();
 					if (newRulerClan != null)
 					{
-						var rebelKingdom = GoRebelKingdom(newRulerClan, settlement);
+						var rebelSettlements = new List<Settlement>();
+						rebelSettlements.Add(settlement);
+						int bonusSettlements = newRulerClan.Tier > 4 ? 1 : 0;
+						if (bonusSettlements > 0)
+						{
+							var neighborClanFiefs = new Queue<Settlement>(Settlement
+								.FindSettlementsAroundPosition(settlement.Position2D, 50, x => x.OwnerClan == clan)
+								.Where(x => x.IsCastle)
+								.Except(rebelSettlements)
+								.OrderBy(x => x.Position2D.Distance(settlement.Position2D)));
+							while (bonusSettlements > 0 && neighborClanFiefs.Count > 0)
+							{
+								var nextFief = neighborClanFiefs.Dequeue();
+								if (nextFief.Culture == settlement.Culture)
+								{
+									rebelSettlements.Add(nextFief);
+									bonusSettlements--;
+								}
+							}
+						}
+
+						var rebelKingdom = GoRebelKingdom(newRulerClan, rebelSettlements);
 						var textObject = new TextObject("{=Separatism_Anarchy_Rebel}People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}.", null);
 						textObject.SetTextVariable("Settlement", settlement.Name);
 						textObject.SetTextVariable("Kingdom", clan.Kingdom.Name);
@@ -49,23 +68,28 @@ namespace Separatism.Behaviours
 			}
 		}
 
-		private Kingdom GoRebelKingdom(Clan clan, Settlement settlement)
+		private Kingdom GoRebelKingdom(Clan clan, IEnumerable<Settlement> settlements)
 		{
+			var capital = settlements.First();
+			var owner = capital.OwnerClan;
 			// create a new kingdom for the clan
 			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_Anarchy}{RebelKingdom} was found as a result of anarchy in fiefs of the {ClanName}. People of {Settlement} have called {Ruler} on rulership.", null);
-			kingdomIntroText.SetTextVariable("ClanName", settlement.OwnerClan.Name);
-			kingdomIntroText.SetTextVariable("Settlement", settlement.Name);
+			kingdomIntroText.SetTextVariable("ClanName", owner.Name);
+			kingdomIntroText.SetTextVariable("Settlement", capital.Name);
 			kingdomIntroText.SetTextVariable("Ruler", clan.Leader.Name);
 			var kingdom = clan.CreateKingdom(kingdomIntroText);
 			// keep policies from the old settlement kingdom
-			foreach (var policy in settlement.OwnerClan.Kingdom.ActivePolicies)
+			foreach (var policy in owner.Kingdom.ActivePolicies)
 			{
 				kingdom.AddPolicy(policy);
 			}
 			// move the clan out of its current kingdom
 			clan.ChangeKingdom(null, false);
 			// change settlement ownership
-			settlement.OwnerClan = clan;
+			foreach (var s in settlements)
+			{
+				ChangeOwnerOfSettlementAction.ApplyByRevolt(clan.Leader, s);
+			}
 			// move the clan into the new kingdom
 			clan.ChangeKingdom(kingdom, false);
 

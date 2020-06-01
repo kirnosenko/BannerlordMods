@@ -106,6 +106,11 @@ namespace Separatism
 				!c.IsUnderMercenaryService);
 		}
 
+		public static IEnumerable<Clan> ReadyToRule(this IEnumerable<Clan> clans)
+		{
+			return clans.ReadyToGo().Where(c => !c.IsMinorFaction);
+		}
+
 		public static void ChangeKingdom(this Clan clan, Kingdom newKingdom, bool rebellion)
 		{
 			Kingdom oldKingdom = clan.Kingdom;
