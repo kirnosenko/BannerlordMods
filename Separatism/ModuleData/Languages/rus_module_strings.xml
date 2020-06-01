@@ -20,8 +20,10 @@
 	<string id="Separatism_Principality_Ruler_Title" text="Князь"/>
 	<string id="Separatism_Empire_Ruler_Title" text="Император"/>
 	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} было основано в результате восстания клана {ClanName} против {Ruler} правителя {Kingdom}."/>
+	<string id="Separatism_Kingdom_Intro_Anarchy" text="{RebelKingdom} было основано в результате анархии во владениях клана {ClanName}. Народ {Settlement} призвал {Ruler} на правление."/>
 
 	<!-- Messages -->
+	<string id="Separatism_Anarchy_Rebel" text="Народ {Settlement} поднял восстание против {Kingdom}, призвал {Ruler} на правление и основал {RebelKingdom}."/>
 	<string id="Separatism_Clan_Rebel" text="Клан {ClanName} поднял восстание против {Kingdom} и основал {RebelKingdom}."/>
 	<string id="Separatism_Clan_Recruit" text="{FIRST_NAME}, до меня дошли вести о твоих поисках нового господина..."/>
 	<string id="Separatism_Clan_Support" text="Клан {ClanName} присоединился к {Kingdom} чтобы поддержать {Ruler}."/>

@@ -20,8 +20,10 @@
 	<string id="Separatism_Principality_Ruler_Title" text="Knyaz"/>
 	<string id="Separatism_Empire_Ruler_Title" text="Emperor"/>
 	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}."/>
+	<string id="Separatism_Kingdom_Intro_Anarchy" text="{RebelKingdom} was found as a result of anarchy in fiefs of the {ClanName}. People of {Settlement} have called {Ruler} on rulership."/>
 
 	<!-- Messages -->
+	<string id="Separatism_Anarchy_Rebel" text="People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}."/>
 	<string id="Separatism_Clan_Rebel" text="The {ClanName} have broken from {Kingdom} to found the {RebelKingdom}."/>
 	<string id="Separatism_Clan_Recruit" text="{FIRST_NAME}, I have heard you are in search of a new sovereign..."/>
 	<string id="Separatism_Clan_Support" text="The {ClanName} have joined the {Kingdom} to support {Ruler}."/>

@@ -115,13 +115,9 @@ namespace Separatism.Behaviours
 							}
 						}
 						// no ally kingdoms found, so look for friendly clans at least
-						var allyClan = Clan.All.Where(c => (c.Kingdom == null || c.Settlements.Count() == 0) &&
-							(c != Clan.PlayerClan && 
-							c.Kingdom?.RulingClan != c &&
-							c.Leader.IsAlive && 
+						var allyClan = Clan.All.ReadyToGo().Where(c =>
 							c.Tier <= clan.Tier && 
-							!c.IsUnderMercenaryService && 
-							c.Leader.HasGoodRelationWith(clan.Leader)))
+							c.Leader.HasGoodRelationWith(clan.Leader))
 							.OrderByDescending(c => c.TotalStrength)
 							.FirstOrDefault();
 						if (allyClan != null)
@@ -145,56 +141,19 @@ namespace Separatism.Behaviours
 
 		private Kingdom GoRebelKingdom(Clan clan)
 		{
-			string kingdomId = clan.GetKingdomId();
-			var kingdom = Kingdom.All.SingleOrDefault(x => x.StringId == kingdomId);
-
-			if (kingdom == null)
+			// create a new kingdom for the clan
+			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
+			kingdomIntroText.SetTextVariable("ClanName", clan.Name);
+			kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
+			kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
+			var kingdom = clan.CreateKingdom(kingdomIntroText);
+			// keep policies from the old clan kingdom
+			foreach (var policy in clan.Kingdom.ActivePolicies)
 			{
-				// create a rebel kingdom and set its name
-				kingdom = MBObjectManager.Instance.CreateObject<Kingdom>(kingdomId);
-				TextObject informalNameText = new TextObject("{=72pbZgQL}{CLAN_NAME}", null);
-				informalNameText.SetTextVariable("CLAN_NAME", clan.Name);
-				clan.GetKingdomNameAndRulerTitle(out var kingdomNameText, out var kingdomRulerTitleText);
-				TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
-				kingdomIntroText.SetTextVariable("RebelKingdom", kingdomNameText);
-				kingdomIntroText.SetTextVariable("ClanName", clan.Name);
-				kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
-				kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
-
-				// set colors for a rebel kingdom and the ruler clan
-				var (color1, color2) = (0u, 0u);
-				if (!SeparatismConfig.Settings.KeepRebelBannerColors)
-				{
-					(color1, color2) = ColorExtensions.GetRebelKingdomColors();
-					clan.Banner.ChangePrimaryColor(color1);
-					clan.Banner.ChangeIconColors(color2);
-					clan.Color = color1;
-					clan.Color2 = color2;
-				}
-				else
-				{
-					(color1, color2) = clan.GetColors();
-				}
-
-				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, clan.InitialPosition);
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, kingdomIntroText);
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaTitle").SetValue(kingdom, kingdomNameText);
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaRulerTitle").SetValue(kingdom, kingdomRulerTitleText);
-				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, color1);
-				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, color2);
-				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom.LabelColor);
-
-				// apply policies from original kingdom
-				foreach (var policy in clan.Kingdom.ActivePolicies)
-				{
-					kingdom.AddPolicy(policy);
-				}
-
-				kingdom.RulingClan = clan;
+				kingdom.AddPolicy(policy);
 			}
-
+			// move the clan into its new kingdom
 			clan.ChangeKingdom(kingdom, true);
-			Campaign.Current.AddKingdom(kingdom);
 
 			return kingdom;
 		}
