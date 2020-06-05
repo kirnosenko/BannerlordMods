@@ -1,7 +1,7 @@
 <Module>
 	<Name value="Telepathy"/>
 	<Id value="Telepathy"/>
-	<Version value="v0.5.0"/>
+	<Version value="v0.5.1"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>
@@ -16,6 +16,15 @@
 			<Name value="Telepathy"/>
 			<DLLName value="Telepathy.dll"/>
 			<SubModuleClassType value="Telepathy.TelepathySubModule"/>
+			<Tags>
+				<Tag key="DedicatedServerType" value="none" />
+				<Tag key="IsNoRenderModeElement" value="false" />
+			</Tags>
+		</SubModule>
+		<SubModule>
+			<Name value="MBOptionScreen" />
+			<DLLName value="MBOptionScreen.v2.0.10.dll" />
+			<SubModuleClassType value="MBOptionScreen.MBOptionScreenSubModuleV2010" />
 			<Tags>
 				<Tag key="DedicatedServerType" value="none" />
 				<Tag key="IsNoRenderModeElement" value="false" />
