@@ -22,48 +22,49 @@ namespace Separatism.Behaviours
 		private void OnDailyTickClan(Clan clan)
 		{
 			var clanFiefsAmount = clan.GetFiefsAmount();
-			if (clanFiefsAmount > 10)
+			if (clanFiefsAmount < 10) return;
+			var anarchySettlements = clan.Settlements.Where(x => x.IsTown &&
+				CampaignTime.Hours(x.LastVisitTimeOfOwner) + CampaignTime.Days(3) < CampaignTime.Now).ToArray();
+			if (anarchySettlements.Length == 0) return;
+			
+			var availableClans = Clan.All.ReadyToRule().ToArray();
+			foreach (var settlement in anarchySettlements.OrderByDescending(x => x.Position2D.Distance(clan.FactionMidPoint)))
 			{
-				var availableClans = Clan.All.ReadyToRule().ToArray();
-
-				foreach (var settlement in clan.Settlements.Where(x => x.IsTown).OrderByDescending(x => x.Position2D.Distance(clan.FactionMidPoint)))
+				var newRulerClan = availableClans
+					.Where(x => x.Culture == settlement.Culture)
+					.OrderByDescending(x => x.TotalStrength)
+					.FirstOrDefault();
+				if (newRulerClan != null)
 				{
-					var newRulerClan = availableClans
-						.Where(x => x.Culture == settlement.Culture)
-						.OrderByDescending(x => x.TotalStrength)
-						.FirstOrDefault();
-					if (newRulerClan != null)
+					var rebelSettlements = new List<Settlement>();
+					rebelSettlements.Add(settlement);
+					int bonusSettlements = newRulerClan.Tier > 4 ? 1 : 0;
+					if (bonusSettlements > 0)
 					{
-						var rebelSettlements = new List<Settlement>();
-						rebelSettlements.Add(settlement);
-						int bonusSettlements = newRulerClan.Tier > 4 ? 1 : 0;
-						if (bonusSettlements > 0)
+						var neighborClanFiefs = new Queue<Settlement>(Settlement
+							.FindSettlementsAroundPosition(settlement.Position2D, 50, x => x.OwnerClan == clan)
+							.Where(x => x.IsCastle)
+							.Except(rebelSettlements)
+							.OrderBy(x => x.Position2D.Distance(settlement.Position2D)));
+						while (bonusSettlements > 0 && neighborClanFiefs.Count > 0)
 						{
-							var neighborClanFiefs = new Queue<Settlement>(Settlement
-								.FindSettlementsAroundPosition(settlement.Position2D, 50, x => x.OwnerClan == clan)
-								.Where(x => x.IsCastle)
-								.Except(rebelSettlements)
-								.OrderBy(x => x.Position2D.Distance(settlement.Position2D)));
-							while (bonusSettlements > 0 && neighborClanFiefs.Count > 0)
+							var nextFief = neighborClanFiefs.Dequeue();
+							if (nextFief.Culture == settlement.Culture)
 							{
-								var nextFief = neighborClanFiefs.Dequeue();
-								if (nextFief.Culture == settlement.Culture)
-								{
-									rebelSettlements.Add(nextFief);
-									bonusSettlements--;
-								}
+								rebelSettlements.Add(nextFief);
+								bonusSettlements--;
 							}
 						}
-
-						var rebelKingdom = GoRebelKingdom(newRulerClan, rebelSettlements);
-						var textObject = new TextObject("{=Separatism_Anarchy_Rebel}People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}.", null);
-						textObject.SetTextVariable("Settlement", settlement.Name);
-						textObject.SetTextVariable("Kingdom", clan.Kingdom.Name);
-						textObject.SetTextVariable("Ruler", newRulerClan.Leader.Name);
-						textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
-						GameLog.Warn(textObject.ToString());
-						return;
 					}
+
+					var rebelKingdom = GoRebelKingdom(newRulerClan, rebelSettlements);
+					var textObject = new TextObject("{=Separatism_Anarchy_Rebel}People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}.", null);
+					textObject.SetTextVariable("Settlement", settlement.Name);
+					textObject.SetTextVariable("Kingdom", clan.Kingdom.Name);
+					textObject.SetTextVariable("Ruler", newRulerClan.Leader.Name);
+					textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
+					GameLog.Warn(textObject.ToString());
+					return;
 				}
 			}
 		}
