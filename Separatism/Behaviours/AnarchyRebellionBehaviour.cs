@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
@@ -74,7 +73,8 @@ namespace Separatism.Behaviours
 			var capital = settlements.First();
 			var owner = capital.OwnerClan;
 			// create a new kingdom for the clan
-			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_Anarchy}{RebelKingdom} was found as a result of anarchy in fiefs of the {ClanName}. People of {Settlement} have called {Ruler} on rulership.", null);
+			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_Anarchy}{RebelKingdom} was found in {Year} as a result of anarchy in fiefs of the {ClanName} when people of {Settlement} have called {Ruler} on rulership.", null);
+			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
 			kingdomIntroText.SetTextVariable("ClanName", owner.Name);
 			kingdomIntroText.SetTextVariable("Settlement", capital.Name);
 			kingdomIntroText.SetTextVariable("Ruler", clan.Leader.Name);

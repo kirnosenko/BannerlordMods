@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.Core;
 using TaleWorlds.Localization;
-using TaleWorlds.ObjectSystem;
-using StoryMode;
-using HarmonyLib;
 using Common;
 
 namespace Separatism.Behaviours
-{/*
+{
 	public class NationalRebellionBehaviour : CampaignBehaviorBase
 	{
 		public override void RegisterEvents()
@@ -34,10 +28,9 @@ namespace Separatism.Behaviours
 				if (group.Count() >= 2)
 				{
 					var rebelKingdom = GoRebelKingdom(group.OrderByDescending(c => c.Tier).ThenByDescending(c => c.Renown));
-					var textObject = new TextObject("{=Separatism_Anarchy_Rebel}{Culture} people of {Kingdom} have rised a rebellion to fight for their independence and found the {RebelKingdom}.", null);
-					textObject.SetTextVariable("Settlement", settlement.Name);
-					textObject.SetTextVariable("Kingdom", clan.Kingdom.Name);
-					textObject.SetTextVariable("Ruler", newRulerClan.Leader.Name);
+					var textObject = new TextObject("{=Separatism_National_Rebel}{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}.", null);
+					textObject.SetTextVariable("Culture", group.First().Culture.Name);
+					textObject.SetTextVariable("Kingdom", group.Key.Name);
 					textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
 					GameLog.Warn(textObject.ToString());
 					return;
@@ -49,20 +42,23 @@ namespace Separatism.Behaviours
 		{
 			var ruler = clans.First();
 			// create a new kingdom for the clan
-			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
-			kingdomIntroText.SetTextVariable("ClanName", clan.Name);
-			kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
-			kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
-			var kingdom = clan.CreateKingdom(kingdomIntroText);
+			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_National}{RebelKingdom} was found in {Year} when {Culture} people of {Kingdom} have made a declaration of independence.", null);
+			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
+			kingdomIntroText.SetTextVariable("Culture", ruler.Culture.Name);
+			kingdomIntroText.SetTextVariable("Kingdom", ruler.Kingdom.Name);
+			var kingdom = ruler.CreateKingdom(kingdomIntroText);
 			// keep policies from the old clan kingdom
-			foreach (var policy in clan.Kingdom.ActivePolicies)
+			foreach (var policy in ruler.Kingdom.ActivePolicies)
 			{
 				kingdom.AddPolicy(policy);
 			}
 			// move the clan into its new kingdom
-			clan.ChangeKingdom(kingdom, true);
+			foreach (var clan in clans)
+			{
+				clan.ChangeKingdom(kingdom, true);
+			}
 
 			return kingdom;
 		}
-	}*/
+	}
 }

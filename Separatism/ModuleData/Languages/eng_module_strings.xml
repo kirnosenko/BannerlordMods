@@ -19,8 +19,9 @@
 	<string id="Separatism_Khanate_Ruler_Title" text="Khan"/>
 	<string id="Separatism_Principality_Ruler_Title" text="Knyaz"/>
 	<string id="Separatism_Empire_Ruler_Title" text="Emperor"/>
-	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}."/>
-	<string id="Separatism_Kingdom_Intro_Anarchy" text="{RebelKingdom} was found as a result of anarchy in fiefs of the {ClanName}. People of {Settlement} have called {Ruler} on rulership."/>
+	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} was found in {Year} when the {ClanName} have rised a rebellion against {Ruler} ruler of {Kingdom}."/>
+	<string id="Separatism_Kingdom_Intro_Anarchy" text="{RebelKingdom} was found in {Year} as a result of anarchy in fiefs of the {ClanName} when people of {Settlement} have called {Ruler} on rulership."/>
+	<string id="Separatism_Kingdom_Intro_National" text="{RebelKingdom} was found in {Year} when {Culture} people of {Kingdom} have made a declaration of independence."/>
 
 	<!-- Messages -->
 	<string id="Separatism_Anarchy_Rebel" text="People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}."/>
@@ -30,6 +31,7 @@
 	<string id="Separatism_Kingdom_Abandoned" text="The {Kingdom} has been destroyed and the {ClanName} are in search of a new sovereign."/>
     <string id="Separatism_Kingdom_Destroyed" text="The {Kingdom} has been destroyed and the stories about it will be lost in time."/>
     <string id="Separatism_Kingdom_Union" text="The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}."/>
+	<string id="Separatism_National_Rebel" text="{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}."/>
 
 	<!-- Settings -->
 	<string id="Separatism_Settings_100" text="Lord rebellions"/>

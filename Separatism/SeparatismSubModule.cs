@@ -11,6 +11,7 @@ namespace Separatism
 		{
 			gameInitializer.AddBehavior(new UtilityBehaviour());
 			gameInitializer.AddBehavior(new LordRebellionBehaviour());
+			gameInitializer.AddBehavior(new NationalRebellionBehaviour());
 			gameInitializer.AddBehavior(new AnarchyRebellionBehaviour());
 			gameInitializer.AddModel(new SeparatismSettlementLoyaltyModel());
 		}

@@ -140,7 +140,8 @@ namespace Separatism.Behaviours
 		private Kingdom GoRebelKingdom(Clan clan)
 		{
 			// create a new kingdom for the clan
-			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found as a result of {ClanName} rebellion against {Ruler} ruler of {Kingdom}.", null);
+			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found in {Year} when the {ClanName} have rised a rebellion against {Ruler} ruler of {Kingdom}.", null);
+			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
 			kingdomIntroText.SetTextVariable("ClanName", clan.Name);
 			kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
 			kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
