@@ -37,12 +37,30 @@
 	<string id="Separatism_Settings_100" text="Lord rebellions"/>
 	<string id="Separatism_Settings_101" text="Enable rebellions depending on lord relationship."/>
 	<string id="Separatism_Settings_110" text="Average amount of kingdom fiefs is enough to rebel"/>
-	<string id="Separatism_Settings_111" text="A clan has a reason to rebel when amount of its fiefs >= amount of kingdom fiefs / number of kingdom non-mercenary clans."/>
+	<string id="Separatism_Settings_111" text="A clan can rebel when amount of its fiefs >= amount of kingdom fiefs / number of kingdom non-mercenary clans."/>
 	<string id="Separatism_Settings_120" text="Minimal amount of kingdom fiefs to rebel"/>
-	<string id="Separatism_Settings_121" text="A clan has a reason to rebel when amount of its fiefs >= specified number. The amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village."/>
-	<string id="Separatism_Settings_130" text="Daily chance to rebel when a clan is ready"/>
-	<string id="Separatism_Settings_131" text="1 - start a rebellion as soon as possible. 0 - never."/>
+	<string id="Separatism_Settings_121" text="A clan can rebel when amount of its fiefs >= specified number. The amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village."/>
+	<string id="Separatism_Settings_130" text="Daily rebellion chance"/>
+	<string id="Separatism_Settings_131" text="Daily chance of lord rebellion when all requirements are met. 1 - start a rebellion as soon as possible. 0 - never."/>
 	
+	<string id="Separatism_Settings_800" text="National rebellions"/>
+	<string id="Separatism_Settings_801" text="Enable rebellions depending on number of foreign lords having their culture fiefs in a single kingdom."/>
+	<string id="Separatism_Settings_810" text="Minimal required number of lords"/>
+	<string id="Separatism_Settings_811" text="Number of foreign lords having their culture fiefs in a single kingdom required to start a national rebellion."/>
+	<string id="Separatism_Settings_820" text="Daily rebellion chance"/>
+	<string id="Separatism_Settings_821" text="Daily chance of national rebellion when all requirements are met. 1 - start a rebellion as soon as possible. 0 - never."/>
+
+	<string id="Separatism_Settings_900" text="Anarchy rebellions"/>
+	<string id="Separatism_Settings_901" text="Enable rebellions depending on number of fiefs per single clan and how often lords visit their fiefs."/>
+	<string id="Separatism_Settings_910" text="Critical amount of fiefs per single clan"/>
+	<string id="Separatism_Settings_911" text="A settlement can rebel when owner clan has not less than specified amount of fiefs. The amount of fiefs counts like this: 2 per town, 1 per castle, 0 per village."/>
+	<string id="Separatism_Settings_920" text="Number of days after owner visit to keep order"/>
+	<string id="Separatism_Settings_921" text="A settlement can not rebel when its owner has visited it in last number of days."/>
+	<string id="Separatism_Settings_930" text="Bonus rebel fief for high tier clan"/>
+	<string id="Separatism_Settings_931" text="An anarchy rebellion takes an additional fief when a high tier clan was called on rulership."/>
+	<string id="Separatism_Settings_940" text="Daily rebellion chance"/>
+	<string id="Separatism_Settings_941" text="Daily chance of anarchy rebellion when all requirements are met. 1 - start a rebellion as soon as possible. 0 - never."/>
+
 	<string id="Separatism_Settings_700" text="Settlement rebellions"/>
 	<string id="Separatism_Settings_701" text="Enable rebellions depending on settlement loyalty. Build in game rebellion mechanic. By default is inactive probably for a reason. So use it at your own risk."/>
 	<string id="Separatism_Settings_710" text="Start loyalty threshold"/>

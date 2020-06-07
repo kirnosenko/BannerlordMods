@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using Common;
 
@@ -19,13 +20,21 @@ namespace Separatism.Behaviours
 
 		private void OnDailyTick()
 		{
+			if (!SeparatismConfig.Settings.NationalRebellionsEnabled)
+			{
+				return;
+			}
+			
 			var readyClans = Clan.All
 				.Where(c => c.Culture != c.Kingdom?.Culture && c.Settlements.Any(s => s.Culture == c.Culture))
 				.GroupBy(c => c.Kingdom)
 				.OrderByDescending(x => x.Count());
 			foreach (var group in readyClans)
 			{
-				if (group.Count() >= 2)
+				var rebelRightNow = SeparatismConfig.Settings.DailyNationalRebellionChance >= 1 ||
+					(MBRandom.RandomFloat <= SeparatismConfig.Settings.DailyNationalRebellionChance);
+
+				if (group.Count() >= SeparatismConfig.Settings.MinimalRequiredNumberOfNativeLords && rebelRightNow)
 				{
 					var rebelKingdom = GoRebelKingdom(group.OrderByDescending(c => c.Tier).ThenByDescending(c => c.Renown));
 					var textObject = new TextObject("{=Separatism_National_Rebel}{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}.", null);

@@ -2,6 +2,7 @@
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using Common;
 
@@ -20,10 +21,15 @@ namespace Separatism.Behaviours
 
 		private void OnDailyTickClan(Clan clan)
 		{
+			if (!SeparatismConfig.Settings.AnarchyRebellionsEnabled)
+			{
+				return;
+			}
+
 			var clanFiefsAmount = clan.GetFiefsAmount();
-			if (clanFiefsAmount < 10) return;
+			if (clanFiefsAmount < SeparatismConfig.Settings.CriticalAmountOfFiefsPerSingleClan) return;
 			var anarchySettlements = clan.Settlements.Where(x => x.IsTown &&
-				CampaignTime.Hours(x.LastVisitTimeOfOwner) + CampaignTime.Days(3) < CampaignTime.Now).ToArray();
+				CampaignTime.Hours(x.LastVisitTimeOfOwner) + CampaignTime.Days(SeparatismConfig.Settings.NumberOfDaysAfterOwnerVisitToKeepOrder) < CampaignTime.Now).ToArray();
 			if (anarchySettlements.Length == 0) return;
 			
 			var availableClans = Clan.All.ReadyToRule().ToArray();
@@ -33,11 +39,14 @@ namespace Separatism.Behaviours
 					.Where(x => x.Culture == settlement.Culture)
 					.OrderByDescending(x => x.TotalStrength)
 					.FirstOrDefault();
-				if (newRulerClan != null)
+				var rebelRightNow = SeparatismConfig.Settings.DailyAnarchyRebellionChance >= 1 ||
+					(MBRandom.RandomFloat <= SeparatismConfig.Settings.DailyAnarchyRebellionChance);
+
+				if (newRulerClan != null && rebelRightNow)
 				{
 					var rebelSettlements = new List<Settlement>();
 					rebelSettlements.Add(settlement);
-					int bonusSettlements = newRulerClan.Tier > 4 ? 1 : 0;
+					int bonusSettlements = (SeparatismConfig.Settings.BonusRebelFiefForHighTierClan && newRulerClan.Tier > 4) ? 1 : 0;
 					if (bonusSettlements > 0)
 					{
 						var neighborClanFiefs = new Queue<Settlement>(Settlement

@@ -48,8 +48,8 @@ namespace Separatism.Behaviours
 				var hasEnoughFiefs = (kingdomFiefs > 0 &&
 					((SeparatismConfig.Settings.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
 					SeparatismConfig.Settings.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
-				var rebelRightNow = SeparatismConfig.Settings.DailyChanceToRebelWhenClanIsReady >= 1 ||
-					(MBRandom.RandomFloat <= SeparatismConfig.Settings.DailyChanceToRebelWhenClanIsReady);
+				var rebelRightNow = SeparatismConfig.Settings.DailyLordRebellionChance >= 1 ||
+					(MBRandom.RandomFloat <= SeparatismConfig.Settings.DailyLordRebellionChance);
 
 				if (hasReason && hasEnoughFiefs && rebelRightNow)
 				{
