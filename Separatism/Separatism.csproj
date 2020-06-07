@@ -93,7 +93,6 @@
     <Compile Include="Patches\CampaignPatch.cs" />
     <Compile Include="Patches\DiplomaticBartersBehaviorPatch.cs" />
     <Compile Include="Patches\HeroPatch.cs" />
-    <Compile Include="Patches\LordDefectionCampaignBehaviorPatch.cs" />
     <Compile Include="Patches\MapScreenPatch.cs" />
     <Compile Include="Behaviours\LordRebellionBehaviour.cs" />
     <Compile Include="SeparatismConfig.cs" />
