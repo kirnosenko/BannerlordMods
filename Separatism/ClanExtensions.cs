@@ -89,7 +89,7 @@ namespace Separatism
 				kingdom.RulingClan = clan;
 				Campaign.Current.AddKingdom(kingdom);
 			}
-
+			
 			return kingdom;
 		}
 
@@ -100,12 +100,8 @@ namespace Separatism
 				c.Kingdom?.RulingClan != c &&
 				c.Leader.IsAlive &&
 				!c.Leader.IsPrisoner &&
-				!c.IsUnderMercenaryService);
-		}
-
-		public static IEnumerable<Clan> ReadyToRule(this IEnumerable<Clan> clans)
-		{
-			return clans.ReadyToGo().Where(c => !c.IsMinorFaction);
+				!c.IsUnderMercenaryService &&
+				!c.IsMinorFaction);
 		}
 
 		public static void ChangeKingdom(this Clan clan, Kingdom newKingdom, bool rebellion)

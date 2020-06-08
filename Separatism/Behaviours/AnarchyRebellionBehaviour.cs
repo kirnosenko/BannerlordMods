@@ -32,7 +32,7 @@ namespace Separatism.Behaviours
 				CampaignTime.Hours(x.LastVisitTimeOfOwner) + CampaignTime.Days(SeparatismConfig.Settings.NumberOfDaysAfterOwnerVisitToKeepOrder) < CampaignTime.Now).ToArray();
 			if (anarchySettlements.Length == 0) return;
 			
-			var availableClans = Clan.All.ReadyToRule().ToArray();
+			var availableClans = Clan.All.ReadyToGo().ToArray();
 			foreach (var settlement in anarchySettlements.OrderByDescending(x => x.Position2D.Distance(clan.FactionMidPoint)))
 			{
 				var newRulerClan = availableClans
