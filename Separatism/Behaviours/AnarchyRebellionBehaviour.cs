@@ -102,6 +102,9 @@ namespace Separatism.Behaviours
 			}
 			// move the clan into the new kingdom
 			clan.ChangeKingdom(kingdom, false);
+			// declare wars
+			kingdom.InheritsWarsFromKingdom(owner.Kingdom);
+			DeclareWarAction.Apply(owner.Kingdom, kingdom);
 
 			return kingdom;
 		}

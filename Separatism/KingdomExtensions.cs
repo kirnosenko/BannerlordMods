@@ -37,6 +37,18 @@ namespace Separatism
 				positions1.Min(p => p.Y) >= positions2.Min(p => p.Y);
 		}
 
+		public static void InheritsWarsFromKingdom(this Kingdom dest, Kingdom src)
+		{
+			if (SeparatismConfig.Settings.KeepOriginalKindomWars)
+			{
+				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
+				foreach (var enemy in oldKingdomEnemies)
+				{
+					DeclareWarAction.Apply(enemy, dest);
+				}
+			}
+		}
+
 		public static void SetKingdomText(this Kingdom kingdom)
 		{
 			if (kingdom.EncyclopediaText == null)

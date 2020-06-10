@@ -61,7 +61,7 @@ namespace Separatism.Behaviours
 			{
 				kingdom.AddPolicy(policy);
 			}
-			// move the clan into its new kingdom
+			// move all clans into the new kingdom
 			foreach (var clan in clans)
 			{
 				clan.ChangeKingdom(kingdom, true);

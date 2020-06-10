@@ -168,7 +168,7 @@ namespace Separatism
 						}
 					}
 
-					InheritWarsFromKingdom(oldKingdom, newKingdom);
+					newKingdom.InheritsWarsFromKingdom(oldKingdom);
 					DeclareWarAction.Apply(oldKingdom, newKingdom);
 				}
 				else
@@ -180,7 +180,7 @@ namespace Separatism
 					}
 					if (oldKingdom != null)
 					{
-						InheritWarsFromKingdom(oldKingdom, newKingdom);
+						newKingdom.InheritsWarsFromKingdom(oldKingdom);
 					}
 				}
 			}
@@ -194,18 +194,6 @@ namespace Separatism
 			}
 
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
-		}
-
-		private static void InheritWarsFromKingdom(Kingdom src, Kingdom dest)
-		{
-			if (SeparatismConfig.Settings.KeepOriginalKindomWars)
-			{
-				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
-				foreach (var enemy in oldKingdomEnemies)
-				{
-					DeclareWarAction.Apply(enemy, dest);
-				}
-			}
 		}
 
 		private static void NotifyClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
