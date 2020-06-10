@@ -87,6 +87,8 @@
 	<string id="Separatism_Settings_351" text="Изменение отношений между правителями двух королевств как резальтат их объединения."/>
 	<string id="Separatism_Settings_360" text="Между правителем и поддержавшим кланом"/>
 	<string id="Separatism_Settings_361" text="Изменение отношений между правителем слабого королевства и присоединившимся к нему для поддержки кланом."/>
+	<string id="Separatism_Settings_370" text="Между участниками национального восстания"/>
+	<string id="Separatism_Settings_371" text="Изменение отношений между главами кланов участвующих в национальном восстании."/>
 
 	<string id="Separatism_Settings_500" text="Политика"/>
 	<string id="Separatism_Settings_510" text="Сохранить пустые королевства"/>

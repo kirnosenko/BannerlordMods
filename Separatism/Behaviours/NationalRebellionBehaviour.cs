@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using Common;
@@ -65,6 +66,20 @@ namespace Separatism.Behaviours
 			foreach (var clan in clans)
 			{
 				clan.ChangeKingdom(kingdom, true);
+			}
+			// make relation changes for participating clans
+			int relationChange = SeparatismConfig.Settings.RelationChangeNationalRebellionClans;
+			if (relationChange != 0)
+			{
+				Queue<Clan> clanQueue = new Queue<Clan>(clans);
+				while (clanQueue.Count > 1)
+				{
+					var c1 = clanQueue.Dequeue();
+					foreach (var c2 in clanQueue)
+					{
+						ChangeRelationAction.ApplyRelationChangeBetweenHeroes(c1.Leader, c2.Leader, relationChange, true);
+					}
+				}
 			}
 
 			return kingdom;

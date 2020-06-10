@@ -87,6 +87,8 @@
 	<string id="Separatism_Settings_351" text="Relation change between two rulers as the result of union of their kingdoms."/>
 	<string id="Separatism_Settings_360" text="For ruler and supporting clan"/>
 	<string id="Separatism_Settings_361" text="Relation change between the ruler of a weak kingdom and a supporting clan that joined the kingdom."/>
+	<string id="Separatism_Settings_370" text="For clans participating in national rebellion"/>
+	<string id="Separatism_Settings_371" text="Relation change between the rulers of clans participating in national rebellion."/>
 
 	<string id="Separatism_Settings_500" text="Politics"/>
 	<string id="Separatism_Settings_510" text="Keep empty kingdoms"/>
