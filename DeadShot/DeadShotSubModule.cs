@@ -10,6 +10,7 @@ namespace DeadShot
 		private GameKey playerZoomKey;
 		private bool? affectCurrentShot = null;
 		private bool zoomState = false;
+		private float releaseTime = 0;
 
 		protected override void OnSubModuleLoad()
 		{
@@ -27,8 +28,18 @@ namespace DeadShot
 			{
 				var currentStage = Agent.Main.GetCurrentActionStage(1);
 
-				if (currentStage == Agent.ActionStage.AttackReady || currentStage == Agent.ActionStage.AttackRelease)
+				if (currentStage == Agent.ActionStage.AttackReady || 
+					(currentStage == Agent.ActionStage.AttackRelease && releaseTime < 1))
 				{
+					if (currentStage == Agent.ActionStage.AttackRelease)
+					{
+						releaseTime += dt;
+					}
+					else
+					{
+						releaseTime = 0;
+					}
+
 					var newZoomState = IsZoomActive();
 					if (newZoomState != zoomState)
 					{
@@ -66,8 +77,11 @@ namespace DeadShot
 			{
 				return false;
 			}
+			var key1 = playerZoomKey.PrimaryKey?.InputKey;
+			var key2 = playerZoomKey.ControllerKey?.InputKey;
 
-			return Input.IsKeyDown(playerZoomKey.PrimaryKey.InputKey) || Input.IsKeyDown(playerZoomKey.ControllerKey.InputKey);
+			return (key1.HasValue && Input.IsKeyDown(key1.Value)) || 
+				(key2.HasValue && Input.IsKeyDown(key2.Value));
 		}
 	}
 }
