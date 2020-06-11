@@ -32,6 +32,9 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.1\lib\net472\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Bannerlord.UIExtenderEx, Version=0.0.9.11, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.5\lib\net472\Bannerlord.UIExtenderEx.dll</HintPath>
     </Reference>

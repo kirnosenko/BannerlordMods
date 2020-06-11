@@ -7,15 +7,18 @@ namespace DeadShot
 {
 	public class DeadShotSubModule : MBSubModuleBase
 	{
-		private readonly GameKey playerZoomKey;
+		private GameKey playerZoomKey;
 		private bool? affectCurrentShot = null;
 		private bool zoomState = false;
 
-		public DeadShotSubModule()
+		protected override void OnSubModuleLoad()
 		{
+			base.OnSubModuleLoad();
+
 			playerZoomKey = HotKeyManager.GetCategory("CombatHotKeyCategory").RegisteredGameKeys
 				.SingleOrDefault(x => x != null && x.StringId == "Zoom");
 		}
+
 		protected override void OnApplicationTick(float dt)
 		{
 			if (Agent.Main != null && 
