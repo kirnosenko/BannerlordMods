@@ -101,7 +101,8 @@ namespace Separatism
 				c.Leader.IsAlive &&
 				!c.Leader.IsPrisoner &&
 				!c.IsUnderMercenaryService &&
-				!c.IsMinorFaction);
+				!c.IsMinorFaction &&
+				c.StringId != "test_clan");
 		}
 
 		public static void ChangeKingdom(this Clan clan, Kingdom newKingdom, bool rebellion)
