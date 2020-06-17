@@ -22,14 +22,13 @@ namespace DeadShot
 
 		protected override void OnApplicationTick(float dt)
 		{
-			if (Agent.Main != null && 
-				Agent.Main.IsActive() &&
-				Agent.Main.WieldedWeapon.IsAnyRanged(out var ranged))
+			if (Agent.Main != null && Agent.Main.IsActive())
 			{
 				var currentStage = Agent.Main.GetCurrentActionStage(1);
 
-				if (currentStage == Agent.ActionStage.AttackReady || 
-					(currentStage == Agent.ActionStage.AttackRelease && releaseTime < 1))
+				if (Agent.Main.WieldedWeapon.IsAnyRanged(out var ranged) && 
+					(currentStage == Agent.ActionStage.AttackReady ||
+						(currentStage == Agent.ActionStage.AttackRelease && releaseTime < 1)))
 				{
 					if (currentStage == Agent.ActionStage.AttackRelease)
 					{

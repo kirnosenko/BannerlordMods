@@ -1,7 +1,7 @@
 <Module>
 	<Name value="DeadShot"/>
 	<Id value="DeadShot"/>
-	<Version value="v0.3.0"/>
+	<Version value="v0.3.1"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>
