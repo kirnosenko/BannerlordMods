@@ -28,7 +28,7 @@ namespace Separatism.Behaviours
 			
 			var readyClans = Clan.All
 				.Where(c => c.Culture != c.Kingdom?.Culture && c.Settlements.Any(s => s.Culture == c.Culture))
-				.GroupBy(c => c.Kingdom)
+				.GroupBy(c => new { Kingdom = c.Kingdom, Culture = c.Culture })
 				.OrderByDescending(x => x.Count());
 			foreach (var group in readyClans)
 			{
@@ -39,8 +39,8 @@ namespace Separatism.Behaviours
 				{
 					var rebelKingdom = GoRebelKingdom(group.OrderByDescending(c => c.Tier).ThenByDescending(c => c.Renown));
 					var textObject = new TextObject("{=Separatism_National_Rebel}{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}.", null);
-					textObject.SetTextVariable("Culture", group.First().Culture.Name);
-					textObject.SetTextVariable("Kingdom", group.Key.Name);
+					textObject.SetTextVariable("Culture", group.Key.Culture.Name);
+					textObject.SetTextVariable("Kingdom", group.Key.Kingdom.Name);
 					textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
 					GameLog.Warn(textObject.ToString());
 					return;
