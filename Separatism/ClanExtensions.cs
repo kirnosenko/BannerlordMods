@@ -101,6 +101,7 @@ namespace Separatism
 				c.Leader.IsAlive &&
 				!c.Leader.IsPrisoner &&
 				!c.IsUnderMercenaryService &&
+				!c.IsClanTypeMercenary &&
 				!c.IsMinorFaction &&
 				c.StringId != "test_clan");
 		}
