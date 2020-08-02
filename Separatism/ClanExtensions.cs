@@ -143,7 +143,7 @@ namespace Separatism
 			}
 			if (newKingdom != null)
 			{
-				clan.ClanJoinFaction(newKingdom);
+				clan.Kingdom = newKingdom;
 				NotifyClanChangedKingdom(clan, oldKingdom, newKingdom, rebellion, true);
 
 				if (rebellion)

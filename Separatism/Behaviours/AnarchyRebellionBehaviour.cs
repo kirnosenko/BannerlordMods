@@ -98,7 +98,7 @@ namespace Separatism.Behaviours
 			// change settlement ownership
 			foreach (var s in settlements)
 			{
-				ChangeOwnerOfSettlementAction.ApplyByRevolt(clan.Leader, s);
+				ChangeOwnerOfSettlementAction.ApplyByLeaveFaction(clan.Leader, s);
 			}
 			// move the clan into the new kingdom
 			clan.ChangeKingdom(kingdom, false);
