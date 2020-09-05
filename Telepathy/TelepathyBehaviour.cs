@@ -231,9 +231,13 @@ namespace Telepathy
 
 		private void StartMeeting(Hero hero)
 		{
-			var heroParty = hero.PartyBelongedTo?.Party;
 			var player = Hero.MainHero;
 			var playerParty = player.PartyBelongedTo?.Party;
+			var heroParty = hero.PartyBelongedTo?.Party;
+			if (heroParty == null || heroParty == playerParty)
+			{
+				heroParty = hero.HomeSettlement.Party;
+			}
 
 			if (!hero.IsWanderer || heroParty != null)
 			{
