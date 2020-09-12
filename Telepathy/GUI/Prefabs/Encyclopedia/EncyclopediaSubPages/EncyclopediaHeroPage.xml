@@ -56,7 +56,7 @@
                     <ListPanel WidthSizePolicy = "StretchToParent" HeightSizePolicy = "CoverChildren" VerticalAlignment="Bottom" MarginLeft="10" LayoutImp.LayoutMethod="VerticalBottomToTop">
                       <Children>
 
-						<!--Talk button-->
+                        <!--Talk button-->
 						<Widget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Center" >
 						  <Children>
 							  <ButtonWidget DataSource="{HeroCharacter}" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="227" SuggestedHeight="40" Brush="ButtonBrush2" UpdateChildrenStates="true" Command.Click="CallToTalk" IsVisible="@CanTalkTo" IsEnabled="@WillNotTalk">
@@ -85,6 +85,13 @@
                     </ListPanel>
 
                     <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="2" HorizontalAlignment="Right" Sprite="Encyclopedia\divider_vertical" />
+
+                    <!--Bookmark Button-->
+                    <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="5" MarginTop="5" Brush="Encyclopedia.Bookmark.Button" Command.Click="ExecuteSwitchBookmarkedState" IsSelected="@IsBookmarked">
+                      <Children>
+                        <HintWidget DataSource="{BookmarkHint}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                      </Children>
+                    </ButtonWidget>
 
                   </Children>
                 </Widget>
@@ -116,7 +123,7 @@
                                     <RichTextWidget HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SubPage.Info.Text" Text="@InformationText" MarginTop="25" MarginLeft="15" MarginRight="25" ClipContents="false"/>
 
                                     <!--Clan Divider-->
-                                    <EncyclopediaDivider MarginTop="20" Parameter.Title="Info" Parameter.ItemList="..\InfoContainer"/>
+                                    <EncyclopediaDivider MarginTop="20" Parameter.Title="@InfoText" Parameter.ItemList="..\InfoContainer"/>
 
                                     <Widget Id="InfoContainer" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent">
                                       <Children>

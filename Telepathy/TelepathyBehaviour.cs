@@ -94,6 +94,7 @@ namespace Telepathy
 		private static PlayerEncounter meetingEncounter = null;
 		private static Hero meetingHero = null;
 		private static PlayerEncounter keepEncounter = null;
+		private static LocationEncounter keepLocation = null;
 		private static Settlement keepSettlement = null;
 
 		public static void CallToTalk(Hero hero)
@@ -224,6 +225,8 @@ namespace Telepathy
 				meetingHero = null;
 				AccessTools.Property(typeof(Campaign), "PlayerEncounter").SetValue(Campaign.Current, keepEncounter);
 				keepEncounter = null;
+				AccessTools.Property(typeof(Campaign), "LocationEncounter").SetValue(Campaign.Current, keepLocation);
+				keepLocation = null;
 				Hero.MainHero.PartyBelongedTo.CurrentSettlement = keepSettlement;
 				keepSettlement = null;
 			}
@@ -242,6 +245,7 @@ namespace Telepathy
 			if (!hero.IsWanderer || heroParty != null)
 			{
 				keepEncounter = PlayerEncounter.Current;
+				keepLocation = (LocationEncounter)AccessTools.Property(typeof(Campaign), "LocationEncounter").GetValue(Campaign.Current);
 				keepSettlement = player.PartyBelongedTo.CurrentSettlement;
 				if (heroParty == null && hero.CurrentSettlement != null)
 				{
