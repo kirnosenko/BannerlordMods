@@ -115,7 +115,8 @@ namespace Separatism.Behaviours
 						// no ally kingdoms found, so look for friendly clans at least
 						var allyClan = Clan.All.ReadyToGo().Where(c =>
 							c.Tier <= clan.Tier && 
-							c.Leader.HasGoodRelationWith(clan.Leader))
+							c.Leader.HasGoodRelationWith(clan.Leader) &&
+							(c.Kingdom == null || !c.Leader.HasGoodRelationWith(c.Kingdom.Ruler)))
 							.OrderByDescending(c => c.TotalStrength)
 							.FirstOrDefault();
 						if (allyClan != null)
