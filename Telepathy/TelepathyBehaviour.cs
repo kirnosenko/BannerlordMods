@@ -205,14 +205,7 @@ namespace Telepathy
 			if (call != null && call.Hero.CanTalkTo())
 			{
 				calls.Remove(call);
-				if (call.Hero.IsOccupiedByAnEvent())
-				{
-					calls.AddLast(call);
-				}
-				else
-				{
-					StartMeeting(call.Hero);
-				}
+				StartMeeting(call.Hero);
 			}
 		}
 
