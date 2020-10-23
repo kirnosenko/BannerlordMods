@@ -26,7 +26,7 @@ namespace DeadShot
 			{
 				var currentStage = Agent.Main.GetCurrentActionStage(1);
 
-				if (Agent.Main.WieldedWeapon.IsAnyRanged(out var ranged) && 
+				if (Agent.Main.WieldedWeapon.GetRangedUsageIndex() >= 0 && 
 					(currentStage == Agent.ActionStage.AttackReady ||
 						(currentStage == Agent.ActionStage.AttackRelease && releaseTime < 1)))
 				{
