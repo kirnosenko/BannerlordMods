@@ -36,8 +36,8 @@ namespace Separatism
 
 		public override string Id => modId;
 
-		[SettingPropertyGroup("{=Separatism_Settings_100}Lord rebellions", GroupOrder = 0, IsMainToggle = true)]
-		[SettingPropertyBool(displayName: "{=Separatism_Settings_100}Lord rebellions", HintText = "{=Separatism_Settings_101}Enable rebellions depending on lord relationship.", Order = 0, RequireRestart = false)]
+		[SettingPropertyGroup("{=Separatism_Settings_100}Lord rebellions", GroupOrder = 0)]
+		[SettingPropertyBool(displayName: "{=Separatism_Settings_100}Lord rebellions", HintText = "{=Separatism_Settings_101}Enable rebellions depending on lord relationship.", Order = 0, IsToggle = true, RequireRestart = false)]
 		public bool LordRebellionsEnabled { get; set; } = true;
 
 		[SettingPropertyGroup("{=Separatism_Settings_100}Lord rebellions", GroupOrder = 0)]
@@ -52,8 +52,8 @@ namespace Separatism
 		[SettingPropertyFloatingInteger(displayName: "{=Separatism_Settings_130}Daily rebellion chance", minValue: 0, maxValue: 1, HintText = "{=Separatism_Settings_131}Daily chance of lord rebellion when all requirements are met. 1 - start a rebellion as soon as possible. 0 - never.", Order = 3, RequireRestart = false)]
 		public float DailyLordRebellionChance { get; set; } = 1;
 
-		[SettingPropertyGroup("{=Separatism_Settings_800}National rebellions", GroupOrder = 1, IsMainToggle = true)]
-		[SettingPropertyBool(displayName: "{=Separatism_Settings_800}National rebellions", HintText = "{=Separatism_Settings_801}Enable rebellions depending on number of foreign lords having their culture fiefs in a single kingdom.", Order = 0, RequireRestart = false)]
+		[SettingPropertyGroup("{=Separatism_Settings_800}National rebellions", GroupOrder = 1)]
+		[SettingPropertyBool(displayName: "{=Separatism_Settings_800}National rebellions", HintText = "{=Separatism_Settings_801}Enable rebellions depending on number of foreign lords having their culture fiefs in a single kingdom.", Order = 0, IsToggle = true, RequireRestart = false)]
 		public bool NationalRebellionsEnabled { get; set; } = true;
 
 		[SettingPropertyGroup("{=Separatism_Settings_800}National rebellions", GroupOrder = 1)]
@@ -64,8 +64,8 @@ namespace Separatism
 		[SettingPropertyFloatingInteger(displayName: "{=Separatism_Settings_820}Daily rebellion chance", minValue: 0, maxValue: 1, HintText = "{=Separatism_Settings_821}Daily chance of national rebellion when all requirements are met. 1 - start a rebellion as soon as possible. 0 - never.", Order = 2, RequireRestart = false)]
 		public float DailyNationalRebellionChance { get; set; } = 1;
 
-		[SettingPropertyGroup("{=Separatism_Settings_900}Anarchy rebellions", GroupOrder = 2, IsMainToggle = true)]
-		[SettingPropertyBool(displayName: "{=Separatism_Settings_900}Anarchy rebellions", HintText = "{=Separatism_Settings_901}Enable rebellions depending on number of fiefs per single clan and how often lords visit their fiefs.", Order = 0, RequireRestart = false)]
+		[SettingPropertyGroup("{=Separatism_Settings_900}Anarchy rebellions", GroupOrder = 2)]
+		[SettingPropertyBool(displayName: "{=Separatism_Settings_900}Anarchy rebellions", HintText = "{=Separatism_Settings_901}Enable rebellions depending on number of fiefs per single clan and how often lords visit their fiefs.", Order = 0, IsToggle = true, RequireRestart = false)]
 		public bool AnarchyRebellionsEnabled { get; set; } = true;
 
 		[SettingPropertyGroup("{=Separatism_Settings_900}Anarchy rebellions", GroupOrder = 2)]
@@ -84,8 +84,8 @@ namespace Separatism
 		[SettingPropertyFloatingInteger(displayName: "{=Separatism_Settings_940}Daily rebellion chance", minValue: 0, maxValue: 1, HintText = "{=Separatism_Settings_941}Daily chance of anarchy rebellion when all requirements are met. 1 - start a rebellion as soon as possible. 0 - never.", Order = 4, RequireRestart = false)]
 		public float DailyAnarchyRebellionChance { get; set; } = 1;
 
-		[SettingPropertyGroup("{=Separatism_Settings_700}Settlement rebellions", GroupOrder = 3, IsMainToggle = true)]
-		[SettingPropertyBool(displayName: "{=Separatism_Settings_700}Settlement rebellions", HintText = "{=Separatism_Settings_701}Enable rebellions depending on settlement loyalty. Build in game rebellion mechanic. By default is inactive probably for a reason. So use it at your own risk.", Order = 0, RequireRestart = false)]
+		[SettingPropertyGroup("{=Separatism_Settings_700}Settlement rebellions", GroupOrder = 3)]
+		[SettingPropertyBool(displayName: "{=Separatism_Settings_700}Settlement rebellions", HintText = "{=Separatism_Settings_701}Enable rebellions depending on settlement loyalty. Build in game rebellion mechanic. By default is inactive probably for a reason. So use it at your own risk.", Order = 0, IsToggle = true, RequireRestart = false)]
 		public bool SettlementRebellionsEnabled { get; set; } = false;
 
 		[SettingPropertyGroup("{=Separatism_Settings_700}Settlement rebellions", GroupOrder = 3)]
