@@ -56,7 +56,8 @@ namespace Separatism.Behaviours
 			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
 			kingdomIntroText.SetTextVariable("Culture", ruler.Culture.Name);
 			kingdomIntroText.SetTextVariable("Kingdom", ruler.Kingdom.Name);
-			var kingdom = ruler.CreateKingdom(kingdomIntroText);
+			var capital = ruler.Settlements.OrderByDescending(x => x.Prosperity).First();
+			var kingdom = ruler.CreateKingdom(capital, kingdomIntroText);
 			// keep policies from the old clan kingdom
 			foreach (var policy in ruler.Kingdom.ActivePolicies)
 			{

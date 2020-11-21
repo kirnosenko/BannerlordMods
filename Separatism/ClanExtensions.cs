@@ -49,7 +49,7 @@ namespace Separatism
 			kingdomRulerTitleText = new TextObject(kingdomRulerTitle, null);
 		}
 
-		public static Kingdom CreateKingdom(this Clan clan, TextObject intro)
+		public static Kingdom CreateKingdom(this Clan clan, Settlement capital, TextObject intro)
 		{
 			string kingdomId = clan.GetKingdomId();
 			var kingdom = Kingdom.All.SingleOrDefault(x => x.StringId == kingdomId);
@@ -78,7 +78,6 @@ namespace Separatism
 					(color1, color2) = clan.GetColors();
 				}
 
-				var capital = clan.Settlements.OrderByDescending(x => x.Prosperity).First();
 				clan.UpdateHomeSettlement(capital);
 				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, capital);
 				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, intro);

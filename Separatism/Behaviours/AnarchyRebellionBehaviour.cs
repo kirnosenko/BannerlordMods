@@ -87,7 +87,7 @@ namespace Separatism.Behaviours
 			kingdomIntroText.SetTextVariable("ClanName", owner.Name);
 			kingdomIntroText.SetTextVariable("Settlement", capital.Name);
 			kingdomIntroText.SetTextVariable("Ruler", clan.Leader.Name);
-			var kingdom = clan.CreateKingdom(kingdomIntroText);
+			var kingdom = clan.CreateKingdom(capital, kingdomIntroText);
 			// keep policies from the old settlement kingdom
 			foreach (var policy in owner.Kingdom.ActivePolicies)
 			{
