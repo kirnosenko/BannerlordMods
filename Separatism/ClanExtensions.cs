@@ -78,7 +78,9 @@ namespace Separatism
 					(color1, color2) = clan.GetColors();
 				}
 
-				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, clan.InitialPosition);
+				var capital = clan.Settlements.OrderByDescending(x => x.Prosperity).First();
+				clan.UpdateHomeSettlement(capital);
+				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, capital);
 				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, intro);
 				AccessTools.Property(typeof(Kingdom), "EncyclopediaTitle").SetValue(kingdom, kingdomNameText);
 				AccessTools.Property(typeof(Kingdom), "EncyclopediaRulerTitle").SetValue(kingdom, kingdomRulerTitleText);
@@ -136,7 +138,7 @@ namespace Separatism
 				newKingdom,
 				newKingdom == null || rebellion
 			});
-			clan.IsUnderMercenaryService = false;
+			clan.EndMercenaryService(true);
 			if (oldKingdom != null)
 			{
 				clan.ClanLeaveKingdom(false);
