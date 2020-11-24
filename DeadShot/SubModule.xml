@@ -1,13 +1,11 @@
 <Module>
 	<Name value="DeadShot"/>
 	<Id value="DeadShot"/>
-	<Version value="v0.3.5"/>
+	<Version value="v0.3.6"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>
 		<DependedModule Id="Bannerlord.MBOptionScreen" />
-		<DependedModule Id="Bannerlord.MBOptionScreen.MCMv3" />
-		<DependedModule Id="Bannerlord.MBOptionScreen.ModLib" />
 		<DependedModule Id="Native"/>
 		<DependedModule Id="SandBoxCore"/>
 		<DependedModule Id="Sandbox"/>

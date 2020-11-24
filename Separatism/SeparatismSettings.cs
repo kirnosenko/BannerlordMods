@@ -36,6 +36,8 @@ namespace Separatism
 
 		public override string Id => modId;
 
+		public override string FormatType => "json2";
+
 		[SettingPropertyGroup("{=Separatism_Settings_100}Lord rebellions", GroupOrder = 0)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_100}Lord rebellions", HintText = "{=Separatism_Settings_101}Enable rebellions depending on lord relationship.", Order = 0, IsToggle = true, RequireRestart = false)]
 		public bool LordRebellionsEnabled { get; set; } = true;

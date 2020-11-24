@@ -26,6 +26,8 @@ namespace DeadShot
 
 		public override string Id => modId;
 
+		public override string FormatType => "json2";
+
 		[SettingPropertyGroup("Slow Motion Effect", GroupOrder = 0)]
 		[SettingPropertyFloatingInteger(displayName: "Slow Motion Factor", minValue: 0.1f, maxValue: 1, HintText = "Set low value to make the effect stronger.", Order = 0, RequireRestart = false)]
 		public float SlowMotionFactor { get; set; } = 0.4f;

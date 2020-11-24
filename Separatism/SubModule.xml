@@ -1,13 +1,11 @@
 <Module>
 	<Name value="Separatism"/>
 	<Id value="Separatism"/>
-	<Version value="v0.8.3"/>
+	<Version value="v0.8.4"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>
 		<DependedModule Id="Bannerlord.MBOptionScreen" />
-		<DependedModule Id="Bannerlord.MBOptionScreen.MCMv3" />
-		<DependedModule Id="Bannerlord.MBOptionScreen.ModLib" />
 		<DependedModule Id="Native"/>
 		<DependedModule Id="SandBoxCore"/>
 		<DependedModule Id="Sandbox"/>

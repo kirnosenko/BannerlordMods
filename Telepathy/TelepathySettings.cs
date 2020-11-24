@@ -26,6 +26,8 @@ namespace Telepathy
 
 		public override string Id => modId;
 
+		public override string FormatType => "json2";
+
 		[SettingPropertyGroup("{=Telepathy_Settings_100}Distant conversation realism", GroupOrder = 0)]
 		[SettingPropertyBool(displayName: "{=Telepathy_Settings_110}Prevent talking to dead", HintText = "{=Telepathy_Settings_111}Prevent distant conversation with heroes passed away.", Order = 0, RequireRestart = false)]
 		public bool PreventTalkingToDead { get; set; } = true;
