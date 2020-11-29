@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeIsShort", "LifeIsShort\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadShot", "DeadShot\DeadShot.csproj", "{406326F4-F686-4BFD-A1E1-3621B22E19D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hypnosis", "Hypnosis\Hypnosis.csproj", "{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Launcher|Any CPU = Debug Launcher|Any CPU
@@ -83,6 +85,18 @@ Global
 		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Release|x64.ActiveCfg = Release|x64
 		{406326F4-F686-4BFD-A1E1-3621B22E19D9}.Release|x64.Build.0 = Release|x64
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug Launcher|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug Launcher|Any CPU.Build.0 = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug Launcher|x64.ActiveCfg = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug Launcher|x64.Build.0 = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Debug|x64.Build.0 = Debug|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Release|x64.ActiveCfg = Release|Any CPU
+		{8A5FB8FF-1EDA-42CD-996D-39DFF7FFCF05}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
