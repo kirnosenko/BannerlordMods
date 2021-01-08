@@ -76,7 +76,7 @@ namespace DeadShot
 			{
 				return false;
 			}
-			var key1 = playerZoomKey.PrimaryKey?.InputKey;
+			var key1 = playerZoomKey.KeyboardKey?.InputKey;
 			var key2 = playerZoomKey.ControllerKey?.InputKey;
 
 			return (key1.HasValue && Input.IsKeyDown(key1.Value)) || 

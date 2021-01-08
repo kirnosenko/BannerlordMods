@@ -40,7 +40,7 @@ namespace LifeIsShort
 
 		private static void TimeShift(Hero hero, float timeShiftDays)
 		{
-			hero.BirthDay = CampaignTime.Days((float)hero.BirthDay.ToDays - timeShiftDays);
+			hero.SetBirthDay(CampaignTime.Days((float)hero.BirthDay.ToDays - timeShiftDays));
 		}
 	}
 }
