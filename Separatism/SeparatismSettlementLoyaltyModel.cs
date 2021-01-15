@@ -11,13 +11,5 @@ namespace Separatism
 				return SeparatismConfig.Settings.SettlementRebellionStartLoyaltyThreshold;
 			}
 		}
-		
-		public override int RebellionEndLoyaltyThreshold
-		{
-			get
-			{
-				return SeparatismConfig.Settings.SettlementRebellionEndLoyaltyThreshold;
-			}
-		}
 	}
 }

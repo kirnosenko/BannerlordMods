@@ -145,6 +145,7 @@
     <Compile Include="Patches\HeroPatch.cs" />
     <Compile Include="Patches\MapScreenPatch.cs" />
     <Compile Include="Behaviours\LordRebellionBehaviour.cs" />
+    <Compile Include="Patches\RebellionsCampaignBehaviorPatch.cs" />
     <Compile Include="SeparatismConfig.cs" />
     <Compile Include="SeparatismSettings.cs" />
     <Compile Include="SeparatismSubModule.cs" />
