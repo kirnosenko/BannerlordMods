@@ -6,10 +6,12 @@ namespace LifeIsShort
 	public static class HeroCollection
 	{
 		private static HashSet<Hero> heroes = new HashSet<Hero>();
+		private static int timestamp;
 
 		public static void Clear()
 		{
 			heroes.Clear();
+			timestamp = 0;
 		}
 		public static void AddHero(Hero hero)
 		{
@@ -17,6 +19,13 @@ namespace LifeIsShort
 		}
 		public static void DailyUpdate()
 		{
+			var newTimestamp = (int)CampaignTime.Now.ToDays;
+			if (newTimestamp == timestamp)
+			{
+				return;
+			}
+			timestamp = newTimestamp;
+
 			bool updateDeathProbabilities = ((int)Campaign.Current.CampaignStartTime.ElapsedDaysUntilNow % LifeIsShortConfig.Instance.OneYearOfHeroLifeInDays) == 0;
 			float timeShiftDays = 1 * LifeIsShortConfig.Instance.AgeMultiplier - 1;
 

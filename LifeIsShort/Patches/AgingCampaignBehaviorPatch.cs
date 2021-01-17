@@ -1,12 +1,13 @@
 ﻿using HarmonyLib;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 
 namespace LifeIsShort.Patches
 {
-	[HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTick")]
+	[HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTickHero")]
 	public class DailyTickPatch
 	{
-		private static void Postfix()
+		private static void Prefix(Hero hero)
 		{
 			HeroCollection.DailyUpdate();
 		}
