@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
@@ -66,13 +67,16 @@ namespace Separatism.Behaviours
 					}
 
 					var rebelKingdom = GoRebelKingdom(newRulerClan, rebelSettlements);
-					var textObject = new TextObject("{=Separatism_Anarchy_Rebel}People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}.", null);
-					textObject.SetTextVariable("Settlement", settlement.Name);
-					textObject.SetTextVariable("Kingdom", clan.Kingdom.Name);
-					textObject.SetTextVariable("Ruler", newRulerClan.Leader.Name);
-					textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
-					GameLog.Warn(textObject.ToString());
-					return;
+					if (rebelKingdom != null)
+					{
+						var textObject = new TextObject("{=Separatism_Anarchy_Rebel}People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}.", null);
+						textObject.SetTextVariable("Settlement", settlement.Name);
+						textObject.SetTextVariable("Kingdom", clan.Kingdom.Name);
+						textObject.SetTextVariable("Ruler", newRulerClan.Leader.Name);
+						textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
+						GameLog.Warn(textObject.ToString());
+						return;
+					}
 				}
 			}
 		}
@@ -83,10 +87,19 @@ namespace Separatism.Behaviours
 			var owner = capital.OwnerClan;
 			// create a new kingdom for the clan
 			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_Anarchy}{RebelKingdom} was found in {Year} as a result of anarchy in fiefs of the {ClanName} when people of {Settlement} have called {Ruler} on rulership.", null);
-			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
-			kingdomIntroText.SetTextVariable("ClanName", owner.Name);
-			kingdomIntroText.SetTextVariable("Settlement", capital.Name);
-			kingdomIntroText.SetTextVariable("Ruler", clan.Leader.Name);
+			try
+			{
+				kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
+				kingdomIntroText.SetTextVariable("ClanName", owner.Name);
+				kingdomIntroText.SetTextVariable("Settlement", capital.Name);
+				kingdomIntroText.SetTextVariable("Ruler", clan.Leader.Name);
+			}
+			catch (Exception e)
+			{
+				// prevent mysterious rare crash
+				GameLog.Error(e);
+				return null;
+			}
 			var kingdom = clan.CreateKingdom(capital, kingdomIntroText);
 			// keep policies from the old settlement kingdom
 			foreach (var policy in owner.Kingdom.ActivePolicies)

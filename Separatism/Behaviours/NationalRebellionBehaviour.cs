@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
@@ -38,12 +39,15 @@ namespace Separatism.Behaviours
 				if (group.Count() >= SeparatismConfig.Settings.MinimalRequiredNumberOfNativeLords && rebelRightNow)
 				{
 					var rebelKingdom = GoRebelKingdom(group.OrderByDescending(c => c.Tier).ThenByDescending(c => c.Renown));
-					var textObject = new TextObject("{=Separatism_National_Rebel}{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}.", null);
-					textObject.SetTextVariable("Culture", group.Key.Culture.Name);
-					textObject.SetTextVariable("Kingdom", group.Key.Kingdom.Name);
-					textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
-					GameLog.Warn(textObject.ToString());
-					return;
+					if (rebelKingdom != null)
+					{
+						var textObject = new TextObject("{=Separatism_National_Rebel}{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}.", null);
+						textObject.SetTextVariable("Culture", group.Key.Culture.Name);
+						textObject.SetTextVariable("Kingdom", group.Key.Kingdom.Name);
+						textObject.SetTextVariable("RebelKingdom", rebelKingdom.Name);
+						GameLog.Warn(textObject.ToString());
+						return;
+					}
 				}
 			}
 		}
@@ -53,9 +57,18 @@ namespace Separatism.Behaviours
 			var ruler = clans.First();
 			// create a new kingdom for the clan
 			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_National}{RebelKingdom} was found in {Year} when {Culture} people of {Kingdom} have made a declaration of independence.", null);
-			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
-			kingdomIntroText.SetTextVariable("Culture", ruler.Culture.Name);
-			kingdomIntroText.SetTextVariable("Kingdom", ruler.Kingdom.Name);
+			try
+			{
+				kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
+				kingdomIntroText.SetTextVariable("Culture", ruler.Culture.Name);
+				kingdomIntroText.SetTextVariable("Kingdom", ruler.Kingdom.Name);
+			}
+			catch (Exception e)
+			{
+				// prevent mysterious rare crash
+				GameLog.Error(e);
+				return null;
+			}
 			var capital = ruler.Settlements.OrderByDescending(x => x.Prosperity).First();
 			var kingdom = ruler.CreateKingdom(capital, kingdomIntroText);
 			// keep policies from the old clan kingdom
