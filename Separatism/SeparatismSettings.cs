@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ModuleManager;
 using MCM.Abstractions.Attributes;
 using MCM.Abstractions.Attributes.v2;
 using MCM.Abstractions.Settings.Base.Global;
@@ -18,7 +18,7 @@ namespace Separatism
 
 		static SeparatismSettings()
 		{
-			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(Separatism))?.Version.ToString() ?? string.Empty;
+			modVersion = ModuleHelper.GetModules().SingleOrDefault(x => x.Name == nameof(Separatism))?.Version.ToString() ?? string.Empty;
 			modName = $"{new TextObject("{=Separatism_Mod_Name}Separatism Mod").ToString()} {modVersion}";
 			modId = $"{nameof(Separatism)}_{modVersion}";
 		}

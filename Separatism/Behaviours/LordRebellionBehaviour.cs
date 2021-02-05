@@ -27,7 +27,7 @@ namespace Separatism.Behaviours
 				|| clan.IsUnderMercenaryService
 				|| !clan.Leader.IsAlive
 				|| clan.Leader.IsPrisoner
-				|| clan.Fortifications.Any(x => x.IsUnderSiege)
+				|| clan.Fiefs.Any(x => x.IsUnderSiege)
 				|| clan.AllParties.Any(x => x.MapEvent != null))
 			{
 				return;

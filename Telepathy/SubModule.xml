@@ -1,7 +1,7 @@
 <Module>
 	<Name value="Telepathy"/>
 	<Id value="Telepathy"/>
-	<Version value="v0.6.6"/>
+	<Version value="v0.6.7"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>

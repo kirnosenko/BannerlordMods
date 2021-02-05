@@ -42,7 +42,7 @@ namespace LifeIsShort
 				}
 				if (updateDeathProbabilities && !hero.IsDead && hero.Age > (float)Campaign.Current.Models.AgeModel.BecomeOldAge)
 				{
-					hero.ProbabilityOfDeath = Campaign.Current.Models.HeroDeathProbabilityCalculationModel.CalculateHeroDeathProbability(hero, null);
+					hero.ProbabilityOfDeath = Campaign.Current.Models.HeroDeathProbabilityCalculationModel.CalculateHeroDeathProbability(hero);
 				}
 			}
 		}

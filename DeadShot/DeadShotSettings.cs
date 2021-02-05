@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ModuleManager;
 using MCM.Abstractions.Attributes;
 using MCM.Abstractions.Attributes.v2;
 using MCM.Abstractions.Settings.Base.Global;
@@ -15,7 +15,7 @@ namespace DeadShot
 		
 		static DeadShotSettings()
 		{
-			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(DeadShot))?.Version.ToString() ?? string.Empty;
+			modVersion = ModuleHelper.GetModules().SingleOrDefault(x => x.Name == nameof(DeadShot))?.Version.ToString() ?? string.Empty;
 			modName = $"{new TextObject($"{nameof(DeadShot)} Mod").ToString()} {modVersion}";
 			modId = $"{nameof(DeadShot)}_{modVersion}";
 		}

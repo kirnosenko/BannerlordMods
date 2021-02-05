@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ModuleManager;
 using MCM.Abstractions.Attributes;
 using MCM.Abstractions.Attributes.v2;
 using MCM.Abstractions.Settings.Base.Global;
@@ -15,7 +15,7 @@ namespace Telepathy
 
 		static TelepathySettings()
 		{
-			modVersion = ModuleInfo.GetModules().SingleOrDefault(x => x.Name == nameof(Telepathy))?.Version.ToString() ?? string.Empty;
+			modVersion = ModuleHelper.GetModules().SingleOrDefault(x => x.Name == nameof(Telepathy))?.Version.ToString() ?? string.Empty;
 			modName = $"{new TextObject("{=Telepathy_Mod_Name}Telepathy Mod").ToString()} {modVersion}";
 			modId = $"{nameof(Telepathy)}_{modVersion}";
 		}
