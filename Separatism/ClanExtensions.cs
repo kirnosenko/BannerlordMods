@@ -130,13 +130,12 @@ namespace Separatism
 				}
 			}
 
-			StatisticsDataLogHelper.AddLog(StatisticsDataLogHelper.LogAction.ChangeKingdomAction, new object[]
-			{
+			StatisticsDataLogHelper.AddLog(
+				StatisticsDataLogHelper.LogAction.ChangeKingdomAction, 
 				clan,
 				oldKingdom,
 				newKingdom,
-				newKingdom == null || rebellion
-			});
+				newKingdom == null || rebellion);
 			clan.EndMercenaryService(true);
 			if (oldKingdom != null)
 			{

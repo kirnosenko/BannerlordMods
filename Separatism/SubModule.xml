@@ -1,7 +1,7 @@
 <Module>
 	<Name value="Separatism"/>
 	<Id value="Separatism"/>
-	<Version value="v0.8.6"/>
+	<Version value="v0.8.7"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>

@@ -4,7 +4,6 @@ using System.Linq;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
 namespace Separatism
@@ -70,48 +69,29 @@ namespace Separatism
 
 		public static void AddKingdom(this Campaign campaign, Kingdom kingdom)
 		{
-			ModifyKingdomList(campaign, kingdoms =>
-			{
-				if (!kingdoms.Contains(kingdom))
-				{
-					kingdoms.Add(kingdom);
-					return kingdoms;
-				}
-
-				return null;
-			});
+			AccessTools.Method(typeof(CampaignObjectManager), "AddKingdom")
+				.Invoke(campaign.CampaignObjectManager, new object[] { kingdom });
 		}
 
 		public static void RemoveEmptyKingdoms(this Campaign campaign, Action<Kingdom> callBack = null)
 		{
-			ModifyKingdomList(campaign, kingdoms =>
-			{
-				var emptyKingdomsToRemove = kingdoms
+			var kingdoms = (List<Kingdom>)AccessTools.Field(typeof(CampaignObjectManager), "_kingdoms").GetValue(campaign.CampaignObjectManager);
+			var factions = (List<IFaction>)AccessTools.Field(typeof(CampaignObjectManager), "_factions").GetValue(campaign.CampaignObjectManager);
+
+			var emptyKingdomsToRemove = kingdoms
 					.Where(k =>
 						k.Clans.Where(x => x.Leader.IsAlive).Count() == 0 &&
 						(!SeparatismConfig.Settings.KeepEmptyKingdoms || k.RulingClan?.GetKingdomId() == k.StringId))
 					.ToArray();
-				if (emptyKingdomsToRemove.Length > 0)
-				{
-					foreach (var kingdom in emptyKingdomsToRemove)
-					{
-						callBack?.Invoke(kingdom);
-						DestroyKingdomAction.Apply(kingdom);
-					}
-					return kingdoms.Except(emptyKingdomsToRemove).ToList();
-				}
-
-				return null;
-			});
-		}
-
-		private static void ModifyKingdomList(this Campaign campaign, Func<List<Kingdom>, List<Kingdom>> modificator)
-		{
-			List<Kingdom> kingdoms = campaign.Kingdoms.ToList();
-			kingdoms = modificator(kingdoms);
-			if (kingdoms != null)
+			if (emptyKingdomsToRemove.Length > 0)
 			{
-				AccessTools.Field(Campaign.Current.GetType(), "_kingdoms").SetValue(Campaign.Current, new MBReadOnlyList<Kingdom>(kingdoms));
+				foreach (var kingdom in emptyKingdomsToRemove)
+				{
+					callBack?.Invoke(kingdom);
+					DestroyKingdomAction.Apply(kingdom);
+					kingdoms.Remove(kingdom);
+					factions.Remove(kingdom);
+				}
 			}
 		}
 	}

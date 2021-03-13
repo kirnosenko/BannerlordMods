@@ -28,7 +28,7 @@ namespace Separatism.Behaviours
 				|| !clan.Leader.IsAlive
 				|| clan.Leader.IsPrisoner
 				|| clan.Fiefs.Any(x => x.IsUnderSiege)
-				|| clan.AllParties.Any(x => x.MapEvent != null))
+				|| clan.WarPartyComponents.Any(x => x.MobileParty.MapEvent != null))
 			{
 				return;
 			}
@@ -45,6 +45,7 @@ namespace Separatism.Behaviours
 				var kingdomFiefs = kingdom.GetFiefsAmount();
 				var kingdomClans = kingdom.Clans.Count(x => !x.IsUnderMercenaryService);
 				var clanFiefs = clan.GetFiefsAmount();
+				
 				var hasEnoughFiefs = (kingdomFiefs > 0 &&
 					((SeparatismConfig.Settings.AverageAmountOfKingdomFiefsIsEnoughToRebel && clanFiefs >= (float)kingdomFiefs / kingdomClans) ||
 					SeparatismConfig.Settings.MinimalAmountOfKingdomFiefsToRebel <= clanFiefs));
