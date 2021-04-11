@@ -99,11 +99,13 @@ namespace Separatism
 			return clans.Where(c => (c.Kingdom == null || c.Settlements.Count() == 0) &&
 				c != Clan.PlayerClan &&
 				c.Kingdom?.RulingClan != c &&
+				c.Leader != null &&
 				c.Leader.IsAlive &&
 				!c.Leader.IsPrisoner &&
 				!c.IsUnderMercenaryService &&
 				!c.IsClanTypeMercenary &&
 				!c.IsMinorFaction &&
+				!c.IsBanditFaction &&
 				c.StringId != "test_clan");
 		}
 
