@@ -1,4 +1,6 @@
-﻿using TaleWorlds.CampaignSystem;
+﻿using System.Linq;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
 using StoryMode;
 using HarmonyLib;
@@ -11,6 +13,7 @@ namespace Separatism.Behaviours
 		public override void RegisterEvents()
 		{
 			CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, OnSessionLaunched);
+			CampaignEvents.OnNewGameCreatedEvent9.AddNonSerializedListener(this, OnGameStarted);
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
 		}
@@ -44,6 +47,56 @@ namespace Separatism.Behaviours
 				return true;
 			}
 			return false;
+		}
+
+		private void OnGameStarted()
+		{
+			if (!SeparatismConfig.Settings.ChaosStartEnabled)
+			{
+				return;
+			}
+
+			var kingdoms = Kingdom.All.ToArray();
+			foreach (var oldKingdom in kingdoms)
+			{
+				var clans = oldKingdom.Clans.ReadyToGoAndNotEmpty().ToArray();
+				foreach (var clan in clans)
+				{
+					// create a new kingdom for the clan
+					TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_Chaos}{RebelKingdom} was found in {Year} as a result of BIG separation of Calradia.", null);
+					kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
+					var capital = clan.Settlements.OrderByDescending(x => x.Prosperity).First();
+					var kingdom = clan.CreateKingdom(capital, kingdomIntroText);
+					// keep policies from the old clan kingdom
+					foreach (var policy in clan.Kingdom.ActivePolicies)
+					{
+						kingdom.AddPolicy(policy);
+					}
+					// move the clan into its new kingdom
+					clan.ClanLeaveKingdom(false);
+					clan.Kingdom = kingdom;
+				}
+			}
+
+			kingdoms = Kingdom.All.ToArray();
+			foreach (var kingdom in kingdoms)
+			{
+				var closeKingdoms = kingdom.RulingClan.CloseKingdoms().Where(k => k != kingdom).ToArray();
+				var wars = FactionManager.GetEnemyKingdoms(kingdom).Count();
+				
+				foreach (var closeKingdom in closeKingdoms)
+				{
+					if (wars < SeparatismConfig.Settings.MinimalNumberOfWarsPerChaosKindom)
+					{
+						DeclareWarAction.Apply(closeKingdom, kingdom);
+						wars++;
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
 		}
 
 		private void OnGameLoaded(CampaignGameStarter game)

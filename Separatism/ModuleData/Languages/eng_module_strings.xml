@@ -22,6 +22,7 @@
 	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} was found in {Year} when the {ClanName} have rised a rebellion against {Ruler} ruler of {Kingdom}."/>
 	<string id="Separatism_Kingdom_Intro_Anarchy" text="{RebelKingdom} was found in {Year} as a result of anarchy in fiefs of the {ClanName} when people of {Settlement} have called {Ruler} on rulership."/>
 	<string id="Separatism_Kingdom_Intro_National" text="{RebelKingdom} was found in {Year} when {Culture} people of {Kingdom} have made a declaration of independence."/>
+	<string id="Separatism_Kingdom_Intro_Chaos" text="{RebelKingdom} was found in {Year} as a result of BIG separation of Calradia."/>
 
 	<!-- Messages -->
 	<string id="Separatism_Anarchy_Rebel" text="People of {Settlement} have broken from {Kingdom} to call {Ruler} on rulership and found the {RebelKingdom}."/>
@@ -34,6 +35,11 @@
 	<string id="Separatism_National_Rebel" text="{Culture} people of {Kingdom} leading by their native lords have rised a rebellion to fight for their independence and found the {RebelKingdom}."/>
 
 	<!-- Settings -->
+	<string id="Separatism_Settings_000" text="Chaos start"/>
+	<string id="Separatism_Settings_001" text="Enable BIG Calradia separation on start of a new game. All clans with fiefs will found their own independent kingdoms."/>
+	<string id="Separatism_Settings_010" text="Minimal number of wars per kindom at start"/>
+	<string id="Separatism_Settings_011" text="At start of a new game each kindom will be at war with specified number of nearest kingdoms."/>
+
 	<string id="Separatism_Settings_100" text="Lord rebellions"/>
 	<string id="Separatism_Settings_101" text="Enable rebellions depending on lord relationship."/>
 	<string id="Separatism_Settings_110" text="Average amount of kingdom fiefs is enough to rebel"/>

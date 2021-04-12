@@ -22,6 +22,7 @@
 	<string id="Separatism_Kingdom_Intro" text="{RebelKingdom} было основано в {Year} году, когда клан {ClanName} восстал против {Ruler} правителя {Kingdom}."/>
 	<string id="Separatism_Kingdom_Intro_Anarchy" text="{RebelKingdom} было основано в {Year} году в результате анархии во владениях клана {ClanName}, когда народ {Settlement} призвал {Ruler} на правление."/>
 	<string id="Separatism_Kingdom_Intro_National" text="{RebelKingdom} было основано в {Year} году когда {Culture} население {Kingdom} объявило о своей независимости."/>
+	<string id="Separatism_Kingdom_Intro_Chaos" text="{RebelKingdom} было основано в {Year} году в результате большого раздробления Кальрадии."/>
 
 	<!-- Messages -->
 	<string id="Separatism_Anarchy_Rebel" text="Народ {Settlement} поднял восстание против {Kingdom}, призвал {Ruler} на правление и основал {RebelKingdom}."/>
@@ -34,6 +35,11 @@
 	<string id="Separatism_National_Rebel" text="{Culture} население {Kingdom} под предвадительством своих родных лордов подняло восстание, чтобы бороться за свою независимость и основало {RebelKingdom}."/>
 
 	<!-- Settings -->
+	<string id="Separatism_Settings_000" text="Хаотичный старт"/>
+	<string id="Separatism_Settings_001" text="Включить большое раздробление Кальрадии при старте новой игры. Все кланы имеющие владения образуют новые независимые королевства."/>
+	<string id="Separatism_Settings_010" text="Минимальное количество войн на одно королевство при старте игры"/>
+	<string id="Separatism_Settings_011" text="При старте новой игры каждое королевство будет в находится в состоянии войны с указанным числом ближайших королевств."/>
+
 	<string id="Separatism_Settings_100" text="Восстания лордов"/>
 	<string id="Separatism_Settings_101" text="Включить восстания зависящие от взаимоотношений между лордами."/>
 	<string id="Separatism_Settings_110" text="Среднего количества феодов достаточно для восстания"/>
