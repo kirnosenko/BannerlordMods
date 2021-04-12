@@ -94,19 +94,14 @@ namespace Separatism
 			return kingdom;
 		}
 
-		public static IEnumerable<Clan> ReadyToGo(this IEnumerable<Clan> clans)
+		public static IEnumerable<Clan> ReadyToGoAndEmpty(this IEnumerable<Clan> clans)
 		{
-			return clans.Where(c => (c.Kingdom == null || c.Settlements.Count() == 0) &&
-				c != Clan.PlayerClan &&
-				c.Kingdom?.RulingClan != c &&
-				c.Leader != null &&
-				c.Leader.IsAlive &&
-				!c.Leader.IsPrisoner &&
-				!c.IsUnderMercenaryService &&
-				!c.IsClanTypeMercenary &&
-				!c.IsMinorFaction &&
-				!c.IsBanditFaction &&
-				c.StringId != "test_clan");
+			return clans.Where(c => c.Kingdom == null || c.Settlements.Count() == 0).ReadyToGo();
+		}
+
+		public static IEnumerable<Clan> ReadyToGoAndNotEmpty(this IEnumerable<Clan> clans)
+		{
+			return clans.Where(c => c.Kingdom != null && c.Settlements.Count() > 0).ReadyToGo();
 		}
 
 		public static void ChangeKingdom(this Clan clan, Kingdom newKingdom, bool rebellion)
@@ -198,6 +193,22 @@ namespace Separatism
 			}
 
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
+		}
+
+		private static IEnumerable<Clan> ReadyToGo(this IEnumerable<Clan> clans)
+		{
+			return clans.Where(c =>
+				c != Clan.PlayerClan &&
+				c.Kingdom?.RulingClan != c &&
+				c.Leader != null &&
+				c.Leader.IsAlive &&
+				!c.Leader.IsPrisoner &&
+				!c.IsUnderMercenaryService &&
+				!c.IsClanTypeMercenary &&
+				!c.IsMinorFaction &&
+				!c.IsBanditFaction &&
+				!c.IsRebelClan &&
+				c.StringId != "test_clan");
 		}
 
 		private static void NotifyClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
