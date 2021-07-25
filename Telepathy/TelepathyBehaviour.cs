@@ -197,7 +197,7 @@ namespace Telepathy
 				c.HourlyTick();
 			}
 
-			if (Hero.MainHero.IsOccupiedByAnEvent() || Hero.MainHero.IsPrisoner)
+			if (Hero.MainHero.GetEventRestrictions() != Hero.EventRestrictionFlags.None || Hero.MainHero.IsPrisoner)
 			{
 				return;
 			}

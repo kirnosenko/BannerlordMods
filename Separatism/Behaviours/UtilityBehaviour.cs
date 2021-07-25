@@ -13,7 +13,7 @@ namespace Separatism.Behaviours
 		public override void RegisterEvents()
 		{
 			CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, OnSessionLaunched);
-			CampaignEvents.OnNewGameCreatedEvent9.AddNonSerializedListener(this, OnGameStarted);
+			CampaignEvents.OnNewGameCreatedPartialFollowUpEndEvent.AddNonSerializedListener(this, OnGameStarted);
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
 			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, OnDailyTick);
 		}
@@ -49,7 +49,7 @@ namespace Separatism.Behaviours
 			return false;
 		}
 
-		private void OnGameStarted()
+		private void OnGameStarted(CampaignGameStarter starter)
 		{
 			if (!SeparatismConfig.Settings.ChaosStartEnabled)
 			{

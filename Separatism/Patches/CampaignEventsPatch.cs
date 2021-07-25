@@ -3,8 +3,8 @@ using TaleWorlds.CampaignSystem;
 
 namespace Separatism.Patches
 {
-	[HarmonyPatch(typeof(Campaign), "DeletePeriodicEvent")]
-	public static class CampaignPatch
+	[HarmonyPatch(typeof(CampaignEvents), "DeletePeriodicEvent")]
+	public static class CampaignEventsPatch
 	{
 		public static bool Prefix(MBCampaignEvent campaignEvent)
 		{
