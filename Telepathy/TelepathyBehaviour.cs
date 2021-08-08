@@ -197,7 +197,7 @@ namespace Telepathy
 				c.HourlyTick();
 			}
 
-			if (Hero.MainHero.GetEventRestrictions() != Hero.EventRestrictionFlags.None || Hero.MainHero.IsPrisoner)
+			if (Hero.MainHero.PartyBelongedTo?.MapEvent != null || Hero.MainHero.IsPrisoner)
 			{
 				return;
 			}
@@ -205,7 +205,14 @@ namespace Telepathy
 			if (call != null && call.Hero.CanTalkTo())
 			{
 				calls.Remove(call);
-				StartMeeting(call.Hero);
+				if (call.Hero.PartyBelongedTo?.MapEvent != null || call.Hero.IsPrisoner)
+				{
+					calls.AddLast(call);
+				}
+				else
+				{
+					StartMeeting(call.Hero);
+				}
 			}
 		}
 
