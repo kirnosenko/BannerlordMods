@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Patches\FlattenedTroopRosterPatch.cs" />
     <Compile Include="TelepathyBehaviour.cs" />
     <Compile Include="Patches\EncyclopediaHeroPageVMPatch.cs" />
     <Compile Include="HeroViewModelEx.cs" />

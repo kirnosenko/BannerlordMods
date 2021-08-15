@@ -70,7 +70,7 @@
                         <TextWidget HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent" Text="@SkillsText" HorizontalAlignment="Center" ClipContents="false"/>
 
                         <!--Skills Grid-->
-                        <GridWidget DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="55" HorizontalAlignment="Center" MarginRight="20" DefaultCellHeight="70" ColumnCount="6" StackLayout.LayoutMethod="BottomToTop">
+                        <GridWidget DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="55" HorizontalAlignment="Center" MarginRight="20" DefaultCellHeight="70" ColumnCount="6" LayoutImp.VerticalLayoutMethod="TopToBottom">
                           <ItemTemplate>
                             <SkillIconVisualWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" SkillId="@SkillId" MarginBottom="20" UseSmallestVariation="true" MarginLeft="5">
                               <Children>
@@ -221,7 +221,7 @@
                                     <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="4" HorizontalFlip="true" Sprite="Encyclopedia\list_filters_divider" />
 
                                     <!--History List-->
-                                    <ListPanel DataSource="{History}" HeightSizePolicy ="CoverChildren" WidthSizePolicy="StretchToParent" StackLayout.LayoutMethod = "VerticalBottomToTop">
+                                    <ListPanel DataSource="{History}" HeightSizePolicy ="CoverChildren" WidthSizePolicy="StretchToParent" PositionXOffset="-15" StackLayout.LayoutMethod = "VerticalBottomToTop">
                                       <ItemTemplate>
                                         <EncyclopediaSubPageHistoryElement/>
                                       </ItemTemplate>
