@@ -127,12 +127,6 @@ namespace Separatism
 				}
 			}
 
-			StatisticsDataLogHelper.AddLog(
-				StatisticsDataLogHelper.LogAction.ChangeKingdomAction, 
-				clan,
-				oldKingdom,
-				newKingdom,
-				newKingdom == null || rebellion);
 			clan.EndMercenaryService(true);
 			if (oldKingdom != null)
 			{
