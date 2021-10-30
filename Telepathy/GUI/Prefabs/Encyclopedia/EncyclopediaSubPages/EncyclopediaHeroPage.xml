@@ -20,12 +20,12 @@
               <Children>
 
                 <!--Left Side Character Properties-->
-                <Widget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed" SuggestedWidth="370" Sprite="CharacterCreation\character_creation_background_gradient">
+                <Widget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed" SuggestedWidth="370" Sprite="General\CharacterCreation\character_creation_background_gradient">
                   <Children>
 
                     <Widget WidthSizePolicy="Fixed" SuggestedWidth="370" HeightSizePolicy ="StretchToParent" HorizontalAlignment="Left" MarginBottom="1" VerticalAlignment="Center" IsEnabled="false" ClipContents="true">
                       <Children>
-                        <EncyclopediaCharacterTableauWidget DataSource="{HeroCharacter}" WidthSizePolicy="StretchToParent" HeightSizePolicy ="StretchToParent" BodyProperties="@BodyProperties" IsFemale="@IsFemale" EquipmentCode="@EquipmentCode" CharStringId="@CharStringId" StanceIndex="@StanceIndex" BannerCodeText="@BannerCodeText" MountCreationKey="@MountCreationKey" IsEnabled="false" IsDead="@IsDead" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2"/>
+                        <EncyclopediaCharacterTableauWidget DataSource="{HeroCharacter}" WidthSizePolicy="StretchToParent" HeightSizePolicy ="StretchToParent" BodyProperties="@BodyProperties" IsFemale="@IsFemale" EquipmentCode="@EquipmentCode" CharStringId="@CharStringId" StanceIndex="@StanceIndex" BannerCodeText="@BannerCodeText" MountCreationKey="@MountCreationKey" IsEnabled="false" IsDead="@IsDead" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" IdleAction="@IdleAction"/>
                         <ParallaxItemWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="582" SuggestedHeight="380" Brush="Encyclopedia.Character.Smoke" OneDirectionDuration="5" OneDirectionDistance="100" InitialDirection="Right" IsEaseInOutEnabled="true" VerticalAlignment="Bottom" HorizontalAlignment="Center" PositionYOffset="1" />
                         <ParallaxItemWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="582" SuggestedHeight="380" Brush="Encyclopedia.Character.Smoke2" OneDirectionDuration="5" OneDirectionDistance="100" InitialDirection="Left" IsEaseInOutEnabled="true" VerticalAlignment="Bottom" HorizontalAlignment="Center" PositionYOffset="1" />
                       </Children>
@@ -96,7 +96,7 @@
                   </Children>
                 </Widget>
 
-                <ScrollbarWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed" Id="RightSideScrollbar" SuggestedWidth="20" MinValue = "0" MaxValue = "100" MarginLeft="10" MarginBottom="15" MarginTop="15" AlignmentAxis="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Handle = "RightSideScrollbarHandle">
+                <ScrollbarWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed" Id="RightSideScrollbar" SuggestedWidth="0" MinValue = "0" MaxValue = "100" MarginLeft="0" MarginBottom="15" MarginTop="15" AlignmentAxis="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Handle = "RightSideScrollbarHandle">
                   <Children>
                     <Widget Id="RightSideScrollbarHandle" WidthSizePolicy = "StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="50" HorizontalAlignment = "Center"/>
                   </Children>
@@ -106,10 +106,10 @@
                   <Children>
 
                     <!--Right Side Character Clan, Friends, Enemies-->
-                    <Widget Id="RightSideRect" HeightSizePolicy ="StretchToParent" MarginLeft="15" WidthSizePolicy="StretchToParent" DoNotAcceptEvents="true" ClipContents="true">
+                    <Widget Id="RightSideRect" HeightSizePolicy ="StretchToParent" WidthSizePolicy="StretchToParent" DoNotAcceptEvents="true" ClipContents="true">
                       <Children>
 
-                        <ListPanel Id="RightSideList" HeightSizePolicy ="CoverChildren" WidthSizePolicy="StretchToParent" DoNotAcceptEvents="true">
+                        <ListPanel Id="RightSideList" HeightSizePolicy ="CoverChildren" WidthSizePolicy="StretchToParent" DoNotAcceptEvents="true" MarginLeft="15">
                           <Children>
 
                             <!--Clan, Friends, Enemies-->
@@ -188,7 +188,7 @@
                                     <EncyclopediaDivider MarginTop="20" Parameter.Title="@FamilyText" Parameter.ItemList="..\FamilyGrid"/>
 
                                     <!--Family Grid-->
-                                    <GridWidget Id="FamilyGrid" DataSource="{Family}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="110" HorizontalAlignment="Left" ColumnCount="7" MarginTop="30" MarginLeft="20">
+                                    <GridWidget Id="FamilyGrid" DataSource="{Family}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="110" HorizontalAlignment="Left" ColumnCount="7" MarginTop="30" MarginLeft="20" MarginBottom="50">
                                       <ItemTemplate>
 
                                         <!--Family-->
@@ -235,6 +235,12 @@
 
                           </Children>
                         </ListPanel>
+
+                        <!--Bottom Shadow-->
+                        <BrushWidget DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="150" VerticalAlignment="Bottom" HorizontalAlignment="Center" Brush="Encyclopedia.Scroll.Shadow" Brush.VerticalFlip="false"/>
+
+                        <!--Previous And Next Buttons-->
+                        <EncyclopediaQuickNavigation/>
 
                       </Children>
                     </Widget>

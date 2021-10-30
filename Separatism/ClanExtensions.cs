@@ -79,10 +79,17 @@ namespace Separatism
 				}
 
 				clan.UpdateHomeSettlement(capital);
-				kingdom.InitializeKingdom(kingdomNameText, informalNameText, clan.Culture, clan.Banner, color1, color2, capital);
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, intro);
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaTitle").SetValue(kingdom, kingdomNameText);
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaRulerTitle").SetValue(kingdom, kingdomRulerTitleText);
+				kingdom.InitializeKingdom(
+					kingdomNameText,
+					informalNameText,
+					clan.Culture,
+					clan.Banner,
+					color1,
+					color2,
+					capital,
+					intro,
+					kingdomNameText,
+					kingdomRulerTitleText);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, color1);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, color2);
 				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom?.LabelColor ?? clan.LabelColor);
