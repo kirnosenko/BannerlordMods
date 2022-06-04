@@ -13,7 +13,7 @@ namespace Separatism
 		public static Kingdom[] CloseKingdoms(this Clan clan)
 		{
 			var kingdomDistance = Kingdom.All
-				.Select(k => (k, k.FactionMidPoint.Distance(clan.FactionMidPoint)))
+				.Select(k => (k, k.FactionMidSettlement.Position2D.Distance(clan.FactionMidSettlement.Position2D)))
 				.ToArray();
 			var average = kingdomDistance.Average(x => x.Item2);
 			return kingdomDistance

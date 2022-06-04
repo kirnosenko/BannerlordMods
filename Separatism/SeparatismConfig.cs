@@ -1,4 +1,4 @@
-﻿using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
+﻿using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using HarmonyLib;
 
 namespace Separatism

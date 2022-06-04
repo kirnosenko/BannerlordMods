@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using Common;
@@ -34,7 +35,7 @@ namespace Separatism.Behaviours
 			if (anarchySettlements.Length == 0) return;
 			
 			var availableClans = Clan.All.ReadyToGoAndEmpty().ToArray();
-			foreach (var settlement in anarchySettlements.OrderByDescending(x => x.Position2D.Distance(clan.FactionMidPoint)))
+			foreach (var settlement in anarchySettlements.OrderByDescending(x => x.Position2D.Distance(clan.FactionMidSettlement.Position2D)))
 			{
 				var newRulerClan = availableClans
 					.Where(x => x.Culture == settlement.Culture)

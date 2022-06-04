@@ -95,9 +95,9 @@ namespace Separatism.Behaviours
 									.ToArray();
 								foreach (var enemy in commonEnemies)
 								{
-									var kingdomDistance = enemy.FactionMidPoint.Distance(kingdom.FactionMidPoint);
-									var paDistance = enemy.FactionMidPoint.Distance(pa.FactionMidPoint);
-									var allianceDistance = kingdom.FactionMidPoint.Distance(pa.FactionMidPoint);
+									var kingdomDistance = enemy.FactionMidSettlement.Position2D.Distance(kingdom.FactionMidSettlement.Position2D);
+									var paDistance = enemy.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
+									var allianceDistance = kingdom.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
 
 									if (allianceDistance <= Math.Sqrt(kingdomDistance * kingdomDistance + paDistance * paDistance) ||
 										(kingdom.IsInsideKingdomTeritory(enemy) && pa.IsInsideKingdomTeritory(enemy)))
