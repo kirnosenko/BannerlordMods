@@ -11,6 +11,7 @@ namespace DeadShot
 		private bool? affectCurrentShot = null;
 		private bool zoomState = false;
 		private float releaseTime = 0;
+		private int timeRequestId = 123456789;
 
 		protected override void OnSubModuleLoad()
 		{
@@ -53,23 +54,36 @@ namespace DeadShot
 							(!settings.ActivateWithZoomOnly || IsZoomActive());
 						if (affectCurrentShot.Value)
 						{
-							Mission.Current.Scene.SlowMotionFactor = settings.SlowMotionFactor;
-							Mission.Current.Scene.SlowMotionMode = true;
+							SetSlowMotion(settings.SlowMotionFactor);
 						}
 						else
 						{
-							Mission.Current.Scene.SlowMotionMode = false;
+							SetSlowMotion(null);
 						}
 					}
 				}
 				else if (affectCurrentShot != null)
 				{
-					Mission.Current.Scene.SlowMotionMode = false;
+					SetSlowMotion(null);
 					affectCurrentShot = null;
 					zoomState = false;
 				}
 			}
 		}
+
+		private void SetSlowMotion(float? slowMotionFactor)
+		{
+			if (slowMotionFactor != null)
+			{
+				Mission.Current.AddTimeSpeedRequest(new Mission.TimeSpeedRequest(
+					slowMotionFactor.Value, timeRequestId));
+			}
+			else if (Mission.Current.GetRequestedTimeSpeed(timeRequestId, out _))
+			{
+				Mission.Current.RemoveTimeSpeedRequest(timeRequestId);
+			}
+		}
+
 		private bool IsZoomActive()
 		{
 			if (playerZoomKey == null)
