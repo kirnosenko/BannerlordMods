@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Separatism", "Separatism\Separatism.csproj", "{2D276442-3C37-4D09-8BAF-9154E9F7116C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telepathy", "Telepathy\Telepathy.csproj", "{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Launcher|Any CPU = Debug Launcher|Any CPU
@@ -41,6 +43,18 @@ Global
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Release|x64.ActiveCfg = Release|x64
 		{2D276442-3C37-4D09-8BAF-9154E9F7116C}.Release|x64.Build.0 = Release|x64
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug Launcher|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug Launcher|Any CPU.Build.0 = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug Launcher|x64.ActiveCfg = Debug|x64
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug Launcher|x64.Build.0 = Debug|x64
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|x64.ActiveCfg = Debug|x64
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Debug|x64.Build.0 = Debug|x64
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|x64.ActiveCfg = Release|x64
+		{A2222005-1534-4EB2-BE2E-42BEC2C7D4FA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

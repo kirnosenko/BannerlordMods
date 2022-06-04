@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
-using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 
 namespace Telepathy.Patches
 {
