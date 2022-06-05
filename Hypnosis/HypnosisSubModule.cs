@@ -1,5 +1,4 @@
 ﻿using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Conversation.Persuasion;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 

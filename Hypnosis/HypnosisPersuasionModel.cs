@@ -1,6 +1,5 @@
-﻿using System;
-using TaleWorlds.CampaignSystem.Conversation.Persuasion;
-using TaleWorlds.CampaignSystem.SandBox.GameComponents;
+﻿using TaleWorlds.CampaignSystem.Conversation.Persuasion;
+using TaleWorlds.CampaignSystem.GameComponents;
 
 namespace Hypnosis
 {

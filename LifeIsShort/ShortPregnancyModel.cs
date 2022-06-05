@@ -1,6 +1,6 @@
 ﻿using System;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.SandBox.GameComponents;
+using TaleWorlds.CampaignSystem.GameComponents;
 
 namespace LifeIsShort
 {
