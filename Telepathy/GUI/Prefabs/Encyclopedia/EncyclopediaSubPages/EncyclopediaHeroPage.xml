@@ -25,9 +25,9 @@
 
                     <Widget WidthSizePolicy="Fixed" SuggestedWidth="370" HeightSizePolicy ="StretchToParent" HorizontalAlignment="Left" MarginBottom="1" VerticalAlignment="Center" IsEnabled="false" ClipContents="true">
                       <Children>
-                        <EncyclopediaCharacterTableauWidget DataSource="{HeroCharacter}" WidthSizePolicy="StretchToParent" HeightSizePolicy ="StretchToParent" BodyProperties="@BodyProperties" IsFemale="@IsFemale" EquipmentCode="@EquipmentCode" CharStringId="@CharStringId" StanceIndex="@StanceIndex" BannerCodeText="@BannerCodeText" MountCreationKey="@MountCreationKey" IsEnabled="false" IsDead="@IsDead" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" IdleAction="@IdleAction"/>
-                        <ParallaxItemWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="582" SuggestedHeight="380" Brush="Encyclopedia.Character.Smoke" OneDirectionDuration="5" OneDirectionDistance="100" InitialDirection="Right" IsEaseInOutEnabled="true" VerticalAlignment="Bottom" HorizontalAlignment="Center" PositionYOffset="1" />
-                        <ParallaxItemWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="582" SuggestedHeight="380" Brush="Encyclopedia.Character.Smoke2" OneDirectionDuration="5" OneDirectionDistance="100" InitialDirection="Left" IsEaseInOutEnabled="true" VerticalAlignment="Bottom" HorizontalAlignment="Center" PositionYOffset="1" />
+                        <EncyclopediaCharacterTableauWidget DataSource="{HeroCharacter}" WidthSizePolicy="StretchToParent" HeightSizePolicy ="StretchToParent" BodyProperties="@BodyProperties" IsFemale="@IsFemale" EquipmentCode="@EquipmentCode" CharStringId="@CharStringId" StanceIndex="@StanceIndex" BannerCodeText="@BannerCodeText" MountCreationKey="@MountCreationKey" IsEnabled="false" IsDead="@IsDead" ArmorColor1="@ArmorColor1" ArmorColor2="@ArmorColor2" IdleAction="@IdleAction" Race="@Race"/>
+                        <ParallaxItemBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="582" SuggestedHeight="380" Brush="Encyclopedia.Character.Smoke" OneDirectionDuration="5" OneDirectionDistance="100" InitialDirection="Right" IsEaseInOutEnabled="true" VerticalAlignment="Bottom" HorizontalAlignment="Center" PositionYOffset="1" />
+                        <ParallaxItemBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="582" SuggestedHeight="380" Brush="Encyclopedia.Character.Smoke2" OneDirectionDuration="5" OneDirectionDistance="100" InitialDirection="Left" IsEaseInOutEnabled="true" VerticalAlignment="Bottom" HorizontalAlignment="Center" PositionYOffset="1" />
                       </Children>
                     </Widget>
 
@@ -76,7 +76,8 @@
                         <TextWidget HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent" Text="@SkillsText" HorizontalAlignment="Center" ClipContents="false"/>
 
                         <!--Skills Grid-->
-                        <GridWidget DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="55" HorizontalAlignment="Center" MarginRight="20" DefaultCellHeight="70" ColumnCount="6" LayoutImp.VerticalLayoutMethod="TopToBottom">
+												<NavigationScopeTargeter ScopeID="EncyclopediaHeroSkillsGridScope" ScopeParent="..\SkillsGrid" ScopeMovements="Horizontal" AlternateScopeMovements="Vertical" DownNavigationScope="None" AlternateMovementStepSize="6"/>
+                        <NavigatableGridWidget Id="SkillsGrid" DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="55" HorizontalAlignment="Center" MarginRight="20" DefaultCellHeight="70" ColumnCount="6" LayoutImp.VerticalLayoutMethod="TopToBottom">
                           <ItemTemplate>
                             <SkillIconVisualWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" SkillId="@SkillId" MarginBottom="20" UseSmallestVariation="true" MarginLeft="5">
                               <Children>
@@ -85,7 +86,7 @@
                               </Children>
                             </SkillIconVisualWidget>
                           </ItemTemplate>
-                        </GridWidget>
+                        </NavigatableGridWidget>
 
                       </Children>
                     </ListPanel>
@@ -93,7 +94,8 @@
                     <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="2" HorizontalAlignment="Right" Sprite="Encyclopedia\divider_vertical" />
 
                     <!--Bookmark Button-->
-                    <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="5" MarginTop="5" Brush="Encyclopedia.Bookmark.Button" Command.Click="ExecuteSwitchBookmarkedState" IsSelected="@IsBookmarked">
+										<NavigationScopeTargeter ScopeID="EncyclopediaHeroBookmarkButtonScope" ScopeParent="..\BookmarkButton" ScopeMovements="Horizontal" UpNavigationScope="None"/>
+                    <ButtonWidget Id="BookmarkButton" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="5" MarginTop="5" Brush="Encyclopedia.Bookmark.Button" Command.Click="ExecuteSwitchBookmarkedState" IsSelected="@IsBookmarked" GamepadNavigationIndex="0">
                       <Children>
                         <HintWidget DataSource="{BookmarkHint}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                       </Children>
@@ -125,7 +127,9 @@
                                         <RichTextWidget HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SubPage.Info.Text" Text="@InformationText" MarginTop="25" MarginLeft="15" MarginRight="25" ClipContents="false"/>
 
                                         <!--Clan Divider-->
-                                        <EncyclopediaDivider MarginTop="20" Parameter.Title="@InfoText" Parameter.ItemList="..\InfoContainer"/>
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroClanDividerScope" ScopeParent="..\ClanDivider" UpNavigationScope="EncyclopediaSearchButtonScope" ScopeMovements="Horizontal" IsDefaultNavigationScope="true" />
+																				<NavigationAutoScrollWidget TrackedWidget="..\ClanDivider" ScrollYOffset="350"/>
+                                        <EncyclopediaDivider Id="ClanDivider" MarginTop="20" Parameter.Title="@InfoText" Parameter.ItemList="..\InfoContainer" GamepadNavigationIndex="0"/>
 
                                         <Widget Id="InfoContainer" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent">
                                           <Children>
@@ -154,43 +158,54 @@
                                                 <TextWidget WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" Text="@ClanText" Brush="Encyclopedia.Skill.Text" Brush.FontSize="20" HorizontalAlignment="Center" ClipContents="false"/>
 
                                                 <!--Faction-->
-                                                <EncyclopediaClanSubPageElement Parameter.ElementDataSource="{Faction}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="63" SuggestedWidth="88" HorizontalAlignment="Center" VerticalAlignment="Center" Parameter.IsBig="false"/>
+																								<NavigationScopeTargeter ScopeID="EncyclopediaHeroClanContentScope" ScopeParent="..\ClanBanner" UpNavigationScope="EncyclopediaSearchButtonScope" DownNavigationScope="EncyclopediaHeroAlliesDividerScope" LeftNavigationScope="EncyclopediaHeroClanDividerScope" ScopeMovements="Horizontal" />
+																								<NavigationAutoScrollWidget TrackedWidget="..\ClanBanner" ScrollYOffset="35"/>
+                                                <EncyclopediaClanSubPageElement DataSource="{Faction}" Id="ClanBanner" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="63" SuggestedWidth="88" HorizontalAlignment="Center" VerticalAlignment="Center" Parameter.IsBig="false" GamepadNavigationIndex="0"/>
                                               </Children>
                                             </ListPanel>
                                           </Children>
                                         </Widget>
 
                                         <!--Allies Divider-->
-                                        <EncyclopediaDivider MarginTop="50" Parameter.Title="@AlliesText" Parameter.ItemList="..\AlliesGrid"/>
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroAlliesDividerScope" ScopeParent="..\AlliesDivider" UpNavigationScope="EncyclopediaHeroClanDividerScope" DownNavigationScope="EncyclopediaHeroAlliesContentScope" ScopeMovements="Horizontal" />
+																				<NavigationAutoScrollWidget TrackedWidget="..\AlliesDivider" ScrollYOffset="35"/>
+                                        <EncyclopediaDivider Id="AlliesDivider" MarginTop="50" Parameter.Title="@AlliesText" Parameter.ItemList="..\AlliesGrid" GamepadNavigationIndex="0"/>
 
                                         <!--Allies Grid-->
-                                        <GridWidget Id="AlliesGrid" DataSource="{Allies}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="100" HorizontalAlignment="Left" ColumnCount="7" MarginTop="10" MarginLeft="15">
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroAlliesContentScope" ScopeParent="..\AlliesGrid" UpNavigationScope="EncyclopediaHeroAlliesDividerScope" DownNavigationScope="EncyclopediaHeroEnemiesDividerScope" ScopeMovements="Horizontal" AlternateScopeMovements="Vertical" AlternateMovementStepSize="7" />
+                                        <NavigatableGridWidget Id="AlliesGrid" DataSource="{Allies}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="100" HorizontalAlignment="Left" ColumnCount="7" MarginTop="10" MarginLeft="15" AutoScrollYOffset="35">
                                           <ItemTemplate>
 
                                             <!--Ally-->
                                             <EncyclopediaSubPageElement/>
 
                                           </ItemTemplate>
-                                        </GridWidget>
+                                        </NavigatableGridWidget>
 
                                         <!--Enemies Divider-->
-                                        <EncyclopediaDivider MarginTop="30" Parameter.Title="@EnemiesText" Parameter.ItemList="..\EnemiesGrid"/>
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroEnemiesDividerScope" ScopeParent="..\EnemiesDivider" UpNavigationScope="EncyclopediaHeroAlliesContentScope" DownNavigationScope="EncyclopediaHeroEnemiesContentScope" ScopeMovements="Horizontal" />
+																				<NavigationAutoScrollWidget TrackedWidget="..\EnemiesDivider" ScrollYOffset="35"/>
+                                        <EncyclopediaDivider Id="EnemiesDivider" MarginTop="30" Parameter.Title="@EnemiesText" Parameter.ItemList="..\EnemiesGrid" GamepadNavigationIndex="0"/>
 
                                         <!--Enemies Grid-->
-                                        <GridWidget Id="EnemiesGrid" DataSource="{Enemies}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="100" HorizontalAlignment="Left" ColumnCount="7" MarginTop="10" MarginLeft="20">
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroEnemiesContentScope" ScopeParent="..\EnemiesGrid" UpNavigationScope="EncyclopediaHeroEnemiesDividerScope" DownNavigationScope="EncyclopediaHeroFamilyDividerScope" ScopeMovements="Horizontal" AlternateScopeMovements="Vertical" AlternateMovementStepSize="7" />
+                                        <NavigatableGridWidget Id="EnemiesGrid" DataSource="{Enemies}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="100" HorizontalAlignment="Left" ColumnCount="7" MarginTop="10" MarginLeft="20" AutoScrollYOffset="35">
                                           <ItemTemplate>
 
                                             <!--Enemy-->
                                             <EncyclopediaSubPageElement/>
 
                                           </ItemTemplate>
-                                        </GridWidget>
+                                        </NavigatableGridWidget>
 
                                         <!--Family Divider-->
-                                        <EncyclopediaDivider MarginTop="20" Parameter.Title="@FamilyText" Parameter.ItemList="..\FamilyGrid"/>
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroFamilyDividerScope" ScopeParent="..\FamilyDivider" UpNavigationScope="EncyclopediaHeroEnemiesContentScope" DownNavigationScope="EncyclopediaHeroFamilyContentScope" ScopeMovements="Horizontal" />
+																				<NavigationAutoScrollWidget TrackedWidget="..\FamilyDivider" ScrollYOffset="35" />
+                                        <EncyclopediaDivider Id="FamilyDivider" MarginTop="20" Parameter.Title="@FamilyText" Parameter.ItemList="..\FamilyGrid" GamepadNavigationIndex="0"/>
 
                                         <!--Family Grid-->
-                                        <GridWidget Id="FamilyGrid" DataSource="{Family}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="110" HorizontalAlignment="Left" ColumnCount="7" MarginTop="30" MarginLeft="20" MarginBottom="50">
+																				<NavigationScopeTargeter ScopeID="EncyclopediaHeroFamilyContentScope" ScopeParent="..\FamilyGrid" UpNavigationScope="EncyclopediaHeroFamilyDividerScope" DownNavigationScope="None" ScopeMovements="Horizontal" AlternateScopeMovements="Vertical" AlternateMovementStepSize="7" />
+                                        <NavigatableGridWidget Id="FamilyGrid" DataSource="{Family}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" SuggestedWidth="350" SuggestedHeight="350" DefaultCellWidth="100" DefaultCellHeight="110" HorizontalAlignment="Left" ColumnCount="7" MarginTop="30" MarginLeft="20" MarginBottom="50" AutoScrollYOffset="35">
                                           <ItemTemplate>
 
                                             <!--Family-->
@@ -201,7 +216,7 @@
                                             </EncyclopediaSubPageElement>
 
                                           </ItemTemplate>
-                                        </GridWidget>
+                                        </NavigatableGridWidget>
 
                                       </Children>
                                     </ListPanel>

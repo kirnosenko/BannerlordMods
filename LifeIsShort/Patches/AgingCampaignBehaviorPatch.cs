@@ -12,13 +12,4 @@ namespace LifeIsShort.Patches
 			HeroCollection.DailyUpdate();
 		}
 	}
-
-	[HarmonyPatch(typeof(AgingCampaignBehavior), "WeeklyTick")]
-	public class WeeklyTickPatch
-	{
-		private static bool Prefix()
-		{
-			return false;
-		}
-	}
 }

@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
 using TaleWorlds.Core.ViewModelCollection;
 
 namespace Telepathy.Patches
