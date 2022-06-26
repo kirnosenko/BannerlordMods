@@ -10,6 +10,9 @@ namespace Separatism
 {
 	public static class KingdomExtensions
 	{
+		public static Hero Ruler(this Kingdom kingdom) =>
+			kingdom.RulingClan.Leader;
+
 		public static Kingdom[] CloseKingdoms(this Clan clan)
 		{
 			var kingdomDistance = Kingdom.All

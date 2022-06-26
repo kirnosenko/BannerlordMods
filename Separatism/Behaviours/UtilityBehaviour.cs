@@ -37,7 +37,7 @@ namespace Separatism.Behaviours
 		private bool conversation_player_is_asking_to_recruit_fallen_on_condition()
 		{
 			if (Hero.MainHero.Clan.Kingdom != null &&
-				Hero.MainHero == Hero.MainHero.Clan.Kingdom.Ruler &&
+				Hero.MainHero == Hero.MainHero.Clan.Kingdom.Ruler() &&
 				Hero.OneToOneConversationHero != null &&
 				Hero.OneToOneConversationHero.Clan.Kingdom == null &&
 				!Hero.OneToOneConversationHero.Clan.IsMinorFaction &&

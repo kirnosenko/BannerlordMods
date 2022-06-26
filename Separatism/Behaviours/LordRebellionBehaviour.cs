@@ -32,7 +32,7 @@ namespace Separatism.Behaviours
 			{
 				return;
 			}
-			var ruler = kingdom.Ruler;
+			var ruler = kingdom.Ruler();
 
 			if (clan.Leader != ruler)
 			{
@@ -117,7 +117,7 @@ namespace Separatism.Behaviours
 						var allyClan = Clan.All.ReadyToGoAndEmpty().Where(c =>
 							c.Tier <= clan.Tier && 
 							c.Leader.HasGoodRelationWith(clan.Leader) &&
-							(c.Kingdom == null || !c.Leader.HasGoodRelationWith(c.Kingdom.Ruler)))
+							(c.Kingdom == null || !c.Leader.HasGoodRelationWith(c.Kingdom.Ruler())))
 							.OrderByDescending(c => c.TotalStrength)
 							.FirstOrDefault();
 						if (allyClan != null)
@@ -131,7 +131,7 @@ namespace Separatism.Behaviours
 							var textObject = new TextObject("{=Separatism_Clan_Support}The {ClanName} have joined the {Kingdom} to support {Ruler}.", null);
 							textObject.SetTextVariable("ClanName", allyClan.Name);
 							textObject.SetTextVariable("Kingdom", kingdom.Name);
-							textObject.SetTextVariable("Ruler", kingdom.Ruler.Name);
+							textObject.SetTextVariable("Ruler", kingdom.Ruler().Name);
 							GameLog.Warn(textObject.ToString());
 						}
 					}
@@ -145,7 +145,7 @@ namespace Separatism.Behaviours
 			TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro}{RebelKingdom} was found in {Year} when the {ClanName} have rised a rebellion against {Ruler} ruler of {Kingdom}.", null);
 			kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
 			kingdomIntroText.SetTextVariable("ClanName", clan.Name);
-			kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler.Name);
+			kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler().Name);
 			kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
 			var capital = clan.Settlements.OrderByDescending(x => x.Prosperity).First();
 			var kingdom = clan.CreateKingdom(capital, kingdomIntroText);
