@@ -13,11 +13,14 @@
 	<string id="Telepathy_Hero_Will_Talk" text="{HeroName} скоро поговорит с вами..."/>
 
 	<!-- Dialog -->
+	<string id="Telepathy_Ask_Something" text="Хочу кое-что спросить..."/>
+	<string id="Telepathy_What_Is_It" text="О чём?"/>
 	<string id="Telepathy_Where_Are_You" text="Где ты находишься?"/>
 	<string id="Telepathy_Im_In" text="Я в {Settlement}."/>
 	<string id="Telepathy_Im_Near" text="Я недалеко от {Settlement}."/>
 	<string id="Telepathy_What_Are_You_Doing" text="Чем ты занимаешься?"/>
 	<string id="Telepathy_Nothing" text="Ничем."/>
+	<string id="Telepathy_NotYourBusiness" text="Не твоё дело!"/>
 	
 	<!-- Settings -->
 	<string id="Telepathy_Settings_100" text="Реализм дистанционного общения"/>

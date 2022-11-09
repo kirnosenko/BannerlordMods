@@ -145,16 +145,29 @@ namespace Telepathy
 			);
 
 			game.AddPlayerLine(
-				"lord_talk_ask_something_2",
-				"lord_talk_ask_something_2",
+				"telepathy_ask",
+				"hero_main_options",
+				"telepathy_answer",
+				new TextObject("{=Telepathy_Ask_Something}I want to ask you something...", null).ToString(),
+				new ConversationSentence.OnConditionDelegate(() => TelepathyBehaviour.MeetingInProgress),
+				null, 100);
+			game.AddDialogLine(
+				"telepathy_answer",
+				"telepathy_answer",
+				"telepathy_ask_2",
+				new TextObject("{=Telepathy_What_Is_It}What is it?", null).ToString(),
+				null, null, 100);
+			game.AddPlayerLine(
+				"telepathy_ask_2",
+				"telepathy_ask_2",
 				"telepathy_tell_location",
 				new TextObject("{=Telepathy_Where_Are_You}Where are you?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
-				null, 101, null, null);
+				null, 100, null, null);
 			game.AddDialogLine(
 				"telepathy_tell_location",
 				"telepathy_tell_location",
-				"lord_talk_ask_something_again",
+				"hero_main_options",
 				"{LORD_LOCATION_ANSWER}",
 				new ConversationSentence.OnConditionDelegate(() => {
 					HeroHelper.SetLastSeenLocation(meetingHero, true);
@@ -167,8 +180,8 @@ namespace Telepathy
 				}),
 				null, 100, null);
 			game.AddPlayerLine(
-				"lord_talk_ask_something_2",
-				"lord_talk_ask_something_2",
+				"telepathy_ask_2",
+				"telepathy_ask_2",
 				"telepathy_tell_objective",
 				new TextObject("{=Telepathy_What_Are_You_Doing}What are you doing?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
@@ -176,7 +189,7 @@ namespace Telepathy
 			game.AddDialogLine(
 				"telepathy_tell_objective",
 				"telepathy_tell_objective",
-				"lord_talk_ask_something_again",
+				"hero_main_options",
 				"{LORD_OBJECTIVE_ANSWER}",
 				new ConversationSentence.OnConditionDelegate(() => {
 					string answer = meetingHero.PartyBelongedTo == null
