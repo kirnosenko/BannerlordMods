@@ -171,9 +171,11 @@ namespace Telepathy
 				"{LORD_LOCATION_ANSWER}",
 				new ConversationSentence.OnConditionDelegate(() => {
 					HeroHelper.SetLastSeenLocation(meetingHero, true);
-					var answer = meetingHero.LastSeenInSettlement
-						? new TextObject("{=Telepathy_Im_In}I'm in {Settlement}.", null)
-						: new TextObject("{=Telepathy_Im_Near}I'm near {Settlement}.", null);
+					var answer = DialogIgnoreCondition()
+						? new TextObject("{=Telepathy_NotYourBusiness}It's not your business!", null)
+						: meetingHero.LastSeenInSettlement
+							? new TextObject("{=Telepathy_Im_In}I'm in {Settlement}.", null)
+							: new TextObject("{=Telepathy_Im_Near}I'm near {Settlement}.", null);
 					answer.SetTextVariable("Settlement", meetingHero.LastSeenPlace.EncyclopediaLinkWithName);
 					MBTextManager.SetTextVariable("LORD_LOCATION_ANSWER", answer, false);
 					return true;
@@ -192,13 +194,22 @@ namespace Telepathy
 				"hero_main_options",
 				"{LORD_OBJECTIVE_ANSWER}",
 				new ConversationSentence.OnConditionDelegate(() => {
-					string answer = meetingHero.PartyBelongedTo == null
-						? new TextObject("{=Telepathy_Nothing}Nothing actually.", null).ToString()
-						: CampaignUIHelper.GetMobilePartyBehaviorText(meetingHero.PartyBelongedTo);
+					var answer = DialogIgnoreCondition()
+						? new TextObject("{=Telepathy_NotYourBusiness}It's not your business!", null).ToString()
+						: meetingHero.PartyBelongedTo == null
+							? new TextObject("{=Telepathy_Nothing}Nothing actually.", null).ToString()
+							: CampaignUIHelper.GetMobilePartyBehaviorText(meetingHero.PartyBelongedTo);
 					MBTextManager.SetTextVariable("LORD_OBJECTIVE_ANSWER", answer, false);
 					return true;
 				}),
 				null, 100, null);
+		}
+
+		private bool DialogIgnoreCondition()
+		{
+			return Hero.MainHero.IsEnemy(meetingHero) ||
+				(FactionManager.IsAtWarAgainstFaction(meetingHero.MapFaction, Hero.MainHero.MapFaction) &&
+					!Hero.MainHero.IsFriend(meetingHero));
 		}
 
 		private void OnGameLoaded(CampaignGameStarter game)
