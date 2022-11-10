@@ -187,7 +187,7 @@ namespace Telepathy
 				"telepathy_tell_objective",
 				new TextObject("{=Telepathy_What_Are_You_Doing}What are you doing?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
-				null, 101, null, null);
+				null, 100, null, null);
 			game.AddDialogLine(
 				"telepathy_tell_objective",
 				"telepathy_tell_objective",
