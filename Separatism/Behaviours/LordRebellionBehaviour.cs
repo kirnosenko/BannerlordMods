@@ -22,17 +22,12 @@ namespace Separatism.Behaviours
 		private void OnDailyTickClan(Clan clan)
 		{
 			var kingdom = clan.Kingdom;
-			if (kingdom == null
-				|| clan == Clan.PlayerClan
-				|| clan.IsUnderMercenaryService
-				|| !clan.Leader.IsAlive
-				|| clan.Leader.IsPrisoner
-				|| clan.Fiefs.Any(x => x.IsUnderSiege)
-				|| clan.WarPartyComponents.Any(x => x.MobileParty.MapEvent != null))
+			var ruler = kingdom.Ruler();
+
+			if (kingdom == null || !clan.IsReady())
 			{
 				return;
 			}
-			var ruler = kingdom.Ruler();
 
 			if (clan.Leader != ruler)
 			{
@@ -114,7 +109,8 @@ namespace Separatism.Behaviours
 							}
 						}
 						// no ally kingdoms found, so look for friendly clans at least
-						var allyClan = Clan.All.ReadyToGoAndEmpty().Where(c =>
+						var allyClan = Clan.All.Where(c =>
+							c.IsReadyToGoAndEmpty() &&
 							c.Tier <= clan.Tier && 
 							c.Leader.HasGoodRelationWith(clan.Leader) &&
 							(c.Kingdom == null || !c.Leader.HasGoodRelationWith(c.Kingdom.Ruler())))

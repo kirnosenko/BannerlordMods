@@ -60,7 +60,7 @@ namespace Separatism.Behaviours
 			var kingdoms = Kingdom.All.ToArray();
 			foreach (var oldKingdom in kingdoms)
 			{
-				var clans = oldKingdom.Clans.ReadyToGoAndNotEmpty().ToArray();
+				var clans = oldKingdom.Clans.Where(c => c.IsReadyToGoAndNotEmpty()).ToArray();
 				foreach (var clan in clans)
 				{
 					// create a new kingdom for the clan

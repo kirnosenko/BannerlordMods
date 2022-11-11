@@ -27,8 +27,11 @@ namespace Separatism.Behaviours
 				return;
 			}
 			
-			var readyClans = Clan.All.ReadyToGoAndNotEmpty()
-				.Where(c => c.Culture != c.Kingdom?.Culture && c.Settlements.Any(s => s.Culture == c.Culture))
+			var readyClans = Clan.All
+				.Where(c =>
+					c.IsReadyToGoAndNotEmpty() &&
+					c.Culture != c.Kingdom?.Culture &&
+					c.Settlements.Any(s => s.Culture == c.Culture))
 				.GroupBy(c => new { Kingdom = c.Kingdom, Culture = c.Culture })
 				.OrderByDescending(x => x.Count());
 			foreach (var group in readyClans)

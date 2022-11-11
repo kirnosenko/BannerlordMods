@@ -103,16 +103,6 @@ namespace Separatism
 			return kingdom;
 		}
 
-		public static IEnumerable<Clan> ReadyToGoAndEmpty(this IEnumerable<Clan> clans)
-		{
-			return clans.Where(c => c.Kingdom == null || c.Settlements.Count() == 0).ReadyToGo();
-		}
-
-		public static IEnumerable<Clan> ReadyToGoAndNotEmpty(this IEnumerable<Clan> clans)
-		{
-			return clans.Where(c => c.Kingdom != null && c.Settlements.Count() > 0).ReadyToGo();
-		}
-
 		public static void ChangeKingdom(this Clan clan, Kingdom newKingdom, bool rebellion)
 		{
 			Kingdom oldKingdom = clan.Kingdom;
@@ -198,20 +188,40 @@ namespace Separatism
 			CheckIfPartyIconIsDirty(clan, oldKingdom);
 		}
 
-		private static IEnumerable<Clan> ReadyToGo(this IEnumerable<Clan> clans)
+		public static bool IsReadyToGoAndEmpty(this Clan clan)
 		{
-			return clans.Where(c =>
-				c != Clan.PlayerClan &&
-				c.Kingdom?.RulingClan != c &&
-				c.Leader != null &&
-				c.Leader.IsAlive &&
-				!c.Leader.IsPrisoner &&
-				!c.IsUnderMercenaryService &&
-				!c.IsClanTypeMercenary &&
-				!c.IsMinorFaction &&
-				!c.IsBanditFaction &&
-				!c.IsRebelClan &&
-				c.StringId != "test_clan");
+			return clan.IsReadyToGo() && (clan.Kingdom == null || clan.Settlements.Count() == 0);
+		}
+
+		public static bool IsReadyToGoAndNotEmpty(this Clan clan)
+		{
+			return clan.IsReadyToGo() && clan.Kingdom != null && clan.Settlements.Count() > 0;
+		}
+
+		public static bool IsReadyToGo(this Clan clan)
+		{
+			return clan.IsReady() && clan.Kingdom?.RulingClan != clan;
+		}
+
+		public static bool IsReady(this Clan clan)
+		{
+			return
+				clan != Clan.PlayerClan &&
+				clan.Leader != null &&
+				clan.Leader.IsAlive &&
+				!clan.Leader.IsPrisoner &&
+				!clan.IsUnderMercenaryService &&
+				!clan.IsClanTypeMercenary &&
+				!clan.IsMinorFaction &&
+				!clan.IsBanditFaction &&
+				!clan.IsMafia &&
+				!clan.IsNomad &&
+				!clan.IsOutlaw &&
+				!clan.IsRebelClan &&
+				!clan.IsSect &&
+				clan.StringId != "test_clan" &&
+				!clan.Fiefs.Any(x => x.IsUnderSiege) &&
+				!clan.WarPartyComponents.Any(x => x.MobileParty.MapEvent != null);
 		}
 
 		private static void NotifyClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
