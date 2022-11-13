@@ -21,13 +21,13 @@ namespace Separatism.Behaviours
 
 		private void OnDailyTickClan(Clan clan)
 		{
-			var kingdom = clan.Kingdom;
-			var ruler = kingdom.Ruler();
-
-			if (kingdom == null || !clan.IsReady())
+			if (clan.Kingdom == null || !clan.IsReady())
 			{
 				return;
 			}
+
+			var kingdom = clan.Kingdom;
+			var ruler = kingdom.Ruler();
 
 			if (clan.Leader != ruler)
 			{
