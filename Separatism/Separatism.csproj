@@ -115,12 +115,11 @@
     <Compile Include="SeparatismSettlementLoyaltyModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModuleData\Languages\eng_module_strings.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="ModuleData\Languages\rus_module_strings.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="ModuleData\Languages\EN\language_data.xml" />
+    <Content Include="ModuleData\Languages\EN\sta_strings.xml" />
+    <Content Include="ModuleData\Languages\language_data.xml" />
+    <Content Include="ModuleData\Languages\RU\language_data.xml" />
+    <Content Include="ModuleData\Languages\RU\sta_strings.xml" />
     <Content Include="SubModule.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -137,7 +136,10 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)Separatism\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\"
-xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\eng_module_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\"
-xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\rus_module_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\"</PostBuildEvent>
+xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\"
+xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\EN\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\EN\"
+xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\EN\sta_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\EN\"
+xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\RU\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\RU\"
+xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\RU\sta_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\RU\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

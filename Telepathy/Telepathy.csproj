@@ -101,12 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GUI\Prefabs\Encyclopedia\EncyclopediaSubPages\EncyclopediaHeroPage.xml" />
-    <Content Include="ModuleData\Languages\eng_module_strings.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="ModuleData\Languages\rus_module_strings.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="ModuleData\Languages\EN\language_data.xml" />
+    <Content Include="ModuleData\Languages\EN\sta_strings.xml" />
+    <Content Include="ModuleData\Languages\language_data.xml" />
+    <Content Include="ModuleData\Languages\RU\language_data.xml" />
+    <Content Include="ModuleData\Languages\RU\sta_strings.xml" />
     <Content Include="SubModule.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -124,7 +123,10 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)Telepathy\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\"
 xcopy /Y "$(SolutionDir)Telepathy\GUI\Prefabs\Encyclopedia\EncyclopediaSubPages\EncyclopediaHeroPage.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\GUI\Prefabs\Encyclopedia\EncyclopediaSubPages\"
-xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\eng_module_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\"
-xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\rus_module_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\"</PostBuildEvent>
+xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\"
+xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\EN\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\EN\"
+xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\EN\sta_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\EN\"
+xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\RU\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\RU\"
+xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\RU\sta_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\RU\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
