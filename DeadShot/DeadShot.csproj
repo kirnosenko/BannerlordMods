@@ -109,6 +109,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(SolutionDir)DeadShot\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DeadShot\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(SolutionDir)DeadShot\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DeadShot\"
+xcopy /Y "$(SolutionDir)DeadShot\deadshot.png" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\DeadShot\"
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

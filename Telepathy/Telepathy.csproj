@@ -122,6 +122,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)Telepathy\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\"
+xcopy /Y "$(SolutionDir)Telepathy\telepathy.png" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\"
 xcopy /Y "$(SolutionDir)Telepathy\GUI\Prefabs\Encyclopedia\EncyclopediaSubPages\EncyclopediaHeroPage.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\GUI\Prefabs\Encyclopedia\EncyclopediaSubPages\"
 xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\"
 xcopy /Y "$(SolutionDir)Telepathy\ModuleData\Languages\EN\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\ModuleData\Languages\EN\"

@@ -136,6 +136,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)Separatism\SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\"
+xcopy /Y "$(SolutionDir)Separatism\separatism.png" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\"
 xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\"
 xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\EN\language_data.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\EN\"
 xcopy /Y "$(SolutionDir)Separatism\ModuleData\Languages\EN\sta_strings.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\ModuleData\Languages\EN\"
