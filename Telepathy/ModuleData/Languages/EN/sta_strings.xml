@@ -19,6 +19,7 @@
 	<string id="Telepathy_Where_Are_You" text="Where are you?"/>
 	<string id="Telepathy_Im_In" text="I'm in {Settlement}."/>
 	<string id="Telepathy_Im_Near" text="I'm near {Settlement}."/>
+	<string id="Telepathy_Im_Lost" text="I'm lost."/>
 	<string id="Telepathy_What_Are_You_Doing" text="What are you doing?"/>
 	<string id="Telepathy_Nothing" text="Nothing actually."/>
 	<string id="Telepathy_NotYourBusiness" text="It's not your business!"/>

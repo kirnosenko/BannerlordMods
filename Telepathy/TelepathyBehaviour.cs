@@ -173,10 +173,12 @@ namespace Telepathy
 					HeroHelper.SetLastSeenLocation(meetingHero, true);
 					var answer = DialogIgnoreCondition()
 						? new TextObject("{=Telepathy_NotYourBusiness}It's not your business!", null)
-						: meetingHero.LastSeenInSettlement
-							? new TextObject("{=Telepathy_Im_In}I'm in {Settlement}.", null)
-							: new TextObject("{=Telepathy_Im_Near}I'm near {Settlement}.", null);
-					answer.SetTextVariable("Settlement", meetingHero.LastSeenPlace.EncyclopediaLinkWithName);
+						: meetingHero.LastSeenPlace == null
+							? new TextObject("{=Telepathy_Im_Lost}I'm lost.", null)
+							: meetingHero.LastSeenInSettlement
+								? new TextObject("{=Telepathy_Im_In}I'm in {Settlement}.", null)
+								: new TextObject("{=Telepathy_Im_Near}I'm near {Settlement}.", null);
+					answer.SetTextVariable("Settlement", meetingHero.LastSeenPlace?.EncyclopediaLinkWithName);
 					MBTextManager.SetTextVariable("LORD_LOCATION_ANSWER", answer, false);
 					return true;
 				}),
@@ -266,7 +268,7 @@ namespace Telepathy
 			var heroParty = hero.PartyBelongedTo?.Party;
 			if (heroParty == null || heroParty == playerParty)
 			{
-				heroParty = hero.HomeSettlement.Party;
+				heroParty = hero.HomeSettlement?.Party ?? hero.LastSeenPlace?.Party ?? player.HomeSettlement?.Party;
 			}
 
 			if (!hero.IsWanderer || heroParty != null)
