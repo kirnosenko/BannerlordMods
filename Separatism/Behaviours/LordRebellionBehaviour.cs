@@ -81,6 +81,11 @@ namespace Separatism.Behaviours
 							.ToArray();
 						foreach (var pa in potentialAllies)
 						{
+							if (Hero.MainHero.Clan?.Kingdom == pa &&
+								Hero.MainHero == Hero.MainHero.Clan?.Kingdom?.Ruler())
+							{
+								continue;
+							}
 							if (kingdom.Leader.HasGoodRelationWith(pa.Leader) &&
 								pa.Leader.Clan.Tier >= clan.Tier)
 							{
