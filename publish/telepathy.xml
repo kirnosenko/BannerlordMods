@@ -5,7 +5,7 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy"/>
         <!-- A direct path of your module -->
-        <ChangeNotes Value="Prevent dialog crash for lost NPCs." />
+        <ChangeNotes Value="Release 1.1.0 compatibility." />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->
@@ -16,7 +16,7 @@
             <Tag Value="Partial Conversion" />
             <Tag Value="Native" />
             <Tag Value="Singleplayer" />
-            <Tag Value="v1.0.3" />
+            <Tag Value="v1.1.0" />
         </Tags>
         <Image Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Telepathy\telepathy.png"/>
         <!-- Determines the featured image displayed on Steam Workshop, a direct path to it must be inserted here (the image should be smaller than 1 MB) -->
