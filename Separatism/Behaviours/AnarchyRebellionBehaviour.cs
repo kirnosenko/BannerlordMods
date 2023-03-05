@@ -51,9 +51,9 @@ namespace Separatism.Behaviours
 					int bonusSettlements = (SeparatismConfig.Settings.BonusRebelFiefForHighTierClan && newRulerClan.Tier > 4) ? 1 : 0;
 					if (bonusSettlements > 0)
 					{
-						var neighborClanFiefs = new Queue<Settlement>(Settlement
-							.FindSettlementsAroundPosition(settlement.Position2D, 50, x => x.OwnerClan == clan)
-							.Where(x => x.IsCastle)
+						var neighborClanFiefs = new Queue<Settlement>(settlement
+							.FindSettlementsAround(50)
+							.Where(x => x.OwnerClan == clan && x.IsCastle)
 							.Except(rebelSettlements)
 							.OrderBy(x => x.Position2D.Distance(settlement.Position2D)));
 						while (bonusSettlements > 0 && neighborClanFiefs.Count > 0)
@@ -118,7 +118,7 @@ namespace Separatism.Behaviours
 			clan.ChangeKingdom(kingdom, false);
 			// declare wars
 			kingdom.InheritsWarsFromKingdom(owner.Kingdom);
-			DeclareWarAction.Apply(owner.Kingdom, kingdom);
+			DeclareWarAction.ApplyByRebellion(owner.Kingdom, kingdom);
 
 			return kingdom;
 		}

@@ -164,6 +164,7 @@ namespace Telepathy
 				new TextObject("{=Telepathy_Where_Are_You}Where are you?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
 				null, 100, null, null);
+			/*
 			game.AddDialogLine(
 				"telepathy_tell_location",
 				"telepathy_tell_location",
@@ -183,6 +184,7 @@ namespace Telepathy
 					return true;
 				}),
 				null, 100, null);
+			*/
 			game.AddPlayerLine(
 				"telepathy_ask_2",
 				"telepathy_ask_2",
@@ -245,7 +247,7 @@ namespace Telepathy
 			}
 		}
 
-		private void OnConversationEnded(CharacterObject character)
+		private void OnConversationEnded(IEnumerable<CharacterObject> character)
 		{
 			if (meetingEncounter != null)
 			{
@@ -268,7 +270,7 @@ namespace Telepathy
 			var heroParty = hero.PartyBelongedTo?.Party;
 			if (heroParty == null || heroParty == playerParty)
 			{
-				heroParty = hero.HomeSettlement?.Party ?? hero.LastSeenPlace?.Party ?? player.HomeSettlement?.Party;
+				heroParty = hero.HomeSettlement?.Party /* ?? hero.LastSeenPlace?.Party */ ?? player.HomeSettlement?.Party;
 			}
 
 			if (!hero.IsWanderer || heroParty != null)

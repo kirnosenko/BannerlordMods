@@ -89,7 +89,7 @@ namespace Separatism.Behaviours
 				{
 					if (wars < SeparatismConfig.Settings.MinimalNumberOfWarsPerChaosKindom)
 					{
-						DeclareWarAction.Apply(closeKingdom, kingdom);
+						DeclareWarAction.ApplyByDefault(closeKingdom, kingdom);
 						wars++;
 					}
 					else

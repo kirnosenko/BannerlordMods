@@ -161,7 +161,7 @@ namespace Separatism
 					}
 
 					newKingdom.InheritsWarsFromKingdom(oldKingdom);
-					DeclareWarAction.Apply(oldKingdom, newKingdom);
+					DeclareWarAction.ApplyByRebellion(oldKingdom, newKingdom);
 				}
 				else
 				{

@@ -46,7 +46,7 @@ namespace Separatism
 				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
 				foreach (var enemy in oldKingdomEnemies)
 				{
-					DeclareWarAction.Apply(enemy, dest);
+					DeclareWarAction.ApplyByDefault(enemy, dest);
 				}
 			}
 		}
