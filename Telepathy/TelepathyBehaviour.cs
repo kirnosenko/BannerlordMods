@@ -164,27 +164,25 @@ namespace Telepathy
 				new TextObject("{=Telepathy_Where_Are_You}Where are you?", null).ToString(),
 				new ConversationSentence.OnConditionDelegate(() => meetingEncounter != null),
 				null, 100, null, null);
-			/*
 			game.AddDialogLine(
 				"telepathy_tell_location",
 				"telepathy_tell_location",
 				"hero_main_options",
 				"{LORD_LOCATION_ANSWER}",
 				new ConversationSentence.OnConditionDelegate(() => {
-					HeroHelper.SetLastSeenLocation(meetingHero, true);
+					var location = HeroHelper.GetClosestSettlement(meetingHero);
 					var answer = DialogIgnoreCondition()
 						? new TextObject("{=Telepathy_NotYourBusiness}It's not your business!", null)
-						: meetingHero.LastSeenPlace == null
+						: location == null
 							? new TextObject("{=Telepathy_Im_Lost}I'm lost.", null)
-							: meetingHero.LastSeenInSettlement
+							: meetingHero.CurrentSettlement != null
 								? new TextObject("{=Telepathy_Im_In}I'm in {Settlement}.", null)
 								: new TextObject("{=Telepathy_Im_Near}I'm near {Settlement}.", null);
-					answer.SetTextVariable("Settlement", meetingHero.LastSeenPlace?.EncyclopediaLinkWithName);
+					answer.SetTextVariable("Settlement", location?.EncyclopediaLinkWithName);
 					MBTextManager.SetTextVariable("LORD_LOCATION_ANSWER", answer, false);
 					return true;
 				}),
 				null, 100, null);
-			*/
 			game.AddPlayerLine(
 				"telepathy_ask_2",
 				"telepathy_ask_2",
@@ -211,7 +209,10 @@ namespace Telepathy
 
 		private bool DialogIgnoreCondition()
 		{
-			return Hero.MainHero.IsEnemy(meetingHero) ||
+			return
+				(Hero.MainHero.IsEnemy(meetingHero) &&
+					meetingHero?.Clan?.Kingdom?.RulingClan?.Leader != Hero.MainHero)
+				||
 				(FactionManager.IsAtWarAgainstFaction(meetingHero.MapFaction, Hero.MainHero.MapFaction) &&
 					!Hero.MainHero.IsFriend(meetingHero));
 		}
@@ -270,7 +271,7 @@ namespace Telepathy
 			var heroParty = hero.PartyBelongedTo?.Party;
 			if (heroParty == null || heroParty == playerParty)
 			{
-				heroParty = hero.HomeSettlement?.Party /* ?? hero.LastSeenPlace?.Party */ ?? player.HomeSettlement?.Party;
+				heroParty = hero.HomeSettlement?.Party  ?? hero.LastKnownClosestSettlement?.Party ?? player.HomeSettlement?.Party;
 			}
 
 			if (!hero.IsWanderer || heroParty != null)
