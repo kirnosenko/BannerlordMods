@@ -5,7 +5,7 @@
     <UpdateItem>
         <ModuleFolder Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism"/>
         <!-- A direct path of your module -->
-		<ChangeNotes Value="Release 1.1.0 compatibility." />
+		<ChangeNotes Value="Option to turn unions off." />
         <!-- Insert patch notes -->
         <Tags> 
             <!-- You can use the following tags: -->
@@ -17,6 +17,8 @@
             <Tag Value="Native" />
             <Tag Value="Singleplayer" />
             <Tag Value="v1.1.0" />
+			<Tag Value="v1.1.1" />
+			<Tag Value="v1.1.2" />
         </Tags>
         <Image Value="C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Separatism\separatism.png"/>
         <!-- Determines the featured image displayed on Steam Workshop, a direct path to it must be inserted here (the image should be smaller than 1 MB) -->
