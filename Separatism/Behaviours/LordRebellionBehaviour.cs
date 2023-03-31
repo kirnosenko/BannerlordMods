@@ -71,47 +71,10 @@ namespace Separatism.Behaviours
 					}
 					else // look for ally
 					{
-						var enemies = FactionManager.GetEnemyKingdoms(kingdom).ToArray();
-						var potentialAllies = enemies
-							.SelectMany(x => FactionManager.GetEnemyKingdoms(x))
-							.Distinct()
-							.Except(enemies)
-							.Intersect(clan.CloseKingdoms())
-							.Where(x => x != kingdom && x.Settlements.Count() > 0)
-							.ToArray();
-						foreach (var pa in potentialAllies)
+						// look for possible unions
+						if (SeparatismConfig.Settings.AllowUnions && LookForUnion(clan))
 						{
-							if (Hero.MainHero.Clan?.Kingdom == pa &&
-								Hero.MainHero == Hero.MainHero.Clan?.Kingdom?.Ruler())
-							{
-								continue;
-							}
-							if (kingdom.Leader.HasGoodRelationWith(pa.Leader) &&
-								pa.Leader.Clan.Tier >= clan.Tier)
-							{
-								var commonEnemies = FactionManager.GetEnemyKingdoms(pa)
-									.Intersect(enemies)
-									.Where(x => x.Settlements.Count() > 0)
-									.ToArray();
-								foreach (var enemy in commonEnemies)
-								{
-									var kingdomDistance = enemy.FactionMidSettlement.Position2D.Distance(kingdom.FactionMidSettlement.Position2D);
-									var paDistance = enemy.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
-									var allianceDistance = kingdom.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
-
-									if (allianceDistance <= Math.Sqrt(kingdomDistance * kingdomDistance + paDistance * paDistance) ||
-										(kingdom.IsInsideKingdomTeritory(enemy) && pa.IsInsideKingdomTeritory(enemy)))
-									{
-										clan.ChangeKingdom(pa, false);
-										var textObject = new TextObject("{=Separatism_Kingdom_Union}The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}.", null);
-										textObject.SetTextVariable("Kingdom", kingdom.Name);
-										textObject.SetTextVariable("Ally", pa.Name);
-										textObject.SetTextVariable("Enemy", enemy.Name);
-										GameLog.Warn(textObject.ToString());
-										return;
-									}
-								}
-							}
+							return;
 						}
 						// no ally kingdoms found, so look for friendly clans at least
 						var allyClan = Clan.All.Where(c =>
@@ -159,6 +122,56 @@ namespace Separatism.Behaviours
 			clan.ChangeKingdom(kingdom, true);
 
 			return kingdom;
+		}
+
+		private bool LookForUnion(Clan clan)
+		{
+			var kingdom = clan.Kingdom;
+			var enemies = FactionManager.GetEnemyKingdoms(kingdom).ToArray();
+			var potentialAllies = enemies
+				.SelectMany(x => FactionManager.GetEnemyKingdoms(x))
+				.Distinct()
+				.Except(enemies)
+				.Intersect(clan.CloseKingdoms())
+				.Where(x => x != kingdom && x.Settlements.Count() > 0)
+				.ToArray();
+			foreach (var pa in potentialAllies)
+			{
+				if (Hero.MainHero.Clan?.Kingdom == pa &&
+					Hero.MainHero == Hero.MainHero.Clan?.Kingdom?.Ruler())
+				{
+					continue;
+				}
+				if (kingdom.Leader.HasGoodRelationWith(pa.Leader) &&
+					pa.Leader.Clan.Tier >= clan.Tier)
+				{
+					var commonEnemies = FactionManager.GetEnemyKingdoms(pa)
+						.Intersect(enemies)
+						.Where(x => x.Settlements.Count() > 0)
+						.ToArray();
+					foreach (var enemy in commonEnemies)
+					{
+						var kingdomDistance = enemy.FactionMidSettlement.Position2D.Distance(kingdom.FactionMidSettlement.Position2D);
+						var paDistance = enemy.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
+						var allianceDistance = kingdom.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
+
+						if (allianceDistance <= Math.Sqrt(kingdomDistance * kingdomDistance + paDistance * paDistance) ||
+							(kingdom.IsInsideKingdomTeritory(enemy) && pa.IsInsideKingdomTeritory(enemy)))
+						{
+							clan.ChangeKingdom(pa, false);
+							var textObject = new TextObject("{=Separatism_Kingdom_Union}The {Kingdom} has joined to the {Ally} to fight against common enemy the {Enemy}.", null);
+							textObject.SetTextVariable("Kingdom", kingdom.Name);
+							textObject.SetTextVariable("Ally", pa.Name);
+							textObject.SetTextVariable("Enemy", enemy.Name);
+							GameLog.Warn(textObject.ToString());
+
+							return true;
+						}
+					}
+				}
+			}
+
+			return false;
 		}
 	}
 }

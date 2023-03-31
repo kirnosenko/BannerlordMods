@@ -102,6 +102,8 @@
 	<string id="Separatism_Settings_511" text="Allows to keep empty kingdoms unremoved for compatibility with other mods. Separatist empty kingdoms will be removed anyway."/>
 	<string id="Separatism_Settings_520" text="Keep original kindom wars"/>
 	<string id="Separatism_Settings_521" text="Allows to keep all original kingdom wars for a new rebel kingdom."/>
+	<string id="Separatism_Settings_530" text="Allow unions"/>
+	<string id="Separatism_Settings_531" text="Allows friendly kingdoms to unite under banner of one of them."/>
 	
 	<string id="Separatism_Settings_600" text="Banners"/>
 	<string id="Separatism_Settings_610" text="Keep separatist banner colors"/>

@@ -197,6 +197,10 @@ namespace Separatism
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_520}Keep original kindom wars", HintText = "{=Separatism_Settings_521}Allows to keep all original kingdom wars for a new rebel kingdom.", Order = 1, RequireRestart = false)]
 		public bool KeepOriginalKindomWars { get; set; } = false;
 
+		[SettingPropertyGroup("{=Separatism_Settings_500}Politics", GroupOrder = 7)]
+		[SettingPropertyBool(displayName: "{=Separatism_Settings_530}Allow unions", HintText = "{=Separatism_Settings_531}Allows friendly kingdoms to unite under banner of one of them.", Order = 2, RequireRestart = false)]
+		public bool AllowUnions { get; set; } = true;
+
 		[SettingPropertyGroup("{=Separatism_Settings_600}Banners", GroupOrder = 8)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_610}Keep separatist banner colors", HintText = "{=Separatism_Settings_611}Allows to keep separatist banners unchanged for compatibility with other mods.", Order = 0, RequireRestart = false)]
 		public bool KeepRebelBannerColors { get; set; } = false;
