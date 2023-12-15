@@ -40,7 +40,7 @@ namespace Separatism
 
 		[SettingPropertyGroup("{=Separatism_Settings_000}Chaos start", GroupOrder = 0)]
 		[SettingPropertyBool(displayName: "{=Separatism_Settings_000}Chaos start", HintText = "{=Separatism_Settings_001}Enable BIG Calradia separation on start of a new game. All clans with fiefs will found their own independent kingdoms.", Order = 0, IsToggle = true, RequireRestart = false)]
-		public bool ChaosStartEnabled { get; set; } = false;
+		public bool ChaosStartEnabled { get; set; } = true;
 
 		[SettingPropertyGroup("{=Separatism_Settings_000}Chaos start", GroupOrder = 0)]
 		[SettingPropertyInteger(displayName: "{=Separatism_Settings_010}Minimal number of wars per kindom at start", minValue: 0, maxValue: 10, HintText = "{=Separatism_Settings_011}At start of a new game each kindom will be at war with specified number of nearest kingdoms.", Order = 1, RequireRestart = false)]
