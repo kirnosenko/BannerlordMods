@@ -72,7 +72,10 @@ namespace Separatism.Behaviours
 				GameLog.Error(e);
 				return null;
 			}
-			var capital = ruler.Settlements.OrderByDescending(x => x.Prosperity).First();
+			var capital = ruler.Settlements
+				.Where(x => x.Town != null)
+				.OrderByDescending(x => x.Town.Prosperity)
+				.First();
 			var kingdom = ruler.CreateKingdom(capital, kingdomIntroText);
 			// keep policies from the old clan kingdom
 			foreach (var policy in ruler.Kingdom.ActivePolicies)

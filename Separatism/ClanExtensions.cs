@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Party;
@@ -259,12 +258,12 @@ namespace Separatism
 			{
 				if (mobileParty.IsVisible && ((mobileParty.Party.Owner != null && mobileParty.Party.Owner.Clan == clan) || (clan == Clan.PlayerClan && ((!FactionManager.IsAtWarAgainstFaction(mobileParty.MapFaction, faction2) && FactionManager.IsAtWarAgainstFaction(mobileParty.MapFaction, faction3)) || (FactionManager.IsAtWarAgainstFaction(mobileParty.MapFaction, faction2) && !FactionManager.IsAtWarAgainstFaction(mobileParty.MapFaction, faction3))))))
 				{
-					mobileParty.Party.Visuals.SetMapIconAsDirty();
+					mobileParty.Party.SetVisualAsDirty();
 				}
 			}
 			foreach (Settlement settlement in clan.Settlements)
 			{
-				settlement.Party.Visuals.SetMapIconAsDirty();
+				settlement.Party.SetVisualAsDirty();
 			}
 		}
 	}

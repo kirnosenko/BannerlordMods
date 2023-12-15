@@ -111,7 +111,10 @@ namespace Separatism.Behaviours
 			kingdomIntroText.SetTextVariable("ClanName", clan.Name);
 			kingdomIntroText.SetTextVariable("Ruler", clan.Kingdom.Ruler().Name);
 			kingdomIntroText.SetTextVariable("Kingdom", clan.Kingdom.Name);
-			var capital = clan.Settlements.OrderByDescending(x => x.Prosperity).First();
+			var capital = clan.Settlements
+				.Where(x => x.Town != null)
+				.OrderByDescending(x => x.Town.Prosperity)
+				.First();
 			var kingdom = clan.CreateKingdom(capital, kingdomIntroText);
 			// keep policies from the old clan kingdom
 			foreach (var policy in clan.Kingdom.ActivePolicies)

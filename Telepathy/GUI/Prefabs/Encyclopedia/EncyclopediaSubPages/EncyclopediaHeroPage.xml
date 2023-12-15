@@ -84,9 +84,9 @@
 
                         <!--Skills Grid-->
 												<NavigationScopeTargeter ScopeID="EncyclopediaHeroSkillsGridScope" ScopeParent="..\SkillsGrid" ScopeMovements="Horizontal" AlternateScopeMovements="Vertical" DownNavigationScope="None" AlternateMovementStepSize="6" NavigateFromScopeEdges="true" UseDiscoveryAreaAsScopeEdges="true" ExtendDiscoveryAreaTop="220"/>
-                        <NavigatableGridWidget Id="SkillsGrid" DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="55" HorizontalAlignment="Center" MarginRight="20" DefaultCellHeight="70" ColumnCount="6" LayoutImp.VerticalLayoutMethod="TopToBottom">
+                        <NavigatableGridWidget Id="SkillsGrid" DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="55" HorizontalAlignment="Center" MarginLeft="10" MarginRight="10" DefaultCellHeight="70" ColumnCount="6" LayoutImp.VerticalLayoutMethod="TopToBottom">
                           <ItemTemplate>
-                            <SkillIconVisualWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" SkillId="@SkillId" MarginBottom="20" UseSmallestVariation="true" MarginLeft="5">
+                            <SkillIconVisualWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" SkillId="@SkillId" MarginBottom="20" UseSmallestVariation="true" MarginLeft="3" MarginRight="3">
                               <Children>
                                 <TextWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy = "Fixed" SuggestedHeight="20" IntText="@SkillValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Brush="Encyclopedia.Skill.Text" Brush.FontSize="20" PositionYOffset="20"  ClipContents="false"/>
                                 <HintWidget DataSource="{Hint}" HeightSizePolicy ="StretchToParent" WidthSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>

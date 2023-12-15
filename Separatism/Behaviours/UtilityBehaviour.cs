@@ -66,7 +66,10 @@ namespace Separatism.Behaviours
 					// create a new kingdom for the clan
 					TextObject kingdomIntroText = new TextObject("{=Separatism_Kingdom_Intro_Chaos}{RebelKingdom} was found in {Year} as a result of BIG separation of Calradia.", null);
 					kingdomIntroText.SetTextVariable("Year", CampaignTime.Now.GetYear);
-					var capital = clan.Settlements.OrderByDescending(x => x.Prosperity).First();
+					var capital = clan.Settlements
+						.Where(x => x.Town != null)
+						.OrderByDescending(x => x.Town.Prosperity)
+						.First();
 					var kingdom = clan.CreateKingdom(capital, kingdomIntroText);
 					// keep policies from the old clan kingdom
 					foreach (var policy in clan.Kingdom.ActivePolicies)
