@@ -27,6 +27,10 @@ namespace Separatism.Behaviours
 			}
 
 			var kingdom = clan.Kingdom;
+			if (kingdom.RulingClan == null || kingdom.RulingClan.Leader == null)
+			{
+				return;
+			}
 			var ruler = kingdom.Ruler();
 
 			if (clan.Leader != ruler)
