@@ -1,7 +1,7 @@
 <Module>
 	<Name value="LifeIsShort"/>
 	<Id value="LifeIsShort"/>
-	<Version value="v0.3.1"/>
+	<Version value="v1.3.6"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>

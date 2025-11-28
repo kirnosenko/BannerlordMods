@@ -10,7 +10,7 @@ namespace Separatism
 	{
 		public static (uint, uint) GetRebelKingdomColors()
 		{
-			var colors = BannerManager.ColorPalette.Values.Select(x => x.Color).Distinct().ToArray();
+			var colors = BannerManager.Instance.ReadOnlyColorPalette.Values.Select(x => x.Color).Distinct().ToArray();
 			uint color1 = colors.Max();
 			uint color2 = colors.Min();
 

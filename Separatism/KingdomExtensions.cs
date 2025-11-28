@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Helpers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Localization;
@@ -16,7 +17,7 @@ namespace Separatism
 		public static Kingdom[] CloseKingdoms(this Clan clan)
 		{
 			var kingdomDistance = Kingdom.All
-				.Select(k => (k, k.FactionMidSettlement.Position2D.Distance(clan.FactionMidSettlement.Position2D)))
+				.Select(k => (k, k.FactionMidSettlement.Position.Distance(clan.FactionMidSettlement.Position)))
 				.ToArray();
 			var average = kingdomDistance.Average(x => x.Item2);
 			return kingdomDistance
@@ -29,9 +30,9 @@ namespace Separatism
 		public static bool IsInsideKingdomTeritory(this Kingdom kingdom1, Kingdom kingdom2)
 		{
 			var positions1 = kingdom1.Settlements.Where(x => x.IsTown || x.IsCastle)
-				.Select(x => x.Position2D).ToArray();
+				.Select(x => x.Position).ToArray();
 			var positions2 = kingdom2.Settlements.Where(x => x.IsTown || x.IsCastle)
-				.Select(x => x.Position2D).ToArray();
+				.Select(x => x.Position).ToArray();
 
 			return positions1.Max(p => p.X) <= positions2.Max(p => p.X) &&
 				positions1.Max(p => p.Y) <= positions2.Max(p => p.Y) &&
@@ -43,7 +44,7 @@ namespace Separatism
 		{
 			if (SeparatismConfig.Settings.KeepOriginalKindomWars)
 			{
-				var oldKingdomEnemies = FactionManager.GetEnemyKingdoms(src).ToArray();
+				var oldKingdomEnemies = FactionHelper.GetEnemyKingdoms(src).ToArray();
 				foreach (var enemy in oldKingdomEnemies)
 				{
 					DeclareWarAction.ApplyByDefault(enemy, dest);
@@ -55,12 +56,12 @@ namespace Separatism
 		{
 			if (kingdom.EncyclopediaText == null)
 			{
-				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, TextObject.Empty);
+				AccessTools.Property(typeof(Kingdom), "EncyclopediaText").SetValue(kingdom, TextObject.GetEmpty());
 			}
 			if (kingdom.EncyclopediaTitle == null || kingdom.EncyclopediaRulerTitle == null)
 			{
-				var kingdomNameText = TextObject.Empty;
-				var kingdomRulerTitleText = TextObject.Empty;
+				var kingdomNameText = TextObject.GetEmpty();
+				var kingdomRulerTitleText = TextObject.GetEmpty();
 				if (kingdom.RulingClan != null)
 				{
 					kingdom.RulingClan.GetKingdomNameAndRulerTitle(out kingdomNameText, out kingdomRulerTitleText);

@@ -59,7 +59,7 @@ namespace Telepathy
 				if (Ready) return;
 
 				var distanceToCover = SpeedPerHour;
-				Vec2 diff = Vec2.Zero;
+				var diff = Vec2.Zero;
 				
 				if (!answer)
 				{
@@ -89,7 +89,7 @@ namespace Telepathy
 
 			private Vec2 GetHeroPosition(Hero hero)
 			{
-				return hero.GetMapPoint()?.Position2D ?? hero.HomeSettlement?.Position2D ?? Vec2.Zero;
+				return hero.GetMapPoint()?.Position.ToVec2() ?? hero.HomeSettlement?.Position.ToVec2() ?? Vec2.Zero;
 			}
 		}
 

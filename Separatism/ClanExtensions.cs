@@ -23,21 +23,21 @@ namespace Separatism
 			var kingdomName = "{=Separatism_Kingdom_Name}Kingdom of {ClanName}";
 			var kingdomRulerTitle = "{=Separatism_Kingdom_Ruler_Title}King";
 
-			switch (clan.Culture.GetCultureCode())
+			switch (clan.Culture.StringId)
 			{
-				case CultureCode.Aserai:
+				case "aserai":
 					kingdomName = "{=Separatism_Sultanate_Name}Sultanate of {ClanName}";
 					kingdomRulerTitle = "{=Separatism_Sultanate_Ruler_Title}Sultan";
 					break;
-				case CultureCode.Khuzait:
+				case "khuzait":
 					kingdomName = "{=Separatism_Khanate_Name}Khanate of {ClanName}";
 					kingdomRulerTitle = "{=Separatism_Khanate_Ruler_Title}Khan";
 					break;
-				case CultureCode.Sturgia:
+				case "sturgia":
 					kingdomName = "{=Separatism_Principality_Name}Principality of {ClanName}";
 					kingdomRulerTitle = "{=Separatism_Principality_Ruler_Title}Knyaz";
 					break;
-				case CultureCode.Empire:
+				case "empire":
 					kingdomName = "{=Separatism_Empire_Name}Empire of {ClanName}";
 					kingdomRulerTitle = "{=Separatism_Empire_Ruler_Title}Emperor";
 					break;
@@ -79,7 +79,7 @@ namespace Separatism
 					(color1, color2) = clan.GetColors();
 				}
 
-				clan.UpdateHomeSettlement(capital);
+				clan.SetInitialHomeSettlement(capital);
 				kingdom.InitializeKingdom(
 					kingdomNameText,
 					informalNameText,
@@ -93,7 +93,6 @@ namespace Separatism
 					kingdomRulerTitleText);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, color1);
 				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, color2);
-				AccessTools.Property(typeof(Kingdom), "LabelColor").SetValue(kingdom, clan.Kingdom?.LabelColor ?? clan.LabelColor);
 
 				kingdom.RulingClan = clan;
 				Campaign.Current.AddKingdom(kingdom);

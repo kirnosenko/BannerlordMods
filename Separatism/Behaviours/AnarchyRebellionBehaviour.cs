@@ -35,11 +35,11 @@ namespace Separatism.Behaviours
 			if (anarchySettlements.Length == 0) return;
 			
 			var availableClans = Clan.All.Where(c => c.IsReadyToGoAndEmpty()).ToArray();
-			foreach (var settlement in anarchySettlements.OrderByDescending(x => x.Position2D.Distance(clan.FactionMidSettlement.Position2D)))
+			foreach (var settlement in anarchySettlements.OrderByDescending(x => x.Position.Distance(clan.FactionMidSettlement.Position)))
 			{
 				var newRulerClan = availableClans
 					.Where(x => x.Culture == settlement.Culture)
-					.OrderByDescending(x => x.TotalStrength)
+					.OrderByDescending(x => x.CurrentTotalStrength)
 					.FirstOrDefault();
 				var rebelRightNow = SeparatismConfig.Settings.DailyAnarchyRebellionChance >= 1 ||
 					(MBRandom.RandomFloat <= SeparatismConfig.Settings.DailyAnarchyRebellionChance);
@@ -55,7 +55,7 @@ namespace Separatism.Behaviours
 							.FindSettlementsAround(50)
 							.Where(x => x.OwnerClan == clan && x.IsCastle)
 							.Except(rebelSettlements)
-							.OrderBy(x => x.Position2D.Distance(settlement.Position2D)));
+							.OrderBy(x => x.Position.Distance(settlement.Position)));
 						while (bonusSettlements > 0 && neighborClanFiefs.Count > 0)
 						{
 							var nextFief = neighborClanFiefs.Dequeue();

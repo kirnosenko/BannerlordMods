@@ -6,6 +6,7 @@ using TaleWorlds.Localization;
 using StoryMode;
 using HarmonyLib;
 using Common;
+using Helpers;
 
 namespace Separatism.Behaviours
 {
@@ -86,7 +87,7 @@ namespace Separatism.Behaviours
 			foreach (var kingdom in kingdoms)
 			{
 				var closeKingdoms = kingdom.RulingClan.CloseKingdoms().Where(k => k != kingdom).ToArray();
-				var wars = FactionManager.GetEnemyKingdoms(kingdom).Count();
+				var wars = FactionHelper.GetEnemyKingdoms(kingdom).Count();
 				
 				foreach (var closeKingdom in closeKingdoms)
 				{

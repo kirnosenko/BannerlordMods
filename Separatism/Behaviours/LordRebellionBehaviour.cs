@@ -5,6 +5,7 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using Common;
+using Helpers;
 
 namespace Separatism.Behaviours
 {
@@ -82,7 +83,7 @@ namespace Separatism.Behaviours
 							c.Tier <= clan.Tier && 
 							c.Leader.HasGoodRelationWith(clan.Leader) &&
 							(c.Kingdom == null || !c.Leader.HasGoodRelationWith(c.Kingdom.Ruler())))
-							.OrderByDescending(c => c.TotalStrength)
+							.OrderByDescending(c => c.CurrentTotalStrength)
 							.FirstOrDefault();
 						if (allyClan != null)
 						{
@@ -130,9 +131,9 @@ namespace Separatism.Behaviours
 		private bool LookForUnion(Clan clan)
 		{
 			var kingdom = clan.Kingdom;
-			var enemies = FactionManager.GetEnemyKingdoms(kingdom).ToArray();
+			var enemies = FactionHelper.GetEnemyKingdoms(kingdom).ToArray();
 			var potentialAllies = enemies
-				.SelectMany(x => FactionManager.GetEnemyKingdoms(x))
+				.SelectMany(x => FactionHelper.GetEnemyKingdoms(x))
 				.Distinct()
 				.Except(enemies)
 				.Intersect(clan.CloseKingdoms())
@@ -148,15 +149,15 @@ namespace Separatism.Behaviours
 				if (kingdom.Leader.HasGoodRelationWith(pa.Leader) &&
 					pa.Leader.Clan.Tier >= clan.Tier)
 				{
-					var commonEnemies = FactionManager.GetEnemyKingdoms(pa)
+					var commonEnemies = FactionHelper.GetEnemyKingdoms(pa)
 						.Intersect(enemies)
 						.Where(x => x.Settlements.Count() > 0)
 						.ToArray();
 					foreach (var enemy in commonEnemies)
 					{
-						var kingdomDistance = enemy.FactionMidSettlement.Position2D.Distance(kingdom.FactionMidSettlement.Position2D);
-						var paDistance = enemy.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
-						var allianceDistance = kingdom.FactionMidSettlement.Position2D.Distance(pa.FactionMidSettlement.Position2D);
+						var kingdomDistance = enemy.FactionMidSettlement.Position.Distance(kingdom.FactionMidSettlement.Position);
+						var paDistance = enemy.FactionMidSettlement.Position.Distance(pa.FactionMidSettlement.Position);
+						var allianceDistance = kingdom.FactionMidSettlement.Position.Distance(pa.FactionMidSettlement.Position);
 
 						if (allianceDistance <= Math.Sqrt(kingdomDistance * kingdomDistance + paDistance * paDistance) ||
 							(kingdom.IsInsideKingdomTeritory(enemy) && pa.IsInsideKingdomTeritory(enemy)))
