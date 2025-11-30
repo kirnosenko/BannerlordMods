@@ -90,9 +90,7 @@ namespace Separatism
 					intro,
 					kingdomNameText,
 					kingdomRulerTitleText);
-				AccessTools.Property(typeof(Kingdom), "AlternativeColor").SetValue(kingdom, color1);
-				AccessTools.Property(typeof(Kingdom), "AlternativeColor2").SetValue(kingdom, color2);
-
+				
 				kingdom.RulingClan = clan;
 				Campaign.Current.AddKingdom(kingdom);
 			}
@@ -223,19 +221,16 @@ namespace Separatism
 
 		private static void NotifyClanChangedKingdom(Clan clan, Kingdom oldKingdom, Kingdom newKingdom, bool byRebellion, bool showNotification = true)
 		{
-			AccessTools.Method(CampaignEventDispatcher.Instance.GetType(), "OnClanChangedKingdom")
-				.Invoke(CampaignEventDispatcher.Instance, new object[]
-				{
-					clan,
-					oldKingdom,
-					newKingdom,
-					byRebellion
-						? ChangeKingdomAction.ChangeKingdomActionDetail.LeaveWithRebellion
-						: newKingdom != null
-							? ChangeKingdomAction.ChangeKingdomActionDetail.JoinKingdom
-							: ChangeKingdomAction.ChangeKingdomActionDetail.LeaveKingdom,
-					showNotification
-				});
+			CampaignEventDispatcher.Instance.OnClanChangedKingdom(
+				clan,
+				oldKingdom,
+				newKingdom,
+				byRebellion
+					? ChangeKingdomAction.ChangeKingdomActionDetail.LeaveWithRebellion
+					: newKingdom != null
+						? ChangeKingdomAction.ChangeKingdomActionDetail.JoinKingdom
+						: ChangeKingdomAction.ChangeKingdomActionDetail.LeaveKingdom,
+				showNotification);
 		}
 
 		private static void CheckIfPartyIconIsDirty(Clan clan, Kingdom oldKingdom)
