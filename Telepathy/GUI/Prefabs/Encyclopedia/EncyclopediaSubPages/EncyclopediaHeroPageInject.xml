@@ -1,0 +1,16 @@
+﻿<Prefab>
+	<Constants>
+	</Constants>
+
+	<Window>
+		<ListPanel HorizontalAlignment="Center" HeightSizePolicy ="CoverChildren" WidthSizePolicy="CoverChildren" MarginTop="10">
+			<Children>
+				<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="227" SuggestedHeight="40" MarginLeft="5" MarginRight="5" Brush="ButtonBrush2" UpdateChildrenStates="true" Command.Click="CallToTalk" IsVisible="@CanTalkTo" IsEnabled="@WillNotTalk">
+					<Children>
+						<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Kingdom.GeneralButtons.Text" Text="@CallToTalkText" />
+					</Children>
+				</ButtonWidget>
+			</Children>
+		</ListPanel>
+	</Window>
+</Prefab>

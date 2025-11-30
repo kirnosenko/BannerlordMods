@@ -1,24 +1,28 @@
-﻿using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ViewModelCollection;
-using TaleWorlds.Core.ViewModelCollection;
+﻿using Bannerlord.UIExtenderEx.Attributes;
+using Bannerlord.UIExtenderEx.ViewModels;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using Common;
 
 namespace Telepathy
 {
-	public class HeroViewModelEx : HeroViewModel
+	[ViewModelMixin("RefreshValues")]
+	internal sealed class EncyclopediaHeroPageVMMixin : BaseViewModelMixin<EncyclopediaHeroPageVM>
 	{
 		private readonly Hero hero;
 		private readonly string btnText;
 
-		public HeroViewModelEx(Hero hero, CharacterViewModel.StanceTypes stance = CharacterViewModel.StanceTypes.None)
-			: base(stance)
+		public EncyclopediaHeroPageVMMixin(EncyclopediaHeroPageVM vm)
+			: base(vm)
 		{
-			this.hero = hero;
+			this.hero = (vm.Obj as Hero);
 			this.btnText = new TextObject("{=Telepathy_Talk_To_Me}Talk to me!", null).ToString();
+			vm.RefreshValues();
 		}
 
+		[DataSourceMethod]
 		public void CallToTalk()
 		{
 			TelepathyBehaviour.CallToTalk(hero);
