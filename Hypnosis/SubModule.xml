@@ -1,16 +1,23 @@
 <Module>
 	<Name value="Hypnosis"/>
 	<Id value="Hypnosis"/>
-	<Version value="v1.3.6"/>
+	<Version value="v1.3.8"/>
 	<SingleplayerModule value="true"/>
 	<MultiplayerModule value="false"/>
 	<DependedModules>
-		<DependedModule Id="Native"/>
-		<DependedModule Id="SandBoxCore"/>
-		<DependedModule Id="Sandbox"/>
-		<DependedModule Id="CustomBattle"/>
-		<DependedModule Id="StoryMode" />
+		<DependedModule Id="Native" DependentVersion="v1.3.8.103102" />
+		<DependedModule Id="SandBoxCore" DependentVersion="v1.3.8.103102" />
+		<DependedModule Id="Sandbox" DependentVersion="v1.3.8.103102" />
+		<DependedModule Id="CustomBattle" DependentVersion="v1.3.8.103102" />
+		<DependedModule Id="StoryMode" DependentVersion="v1.3.8.103102" />
 	</DependedModules>
+	<DependedModuleMetadatas>
+		<DependedModuleMetadata id="Native" order="LoadBeforeThis" version="v1.*.*.*" />
+		<DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis" version="v1.*.*.*" />
+		<DependedModuleMetadata id="Sandbox" order="LoadBeforeThis" version="v1.*.*.*" />
+		<DependedModuleMetadata id="StoryMode" order="LoadBeforeThis" version="v1.*.*.*" />
+		<DependedModuleMetadata id="CustomBattle" order="LoadBeforeThis" version="v1.*.*.*" />
+	</DependedModuleMetadatas>
 	<SubModules>
 		<SubModule>
 			<Name value="Hypnosis"/>
